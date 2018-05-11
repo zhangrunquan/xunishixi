@@ -58,16 +58,16 @@ $numberingroup=$_SESSION['numberingroup'];
 $link = mysqli_connect('localhost:3306', 'root', '12345678');
 $res = mysqli_set_charset($link, 'utf8');
 mysqli_query($link, 'use database1');
-
+/*
 //取得当前taskid，为防止taskid变动，不保存在session中，每次现查
 $query="SELECT taskidnow FROM group_attr WHERE classid='$classid' AND groupid='$groupid' limit 1";
 $ret=mysqli_query($link,$query);
 $taskid_arr=mysqli_fetch_assoc($ret);
 $taskid=$taskid_arr['taskidnow'];
-
+*/
 //插入聊天信息
-$query="INSERT INTO log(timeStamp,classid,groupid,groupNO,userid,username,actiontype,taskid,content) VALUES ('$time','$classid',
-          '$groupid','$numberingroup','$userid','$username','ChatMsg','$taskid','$msg')";
+$query="INSERT INTO log(timeStamp,classid,groupid,groupNO,userid,username,actiontype,content) VALUES ('$time','$classid',
+          '$groupid','$numberingroup','$userid','$username','ChatMsg','$msg')";
 mysqli_query($link, $query);
 mysqli_close($link);
 
