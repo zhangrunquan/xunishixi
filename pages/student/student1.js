@@ -8,6 +8,7 @@
 var listMood = "主页";
 //从url获取sid
 var sid = getQueryString("sid");
+var evaluation='';
 //-----------------执行部分----------------------------------------------
 //取得用户信息
 getUserInfo();
@@ -23,7 +24,8 @@ $("#笔记本").click(function () {
     $.get("get_homework_evaluation.php", {sid:sid}, function (data) {
         //返回的json数据解码，数据存进user_info_array
         //alert(data)
-        var evaluation = eval(data);
+        //var evaluation = eval(data);
+        evaluation = eval(data);
         var submitbutton = document.getElementById('提交作业');
         //alert(evaluation_array)
         //var evaluation=evaluation_array['evaluation'];      //111
@@ -191,7 +193,7 @@ function submitHomework() {
     //先禁用按钮，防止重复提交
     document.getElementById('提交作业').setAttribute('disabled', 'disabled');
     var text = document.getElementById("emailcontent").value;
-    $.get("student_submit_homework.php", {text:text, sid:sid}, function (data) {
+    $.get("student_submit_homework.php", {text:text, sid:sid,evaluation:evaluation}, function (data) {
         //php文件运行成功返回的data为success
         alert(data);
     })

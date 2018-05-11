@@ -14,14 +14,14 @@ $res = mysqli_set_charset($link, 'utf8');
 mysqli_query($link, 'use database1');
 
 //查询当前taskid
-$query="SELECT taskidnow FROM group_attr WHERE classid='$classid' AND groupid='$groupid'";
+$query="SELECT taskidnow FROM group_attr WHERE classid='$classid' AND groupid='$groupid' limit 1";
 $ret=mysqli_query($link,$query);
 $taskid_arr=mysqli_fetch_assoc($ret);
 $taskidnow=$taskid_arr['taskidnow'];
 
 //查询当前学生当前作业的评价状态
 //$query = "SELECT evaluation FROM homework_history WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
-$query="SELECT homeworkmood FROM homework_mood WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
+$query="SELECT evaluation FROM homework_mood WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
 $ret = mysqli_query($link, $query);
 mysqli_close($link);
 $evaluation_array = mysqli_fetch_assoc($ret);

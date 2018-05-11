@@ -60,7 +60,7 @@ $res = mysqli_set_charset($link, 'utf8');
 mysqli_query($link, 'use database1');
 
 //取得当前taskid，为防止taskid变动，不保存在session中，每次现查
-$query="SELECT taskidnow FROM group_attr WHERE classid='$classid' AND groupid='$groupid'";
+$query="SELECT taskidnow FROM group_attr WHERE classid='$classid' AND groupid='$groupid' limit 1";
 $ret=mysqli_query($link,$query);
 $taskid_arr=mysqli_fetch_assoc($ret);
 $taskid=$taskid_arr['taskidnow'];
