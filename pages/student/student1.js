@@ -111,13 +111,24 @@ function creatTable(parent,datas) {
             /*在新创建的行内创建'邮件n'的单元格，附加点击展示邮件内容的功能*/
             //设置新建的td元素
             var display = document.createElement("td");
-            //命名'邮件n'时n要相对数组索引加1
-            var emailnum = i + 1;
-            display.innerHTML = "email" + emailnum;
+
+            //处理显示的邮件主题
+            var taskid=datas[i]['taskid'];
+            var timeStamp=datas[i]['timeStamp'];
+            var actiontype=datas[i]['actiontype'];
+            if(actiontype=='ReportFeedback'){
+                var title='教师反馈任务'+taskid+' '+timeStamp;
+            }
+            else if(actiontype='TaskEmail'){
+                title='任务邮件'+taskid+' '+timeStamp;
+            }
+            display.innerHTML = title;
+
+
             tr.appendChild(display);
             display.setAttribute('id', 'display' + i);
             //取得emailcontent内容
-            var content = datas[i]['emailcontent'];
+            var content = datas[i]['content'];
             //设置点击展示邮件内容的功能
             var disp = document.getElementById('display' + i);
             disp.onclick = function () {
@@ -127,6 +138,49 @@ function creatTable(parent,datas) {
     }
 }
 
+/*
+//动态生成列表的函数
+function creatTable(parent,datas) {
+
+    var table = document.createElement("table");
+    table.id = "tb";
+    parent.appendChild(table);
+
+    var thead = document.createElement("thead");
+    table.appendChild(thead);
+
+    var tr = document.createElement("tr");
+    thead.appendChild(tr);
+
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+
+    //创建‘邮件n'的单元列
+    for (var i = 0; i < datas.length; i++) {
+        //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
+        (function () {
+            //新建一行
+            var tr = document.createElement("tr");
+            tbody.appendChild(tr);
+            //在新创建的行内创建'邮件n'的单元格，附加点击展示邮件内容的功能
+            //设置新建的td元素
+            var display = document.createElement("td");
+            //命名'邮件n'时n要相对数组索引加1
+            var emailnum = i + 1;
+            display.innerHTML = "email" + emailnum;
+            tr.appendChild(display);
+            display.setAttribute('id', 'display' + i);
+            //取得emailcontent内容
+            var content = datas[i]['content'];
+            //设置点击展示邮件内容的功能
+            var disp = document.getElementById('display' + i);
+            disp.onclick = function () {
+                document.getElementById("emailcontent").value = content;
+            }
+        })(i)
+    }
+}
+*/
 //切换笔记本和主页的函数,参数为代表状态的字符串
 function changeListMood(mood) {
     listMood = mood;

@@ -8,6 +8,7 @@
 // 记录当前获取到的聊天消息id的最大值，防止获取到重复的信息
 // 服务器只返回maxid以后的聊天信息
 //var maxId = 0;
+var maxtimeStamp='1000-01-01 00:00:00';
 
 //-----------------设置事件------------------
 // 设置onload事件
@@ -44,17 +45,19 @@ function showmessage() {
                 // 把已经获得的最大信息id更新
                 //maxId = data[i].messageid;
             }
+            //记录最大的timeStamp
+            maxtimeStamp=data[data.length-1].timeStamp;
             // 显示聊天内容（onload事件）
             var showmessage = document.getElementById("up");
-            //showmessage.innerHTML += s;
-            showmessage.innerHTML = s;
+            showmessage.innerHTML += s;
+            //showmessage.innerHTML = s;
             //showmessage.scrollTop 可以实现div底部最先展示
             //divnode.scrollHeight而已获得div的高度包括滚动条的高度
             showmessage.scrollTop = showmessage.scrollHeight - showmessage.style.height;
         }
     };
     //ajax.open('get', './chatroom.php?maxId=' + maxId + '&sid=' + sid);
-    ajax.open('get', './chatroom.php?&sid=' + sid);
+    ajax.open('get', './chatroom.php?maxtimeStamp=' + maxtimeStamp + '&sid=' + sid);
     ajax.send(null);
 }
 
