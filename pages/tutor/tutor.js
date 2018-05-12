@@ -138,13 +138,12 @@ function buttonControl() {
             else if(evaluation=='批改中'){
                 button.removeAttribute("disabled");
                 button.style.background='blue';
-
             }
-
         }
     })
 
 }
+/*
 //将groupid转换为教师管理的小组编号，返回编号 例： 13->group1 ，return 1
 function transferGroupid(groupid) {
     for (var i = 0; i < GROUPNUM; i++) {
@@ -153,8 +152,8 @@ function transferGroupid(groupid) {
         }
     }
 }
-
-
+*/
+/*
 //点击按钮查看学生作业的处理
 function dialog(group, taskid, numberingoup) {
     for (var i = 0; i < homework.length; i++) {
@@ -188,6 +187,34 @@ function dialog(group, taskid, numberingoup) {
     });
     openDialog();
 
+}
+*/
+function dialog(groupid, taskid, numberingroup) {
+    stu_group = groupid;
+    stu_numberingroup = numberingroup;
+    stu_taskid = taskid;
+    $.get("check_homework_evaluation.php", {
+        groupid: stu_group,
+        numberingroup: stu_numberingroup,
+        taskid: stu_taskid,
+        sid:sid
+    }, function (data) {
+        //alert(data)
+        var message = eval(data);
+        var button = $("#feedback");
+        var textarea = document.getElementById("教师反馈");
+        if (message == '作业已通过！' || message == '作业待学生修改！') {
+            textarea.setAttribute('readonly', 'readonly');
+            textarea.value = message;
+            button.hide();
+        } else {
+            textarea.value = "";
+            textarea.removeAttribute('readonly')
+            button.show();
+            document.getElementById('feedback').removeAttribute('disabled');
+        }
+    });
+    openDialog();
 }
 
 //开关评价学生作业界面
