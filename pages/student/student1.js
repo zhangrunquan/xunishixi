@@ -12,8 +12,9 @@ var evaluation='';
 //-----------------执行部分----------------------------------------------
 //取得用户信息
 getUserInfo();
-getEmailData();
-setInterval("updateGetOnlineuser()", 2000);
+//getEmailData();
+setInterval("getEmailData();", 3000);
+setInterval("updateGetOnlineuser()", 5000);
 //-----------------设置点击事件------------------
 //下拉菜单的选项被点击时listMood变量会改变为点击的按钮名（innerHTML),借此区分状态
 $(".listButton").click(function () {
@@ -89,6 +90,10 @@ function getEmailData() {
 
 //动态生成列表的函数
 function creatTable(parent,datas) {
+    var child=document.getElementById('tb');
+    if(child){
+        parent.removeChild(child);
+    }
 
     var table = document.createElement("table");
     table.id = "tb";
@@ -118,6 +123,7 @@ function creatTable(parent,datas) {
             var taskid=datas[i]['taskid'];
             var timeStamp=datas[i]['timeStamp'];
             var actiontype=datas[i]['actiontype'];
+
             if(actiontype=='ReportFeedback'){
                 var title='教师反馈任务'+taskid+' '+timeStamp;
             }

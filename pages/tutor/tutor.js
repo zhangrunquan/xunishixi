@@ -16,8 +16,8 @@ var stu_numberingroup = 0;
 //-----------------执行部分----------------------------------------------
 getUserInfo();
 //getHomework();
-//setInterval("buttonControl()", 5000);
-buttonControl();
+setInterval("buttonControl()", 5000);
+
 //-----------------函数定义部分----------------------------------------------
 //获取get传值的方法
 function getQueryString(name) {
@@ -47,17 +47,19 @@ function feedbackEmail() {
         return false;
     }
 
-    var groupid = user_info_array['group' + stu_group];
+
     //ajax请求将数据送往后台
     $.get("tutor_feedback_email.php", {
-        groupid: groupid,
+        groupid: stu_group,
         numberingroup: stu_numberingroup,
         taskid: stu_taskid,
         emailcontent: emailcontent,
-        evaluation: evaluation
+        evaluation: evaluation,
+        sid:sid
     }, function (data) {
         //php文件运行成功返回的data为success
         alert(data);
+        buttonControl();
     })
 }
 
@@ -193,6 +195,7 @@ function dialog(groupid, taskid, numberingroup) {
     stu_group = groupid;
     stu_numberingroup = numberingroup;
     stu_taskid = taskid;
+
     $.get("check_homework_evaluation.php", {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
@@ -200,7 +203,13 @@ function dialog(groupid, taskid, numberingroup) {
         sid:sid
     }, function (data) {
         //alert(data)
-        var message = eval(data);
+        var info_arr=JSON.parse(data);
+
+        //alert(info_arr['evaluation']);
+        var message=info_arr['evaluation'];
+        //alert(message)
+        document.getElementById('学生作业').value =info_arr['content'];
+        //var message = eval(data);
         var button = $("#feedback");
         var textarea = document.getElementById("教师反馈");
         if (message == '作业已通过！' || message == '作业待学生修改！') {

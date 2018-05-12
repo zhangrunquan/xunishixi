@@ -2,6 +2,7 @@
 /*
  * 只需要获取userid
  * */
+//header("Content-Type:application/json");
 
 //-----------------获取接口变量----------------------------------------------
 $sid=$_GET['sid'];
@@ -24,9 +25,29 @@ $userid=$stu_info['userid'];
 //查询评价状态
 $query="SELECT evaluation FROM homework_mood WHERE userid='$userid' AND taskid='$taskid'";
 $ret=mysqli_query($link,$query);
+$evaluaion_array=mysqli_fetch_assoc($ret);
+
+//查询作业内容
+$query="SELECT max(timeStamp),content FROM log WHERE userid='$userid' AND actiontype='ReportSubmit'";
+$ret=mysqli_query($link,$query);
 mysqli_close($link);
+$homeworkcontent_arr=mysqli_fetch_assoc($ret);
+$info_arr['content']=$homeworkcontent_arr['content'];
+//此处可移至前端
+$evaluaion=$evaluaion_array['evaluation'];
+if($evaluaion=='通过'){
+    $evaluaion='作业已通过！';
+}
+else if ($evaluaion=='待修改') {
+    $evaluaion='作业待学生修改！';
+}
+$info_arr['evaluation']=$evaluaion;
+echo(json_encode($info_arr));
+/*
 $evaluaion_array=mysqli_fetch_assoc($ret);
 $evaluaion=$evaluaion_array['evaluation'];
+*/
+/*
 if($evaluaion=='通过'){
     echo(json_encode('作业已通过！'));
     exit();
@@ -34,4 +55,4 @@ if($evaluaion=='通过'){
 else if ($evaluaion=='待修改') {
     echo(json_encode('作业待学生修改！'));
 }
-
+*/
