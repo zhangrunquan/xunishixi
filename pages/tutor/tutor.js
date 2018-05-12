@@ -15,8 +15,9 @@ var stu_numberingroup = 0;
 
 //-----------------执行部分----------------------------------------------
 getUserInfo();
-getHomework();
-
+//getHomework();
+//setInterval("buttonControl()", 5000);
+buttonControl();
 //-----------------函数定义部分----------------------------------------------
 //获取get传值的方法
 function getQueryString(name) {
@@ -93,7 +94,7 @@ function checkAllGood() {
     }
     return 1;
 }
-
+/*
 //取得作业表存入homework数组
 function getHomework() {
     $.get("get_homework.php", {sid:sid}, function (data) {
@@ -101,8 +102,8 @@ function getHomework() {
         homework = eval(data);
         buttonControl();
     })
-}
-
+}*/
+/*
 //控制任务按钮
 function buttonControl() {
     for (var i = 0; i < homework.length; i++) {
@@ -116,6 +117,34 @@ function buttonControl() {
     }
 }
 
+
+*/
+
+//控制任务按钮
+function buttonControl() {
+    $.get("button_control.php", {sid:sid}, function (data) {
+        //此处解析不能通过alert来查看，但可以直接使用
+        var homeworkmood = eval(data);
+        for(var i=0;i<homeworkmood.length;i++){
+            var numberingroup=homeworkmood[i]['numberingroup'];
+            //按规则求出按钮的id，规则为：id三位命名数字分别为：组号，taskid，numberingroup
+            var id=homeworkmood[i]['groupid'].toString()+homeworkmood[i]['taskid']+numberingroup;
+            var button=document.getElementById(id);
+            var evaluation=homeworkmood[i]['evaluation'];
+            if(evaluation=='通过'){
+                button.removeAttribute("disabled");
+                button.style.background='red';
+            }
+            else if(evaluation=='批改中'){
+                button.removeAttribute("disabled");
+                button.style.background='blue';
+
+            }
+
+        }
+    })
+
+}
 //将groupid转换为教师管理的小组编号，返回编号 例： 13->group1 ，return 1
 function transferGroupid(groupid) {
     for (var i = 0; i < GROUPNUM; i++) {
@@ -124,6 +153,7 @@ function transferGroupid(groupid) {
         }
     }
 }
+
 
 //点击按钮查看学生作业的处理
 function dialog(group, taskid, numberingoup) {
