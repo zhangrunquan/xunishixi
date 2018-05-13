@@ -10,6 +10,8 @@ var listMood = "主页";
 var sid = getQueryString("sid");
 var evaluation='';
 //PDFObject.embed('test.pdf',"#pdf");
+var attachname ="attach";
+var attachnum=1;
 //-----------------执行部分----------------------------------------------
 //取得用户信息
 //getUserInfo();
@@ -369,4 +371,40 @@ function createUrlTable(parent,datas,tablename) {
             }*/
         })(i)
     }
+}
+
+//-----------------上传附件部分----------------------------------------------
+
+
+function addInput(){
+    if(attachnum>0){
+        var attach = attachname + attachnum ;
+        if(createInput(attach))
+            attachnum=attachnum+1;
+    }
+}
+function deleteInput(){
+    if(attachnum>1){
+        attachnum=attachnum-1;
+        if(!removeInput())
+            attachnum=attachnum+1;
+    }
+}
+function createInput(nm){
+    var aElement=document.createElement("input");
+    aElement.name=nm;
+    aElement.id=nm;
+    aElement.type="file";
+    aElement.size="50";
+//aElement.value="thanks";
+//aElement.onclick=Function("asdf()");
+    if(document.getElementById("upload").appendChild(aElement) == null)
+        return false;
+    return true;
+}
+function removeInput(nm){
+    var aElement = document.getElementById("upload");
+    if(aElement.removeChild(aElement.lastChild) == null)
+        return false;
+    return true;
 }
