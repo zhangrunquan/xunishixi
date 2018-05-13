@@ -9,7 +9,8 @@ var listMood = "主页";
 //从url获取sid
 var sid = getQueryString("sid");
 var evaluation='';
-//PDFObject.embed('test.pdf',"#pdf");
+
+//生成上传按钮部分
 var attachname ="attach";
 var attachnum=1;
 //-----------------执行部分----------------------------------------------
@@ -92,7 +93,7 @@ function getEmailData() {
     })
 }
 
-//动态生成列表的函数
+//动态生成系统和教师邮件列表的函数
 function createTable(parent,datas,tablename) {
     /*
     var child=document.getElementById(tablename);
@@ -153,49 +154,6 @@ function createTable(parent,datas,tablename) {
     }
 }
 
-/*
-//动态生成列表的函数
-function creatTable(parent,datas) {
-
-    var table = document.createElement("table");
-    table.id = "tb";
-    parent.appendChild(table);
-
-    var thead = document.createElement("thead");
-    table.appendChild(thead);
-
-    var tr = document.createElement("tr");
-    thead.appendChild(tr);
-
-    var tbody = document.createElement("tbody");
-    table.appendChild(tbody);
-
-    //创建‘邮件n'的单元列
-    for (var i = 0; i < datas.length; i++) {
-        //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
-        (function () {
-            //新建一行
-            var tr = document.createElement("tr");
-            tbody.appendChild(tr);
-            //在新创建的行内创建'邮件n'的单元格，附加点击展示邮件内容的功能
-            //设置新建的td元素
-            var display = document.createElement("td");
-            //命名'邮件n'时n要相对数组索引加1
-            var emailnum = i + 1;
-            display.innerHTML = "email" + emailnum;
-            tr.appendChild(display);
-            display.setAttribute('id', 'display' + i);
-            //取得emailcontent内容
-            var content = datas[i]['content'];
-            //设置点击展示邮件内容的功能
-            var disp = document.getElementById('display' + i);
-            disp.onclick = function () {
-                document.getElementById("emailcontent").value = content;
-            }
-        })(i)
-    }
-}
-*/
 //切换笔记本和主页的函数,参数为代表状态的字符串
 function changeListMood(mood) {
     listMood = mood;
@@ -220,16 +178,11 @@ function submitHomework() {
             //提示区会提示success表示发送成功
             //document.getElementById("result").innerHTML = xhr.responseText;
             alert(xhr.responseText)
+
         }
     };
     xhr.open('post', './student_submit_homework.php');
     xhr.send(formdata);
-
-    /*
-    $.get("student_submit_homework.php", {text:text, sid:sid,evaluation:evaluation}, function (data) {
-        //php文件运行成功返回的data为success
-        alert(data);
-    })*/
 }
 
 //更新在线用户列表的函数
@@ -255,40 +208,21 @@ function updateGetOnlineuser() {
     })
 }
 
-//生成作业列表
+//取得作业列表所需数据
 function homeworkList() {
     $.get("stu_homework_list.php", {sid:sid}, function (data) {
         //返回的json数据解码，数据存进data_array
-
         var homework_array = eval(data);
         //eamil为显示邮件列表的div元素
-
         var homeworkdiv = document.getElementById("homeworklist");
         //创建表格
-
         createTable2(homeworkdiv, homework_array,'homeworktable');
     })
 }
 
+//生成作业列表
 function createTable2(parent,datas,tablename) {
-    /*var child=document.getElementById(tablename);
-    if(child){
-        parent.removeChild(child);
-    }
 
-    var table = document.createElement("table");
-    table.id = tablename;
-    parent.appendChild(table);
-
-    var thead = document.createElement("thead");
-    table.appendChild(thead);
-
-    var tr = document.createElement("tr");
-    thead.appendChild(tr);
-
-    var tbody = document.createElement("tbody");
-    table.appendChild(tbody);
-    */
 
     var tbody=prepareTable(parent,tablename);
     //创建‘邮件n'的单元列
@@ -320,6 +254,7 @@ function createTable2(parent,datas,tablename) {
     }
 }
 
+//生成列表的通用部分
 function prepareTable(parent,tablename) {
     var child=document.getElementById(tablename);
     if(child){
@@ -341,20 +276,18 @@ function prepareTable(parent,tablename) {
     return(tbody);
 }
 
+//取得资源列表所需数据
 function urlList() {
     $.get("stu_url_list.php", {sid:sid}, function (data) {
-        //返回的json数据解码，数据存进data_array
-        //alert(data)
         var url_array = eval(data);
         //eamil为显示邮件列表的div元素
         var urldiv = document.getElementById("urllist");
         //创建表格
-
         createUrlTable(urldiv, url_array,'urltable');
-        //alert(1)
     })
 }
 
+//生成资源列表
 function createUrlTable(parent,datas,tablename) {
     var tbody=prepareTable(parent,tablename);
     //创建‘邮件n'的单元列
@@ -378,24 +311,15 @@ function createUrlTable(parent,datas,tablename) {
             display.appendChild(hreftag);
             hreftag.onclick=function (ev) {
                 PDFObject.embed(href,"#pdf")
-            }
+            };
 
             tr.appendChild(display);
-            /*
 
-            display.setAttribute('id', 'href' + i);
-            //设置点击展示邮件内容的功能
-            var disp = document.getElementById('href' + i);
-            disp.onclick = function () {
-                document.getElementById("emailcontent").value = content;
-            }*/
         })(i)
     }
 }
 
 //-----------------上传附件部分----------------------------------------------
-
-
 function addInput(){
     if(attachnum>0){
         var attach = attachname + attachnum ;
