@@ -149,6 +149,9 @@ function createTable(parent,datas,tablename) {
             var disp = document.getElementById('display' + i);
             disp.onclick = function () {
                 document.getElementById("emailcontent").value = content;
+                $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
+                    alert(data);
+                })
             }
         })(i)
     }
