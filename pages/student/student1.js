@@ -21,6 +21,7 @@ setInterval("getEmailData();", 3000);
 setInterval("updateGetOnlineuser()", 5000);
 homeworkList();
 urlList();
+//setInterval('saveReport()',5000);
 //-----------------设置点击事件------------------
 //下拉菜单的选项被点击时listMood变量会改变为点击的按钮名（innerHTML),借此区分状态
 $(".listButton").click(function () {
@@ -42,6 +43,8 @@ $("#笔记本").click(function () {
             textarea.value = "请输入作业内容";
             textarea.removeAttribute('readonly');
             submitbutton.removeAttribute('disabled');
+            setInterval('saveReport()',5000);
+
         }
         else if (evaluation == '批改中') {
             //document.getElementById("emailcontent").value="作业待教师批改";
@@ -56,6 +59,7 @@ $("#笔记本").click(function () {
             submitbutton.setAttribute('disabled', 'disabled');
 
         }
+
     })
 });
 $("#提交作业").click(function () {
@@ -95,25 +99,7 @@ function getEmailData() {
 
 //动态生成系统和教师邮件列表的函数
 function createTable(parent,datas,tablename) {
-    /*
-    var child=document.getElementById(tablename);
-    if(child){
-        parent.removeChild(child);
-    }
 
-    var table = document.createElement("table");
-    table.id = tablename;
-    parent.appendChild(table);
-
-    var thead = document.createElement("thead");
-    table.appendChild(thead);
-
-    var tr = document.createElement("tr");
-    thead.appendChild(tr);
-
-    var tbody = document.createElement("tbody");
-    table.appendChild(tbody);
-    */
     var tbody=prepareTable(parent,tablename);
 
     //创建‘邮件n'的单元列
@@ -354,4 +340,19 @@ function removeInput(nm){
     if(aElement.removeChild(aElement.lastChild) == null)
         return false;
     return true;
+}
+
+
+function saveReport() {
+    //先禁用按钮，防止重复提交
+    var text = $.trim(document.getElementById("emailcontent").value);
+
+    if(text!=''&&text!='未提交'&&text!='待修改'&&text!='请输入作业内容'){
+        $.get("save_report.php", {sid:sid,text:text}, function (data) {
+            var info = eval(data);
+            alert(info)
+        })
+    }
+
+
 }
