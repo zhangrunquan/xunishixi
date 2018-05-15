@@ -21,6 +21,7 @@ setInterval("getEmailData();", 3000);
 setInterval("updateGetOnlineuser()", 5000);
 homeworkList();
 urlList();
+
 //setInterval('saveReport()',5000);
 //-----------------设置点击事件------------------
 //下拉菜单的选项被点击时listMood变量会改变为点击的按钮名（innerHTML),借此区分状态
@@ -143,10 +144,7 @@ function createTable(parent,datas,tablename) {
     }
 }
 
-//切换笔记本和主页的函数,参数为代表状态的字符串
-function changeListMood(mood) {
-    listMood = mood;
-}
+
 
 //提交作业到后台写入数据库的函数
 function submitHomework() {
@@ -355,4 +353,18 @@ function saveReport() {
     }
 
 
+}
+
+/*
+//控制页面功能，
+function controler(oldmood,newmood) {
+    changeListMood(newmood);
+    document.getElementById('homeworktable').style.display='none';
+    document.getElementById('homeworktable').style.display='';
+    clearInterval();
+}
+*/
+//切换笔记本和主页的函数,参数为代表状态的字符串
+function changeListMood(mood) {
+    listMood = mood;
 }
