@@ -3,11 +3,17 @@
 2.计划在页面功能基本实现时再设置定时刷新
 */
 
+//-----------------控制台--------------------
+var draftSaveInterval=20000;
+var getEmailInterval=5000;
+var onlineuserInterval=5000;
+
 //-----------------设置变量---------------------
 //listMood是下拉栏状态，初始为“主页”
 var listMood = "主页";
 //从url获取sid
 var sid = getQueryString("sid");
+//当前作业评价状态
 var evaluation='';
 
 //生成上传按钮部分
@@ -16,13 +22,13 @@ var attachnum=1;
 //-----------------执行部分----------------------------------------------
 //取得用户信息
 //getUserInfo();
-//getEmailData();
-setInterval("getEmailData();", 3000);
-setInterval("updateGetOnlineuser()", 5000);
+getEmailData();
+updateGetOnlineuser();
+setInterval("getEmailData()", getEmailInterval);
+setInterval("updateGetOnlineuser()", onlineuserInterval);
 homeworkList();
 urlList();
 
-//setInterval('saveReport()',5000);
 //-----------------设置点击事件------------------
 //下拉菜单的选项被点击时listMood变量会改变为点击的按钮名（innerHTML),借此区分状态
 $(".listButton").click(function () {
@@ -44,7 +50,7 @@ $("#笔记本").click(function () {
             textarea.value = "请输入作业内容";
             textarea.removeAttribute('readonly');
             submitbutton.removeAttribute('disabled');
-            setInterval('saveReport()',5000);
+            setInterval('saveReport()',draftSaveInterval);
 
         }
         else if (evaluation == '批改中') {
@@ -77,6 +83,7 @@ function getQueryString(name) {
     if (r != null) return decodeURI(r[2]);
     return null;
 }
+
 /*
 //从session中取得用户信息到js
 function getUserInfo() {
@@ -86,7 +93,95 @@ function getUserInfo() {
     })
 }
 */
-//从数据库取得邮件数据并生成列表的函数
+
+//提交作业到后台写入数据库的函数
+function submitHomework() {
+    //先禁用按钮，防止重复提交
+    document.getElementById('提交作业').setAttribute('disabled', 'disabled');
+    var text = document.getElementById("emailcontent").value;
+
+    var fileform = document.getElementById('upload');
+    //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
+    var formdata = new FormData(fileform);
+    formdata.append('sid', sid);
+    formdata.append('text', text);
+    formdata.append('evaluation', evaluation);
+    //ajax请求
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            //提示区会提示success表示发送成功
+            //document.getElementById("result").innerHTML = xhr.responseText;
+            alert(xhr.responseText)
+
+        }
+    };
+    xhr.open('post', './student_submit_homework.php');
+    xhr.send(formdata);
+}
+
+//更新在线用户列表的函数
+function updateGetOnlineuser() {
+    $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
+        //返回的json数据解码，数据存进data_array
+        var data_array = eval(data);
+        var onlineuserlist_str = "";
+        for (var k = 0; k < data_array['student_name'].length; k++) {
+            if (jQuery.inArray(data_array['student_name'][k], data_array['onlineuser_name']) != -1) {
+                onlineuserlist_str += data_array['student_name'][k] + '(在线）<br/>';
+            } else {
+                onlineuserlist_str += data_array['student_name'][k] + '<br/>';
+            }
+        }
+        if (jQuery.inArray(data_array['tutor_name'], data_array['onlineuser_name']) != -1) {
+            onlineuserlist_str += '导师&nbsp' + data_array['tutor_name'] + '(在线）';
+        } else {
+            onlineuserlist_str += '导师&nbsp' + data_array['tutor_name'];
+        }
+        document.getElementById("在线列表").innerHTML = onlineuserlist_str;
+    })
+}
+
+//保存草稿
+function saveReport() {
+    //先禁用按钮，防止重复提交
+    var text = $.trim(document.getElementById("emailcontent").value);
+
+    if(text!=''&&text!='未提交'&&text!='待修改'&&text!='请输入作业内容'){
+        $.get("save_report.php", {sid:sid,text:text}, function (data) {
+            var info = eval(data);
+            //alert(info)
+        })
+    }
+
+
+}
+
+//-----------------生成列表部分----------------------------------------------
+//生成列表的通用部分
+function prepareTable(parent,tablename,tbodyid) {
+    var child=document.getElementById(tablename);
+    if(child){
+        parent.removeChild(child);
+    }
+
+    var table = document.createElement("table");
+    table.id = tablename;
+    parent.appendChild(table);
+
+    var thead = document.createElement("thead");
+    table.appendChild(thead);
+
+    var tr = document.createElement("tr");
+    thead.appendChild(tr);
+
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    tbody.id=tbodyid;
+    return(tbody);
+}
+
+//从后台取得邮件数据的函数
 function getEmailData() {
     $.get("student_get_email.php", {sid:sid}, function (data) {
         //返回的json数据解码，数据存进data_array
@@ -94,14 +189,13 @@ function getEmailData() {
         //eamil为显示邮件列表的div元素
         var email = document.getElementById("emaillist");
         //创建表格
-        createTable(email, data_array,'emailtable');
+        createEmailTable(email, data_array,'emailtable');
     })
 }
-
 //动态生成系统和教师邮件列表的函数
-function createTable(parent,datas,tablename) {
+function createEmailTable(parent,datas,tablename) {
 
-    var tbody=prepareTable(parent,tablename);
+    var tbody=prepareTable(parent,tablename,'emailtbody');
 
     //创建‘邮件n'的单元列
     for (var i = 0; i < datas.length; i++) {
@@ -144,57 +238,6 @@ function createTable(parent,datas,tablename) {
     }
 }
 
-
-
-//提交作业到后台写入数据库的函数
-function submitHomework() {
-    //先禁用按钮，防止重复提交
-    document.getElementById('提交作业').setAttribute('disabled', 'disabled');
-    var text = document.getElementById("emailcontent").value;
-
-    var fileform = document.getElementById('upload');
-    //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
-    var formdata = new FormData(fileform);
-    formdata.append('sid', sid);
-    formdata.append('text', text);
-    formdata.append('evaluation', evaluation);
-    //ajax请求
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            //提示区会提示success表示发送成功
-            //document.getElementById("result").innerHTML = xhr.responseText;
-            alert(xhr.responseText)
-
-        }
-    };
-    xhr.open('post', './student_submit_homework.php');
-    xhr.send(formdata);
-}
-
-//更新在线用户列表的函数
-function updateGetOnlineuser() {
-    //ajax请求
-    $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
-        //返回的json数据解码，数据存进data_array
-        var data_array = eval(data);
-        var onlineuserlist_str = "";
-        for (var k = 0; k < data_array['student_name'].length; k++) {
-            if (jQuery.inArray(data_array['student_name'][k], data_array['onlineuser_name']) != -1) {
-                onlineuserlist_str += data_array['student_name'][k] + '(在线）<br/>';
-            } else {
-                onlineuserlist_str += data_array['student_name'][k] + '<br/>';
-            }
-        }
-        if (jQuery.inArray(data_array['tutor_name'], data_array['onlineuser_name']) != -1) {
-            onlineuserlist_str += '导师&nbsp' + data_array['tutor_name'] + '(在线）';
-        } else {
-            onlineuserlist_str += '导师&nbsp' + data_array['tutor_name'];
-        }
-        document.getElementById("在线列表").innerHTML = onlineuserlist_str;
-    })
-}
-
 //取得作业列表所需数据
 function homeworkList() {
     $.get("stu_homework_list.php", {sid:sid}, function (data) {
@@ -203,15 +246,12 @@ function homeworkList() {
         //eamil为显示邮件列表的div元素
         var homeworkdiv = document.getElementById("homeworklist");
         //创建表格
-        createTable2(homeworkdiv, homework_array,'homeworktable');
+        createHomeworkTable(homeworkdiv, homework_array,'homeworktable');
     })
 }
-
 //生成作业列表
-function createTable2(parent,datas,tablename) {
-
-
-    var tbody=prepareTable(parent,tablename);
+function createHomeworkTable(parent,datas,tablename) {
+    var tbody=prepareTable(parent,tablename,'homeworktbody');
     //创建‘邮件n'的单元列
     for (var i = 0; i < datas.length; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
@@ -241,28 +281,6 @@ function createTable2(parent,datas,tablename) {
     }
 }
 
-//生成列表的通用部分
-function prepareTable(parent,tablename) {
-    var child=document.getElementById(tablename);
-    if(child){
-        parent.removeChild(child);
-    }
-
-    var table = document.createElement("table");
-    table.id = tablename;
-    parent.appendChild(table);
-
-    var thead = document.createElement("thead");
-    table.appendChild(thead);
-
-    var tr = document.createElement("tr");
-    thead.appendChild(tr);
-
-    var tbody = document.createElement("tbody");
-    table.appendChild(tbody);
-    return(tbody);
-}
-
 //取得资源列表所需数据
 function urlList() {
     $.get("stu_url_list.php", {sid:sid}, function (data) {
@@ -273,10 +291,9 @@ function urlList() {
         createUrlTable(urldiv, url_array,'urltable');
     })
 }
-
 //生成资源列表
 function createUrlTable(parent,datas,tablename) {
-    var tbody=prepareTable(parent,tablename);
+    var tbody=prepareTable(parent,tablename,'urltbody');
     //创建‘邮件n'的单元列
     for (var i = 0; i < datas.length; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
@@ -305,7 +322,6 @@ function createUrlTable(parent,datas,tablename) {
         })(i)
     }
 }
-
 //-----------------上传附件部分----------------------------------------------
 function addInput(){
     if(attachnum>0){
@@ -341,19 +357,6 @@ function removeInput(nm){
 }
 
 
-function saveReport() {
-    //先禁用按钮，防止重复提交
-    var text = $.trim(document.getElementById("emailcontent").value);
-
-    if(text!=''&&text!='未提交'&&text!='待修改'&&text!='请输入作业内容'){
-        $.get("save_report.php", {sid:sid,text:text}, function (data) {
-            var info = eval(data);
-            alert(info)
-        })
-    }
-
-
-}
 
 /*
 //控制页面功能，
