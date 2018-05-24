@@ -25,10 +25,10 @@
         <div class="tab-wrapper">
 
             <ul class="tab-menu">
-                <li class="active">首页</li>
-                <li>收件箱</li>
-                <li>发件箱</li>
-                <li>资源</li>
+                <li onclick="changeListMood('mainmenu')" class="active">首页</li>
+                <li onclick="changeListMood('receivebox')">收件箱</li>
+                <li onclick="changeListMood('sendbox')">发件箱</li>
+                <li onclick="changeListMood('resourcebox')">资源</li>
             </ul>
 
             <div class="tab-content">
@@ -36,8 +36,6 @@
                 </div>
 <!------------------------------------------------------------收件箱------------------------------------------------------------------------------------- -->
                 <div>
-                    <!--<iframe src="receive.html" width="1420" height="560" class="dom" style="display: block;" >
-                            </iframe>-->
                         <div style="overflow:hidden;height:500px;width:200px;float:left;">
                             <div id="emaillist" style="border:1px solid;">&nbsp;&nbsp;&nbsp;所有邮件</div>
                             <!--<ul style="margin:0;padding:0px;">
@@ -52,14 +50,15 @@
                             </tr>
                         </table>
 
-                        <div style="overflow:hidden;height:520px;width:800px;float:left;">
-                            欢迎参加实习（主题/标题)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div  style="overflow:hidden;height:520px;width:800px;float:left;">
+                            <!--此处用空格做样式可能导致问题-->
+                            <p id='r_title'>欢迎参加实习（主题/标题)</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button>回复邮件</button>
-                            <p>发件人：导师</p>
-                            <p>时间：2018/4/25</p>
-                            <p>收件人：孙三</p>
-                            <p>抄送：赵一；钱二；李四；周五</p>
+                            <p>发件人：张华</p>
+                            <p id="r_time">时间：2018/4/25</p>
+                            <p id="r_receiver">收件人：孙三</p>
+                            <p id="r_copy">抄送：赵一；钱二；李四；周五</p>
                             <div style="overflow:hidden;height:70px;width:800px;float:left;background-color: #A9D0F5"></div>
                             <textarea id="receiveemail" style="resize:none;height:510px;width:800px">李四，你好！       
               欢迎来到师大附小参加为期两周的实习。我是周老师，是你们的实习带班导师。在这两周 ，我们将要完成一个STEM校本课程的设计任务。大家知道，STEM教育是。。。。
@@ -137,7 +136,7 @@
                             <div style="overflow:hidden;height:70px;width:800px;float:left;background-color: #A9D0F5">
                                 <form id="upload" enctype="multipart/form-data">上传</form>
                             </div>
-                            <textarea style="resize:none;height:510px;width:800px;margin-top:10px">       
+                            <textarea id="sendemail" style="resize:none;height:510px;width:800px;margin-top:10px">       
     
 
      </textarea>
