@@ -7,11 +7,7 @@
 */
 //-----------------测试用----------------------------------------------
 
-//-----------------连接mysql服务器----------------------------------------------
-$link = mysqli_connect('localhost:3306', 'root', '12345678');
-$res = mysqli_set_charset($link, 'utf8');
-//选择数据库
-mysqli_query($link, 'use database1');
+
 
 //-----------------获取接口变量----------------------------------------------
 $sid = $_GET['sid'];
@@ -21,6 +17,11 @@ $groupid = $_SESSION['groupid'];
 $classid=$_SESSION['classid'];
 $maxtimeStamp=$_GET['maxtimeStamp'];
 
+//-----------------连接mysql服务器----------------------------------------------
+$link = mysqli_connect('localhost:3306', 'root', '12345678');
+$res = mysqli_set_charset($link, 'utf8');
+//选择数据库
+mysqli_query($link, 'use database1');
 // 防止获取重复数据，本次请求的记录结果id要大于上次获得的timeStamp
 $query="SELECT timeStamp,username,content FROM log WHERE classid='$classid' AND groupid='$groupid' AND actiontype='ChatMsg' AND timeStamp>'$maxtimeStamp';";
 $qry = mysqli_query($link, $query);
