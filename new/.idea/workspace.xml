@@ -14,12 +14,11 @@
       <file leaf-file-name="student.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/student/student.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="26" column="23" lean-forward="true" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+            <state relative-caret-position="-154">
+              <caret line="74" column="9" lean-forward="true" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="n#!!block;n#saveDraftLocal#0" expanded="false" />
-                <element signature="n#!!block;n#getDraft#0" expanded="false" />
                 <element signature="n#!!block;n#taskname_url#0" expanded="false" />
                 <element signature="n#!!block;n#getUserInfo#0" expanded="false" />
                 <element signature="n#!!block;n#getGroupInfo#0" expanded="false" />
@@ -38,10 +37,12 @@
                 <element signature="n#!!block;n#prepareTable#0" expanded="false" />
                 <element signature="n#!!block;n#prepareAllTable#0" expanded="false" />
                 <element signature="n#!!block;n#addLine#0" expanded="false" />
+                <element signature="n#!!block;n#addSendLine#0" expanded="false" />
                 <element signature="n#!!block;n#processLastSend#0" expanded="false" />
                 <element signature="n#!!block;n#getEmailData#0" expanded="false" />
                 <element signature="n#!!block;n#getEmailDataConstantly#0" expanded="false" />
                 <element signature="n#!!block;n#createEmailTable#0" expanded="false" />
+                <element signature="n#!!block;n#createHomeworkTable#0" expanded="false" />
                 <element signature="n#!!block;n#urlList#0" expanded="false" />
                 <element signature="n#!!block;n#createUrlTable#0" expanded="false" />
                 <element signature="n#!!block;n#addInput#0" expanded="false" />
@@ -56,8 +57,8 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/register_login/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="44" column="29" lean-forward="false" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
+            <state relative-caret-position="-68">
+              <caret line="44" column="29" lean-forward="true" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -244,10 +245,10 @@
       <file leaf-file-name="stu_homework_list.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student/stu_homework_list.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="414">
+              <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
               <folding>
-                <marker date="1526128078807" expanded="true" signature="468:622" ph="SELECT timeS... " />
+                <marker date="1527304285660" expanded="true" signature="468:622" ph="SELECT timeS... " />
               </folding>
             </state>
           </provider>
@@ -277,6 +278,7 @@
       <find>getTaskidNow</find>
       <find>receive_data</find>
       <find>taskname_url_arr</find>
+      <find>var taskid</find>
     </findStrings>
     <replaceStrings>
       <replace>receiveemail</replace>
@@ -302,6 +304,7 @@
         <option value="$PROJECT_DIR$/student/student.html" />
         <option value="$PROJECT_DIR$/student/chatroom.php" />
         <option value="$PROJECT_DIR$/student/get_draft.php" />
+        <option value="$PROJECT_DIR$/student/stu_homework_list.php" />
         <option value="$PROJECT_DIR$/student/student.js" />
       </list>
     </option>
@@ -313,7 +316,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -401,15 +404,15 @@
       <updated>1526906781106</updated>
       <workItem from="1526906782493" duration="688000" />
       <workItem from="1526947719984" duration="1019000" />
-      <workItem from="1526948951089" duration="58114000" />
+      <workItem from="1526948951089" duration="66161000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59821000" />
+    <option name="totallyTimeSpent" value="67868000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -441,7 +444,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -764,16 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student/stu_homework_list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <marker date="1526128078807" expanded="true" signature="468:622" ph="SELECT timeS... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student/stu_url_list.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -950,22 +943,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/student/stu_homework_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+          <folding>
+            <marker date="1527304285660" expanded="true" signature="468:622" ph="SELECT timeS... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/register_login/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="44" column="29" lean-forward="false" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
+        <state relative-caret-position="-68">
+          <caret line="44" column="29" lean-forward="true" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/student/student.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="26" column="23" lean-forward="true" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+        <state relative-caret-position="-154">
+          <caret line="74" column="9" lean-forward="true" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="n#!!block;n#saveDraftLocal#0" expanded="false" />
-            <element signature="n#!!block;n#getDraft#0" expanded="false" />
             <element signature="n#!!block;n#taskname_url#0" expanded="false" />
             <element signature="n#!!block;n#getUserInfo#0" expanded="false" />
             <element signature="n#!!block;n#getGroupInfo#0" expanded="false" />
@@ -984,10 +986,12 @@
             <element signature="n#!!block;n#prepareTable#0" expanded="false" />
             <element signature="n#!!block;n#prepareAllTable#0" expanded="false" />
             <element signature="n#!!block;n#addLine#0" expanded="false" />
+            <element signature="n#!!block;n#addSendLine#0" expanded="false" />
             <element signature="n#!!block;n#processLastSend#0" expanded="false" />
             <element signature="n#!!block;n#getEmailData#0" expanded="false" />
             <element signature="n#!!block;n#getEmailDataConstantly#0" expanded="false" />
             <element signature="n#!!block;n#createEmailTable#0" expanded="false" />
+            <element signature="n#!!block;n#createHomeworkTable#0" expanded="false" />
             <element signature="n#!!block;n#urlList#0" expanded="false" />
             <element signature="n#!!block;n#createUrlTable#0" expanded="false" />
             <element signature="n#!!block;n#addInput#0" expanded="false" />

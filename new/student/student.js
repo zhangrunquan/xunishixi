@@ -4,6 +4,8 @@
        3.将changelistmood改为changemood
        3.改变taskid更新方式可能能减少查询
        4.可能可以合并请求来减少请求次数
+       5.可以去掉同步请求
+       6.可以减少checkhoemworkevaluaion
 进度：1.draft标签，homelist逻辑
 
 */
@@ -18,7 +20,8 @@ var groupstunumber=4;
 //-----------------设置变量---------------------
 //listMood是下拉栏状态，初始为“主页”
 var listMood = "mainmenu";
-//从url获取sid
+//记录最后一次点击的发件列表项是否为最后一封,可为'other'和'last'
+var lastclick='other';
 var sid = getQueryString("sid");
 //当前作业评价状态
 var evaluation='';
@@ -34,6 +37,8 @@ var taskname_url_arr;
 var user_info_arr;
 //存储教师和系统邮件的数组
 var receive_data=[];
+//存储作业信息的数组
+var homework_data=[];
 //存储草稿
 var draft='';
 //生成上传按钮部分
@@ -175,6 +180,9 @@ function submitHomework() {
     //先禁用按钮，防止重复提交
     //document.getElementById('提交作业').setAttribute('disabled', 'disabled');
     hideAllButton();
+    saveDraftLocal();
+    var taskid=receive_data[receive_data.length-1]['taskid'];
+    homework_data[taskid-1]['content']=draft;
     var text = document.getElementById("sendemail").value;
     //
     var fileform = document.getElementById('upload');
@@ -224,7 +232,6 @@ function checkHomeworkEvaluation() {
             }
             textarea.removeAttribute('readonly');
             submitbutton.removeAttribute('disabled');
-            //setTimeout('saveReport()',draftSaveInterval);
             return true;
         }
         else if (evaluation == '批改中') {
@@ -283,12 +290,30 @@ function addLine(parentid) {
     tr.appendChild(display);
     return display;
 }
+
 function addSendLine(taskid) {
+    //清空draft
+    draft='';
     var td=addLine('homeworktbody');
     processLastSend(taskid,td);
     //变更前一封邮件的onclick事件
     var oldtaskid=taskid-1;
     var old=document.getElementById('homework'+oldtaskid);
+    //可重构函数
+    old.onclick=function () {
+        //可优化
+        var text=homework_data[oldtaskid-1]['content'];
+        if(lastclick='other'){
+            document.getElementById("sendemail").value = text;
+            document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
+        }
+        else if(lastclick='last'){
+            saveDraftLocal();
+            document.getElementById("sendemail").value = text;
+            document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
+        }
+        lastclick='other';
+    }
 
 
 }
@@ -296,9 +321,11 @@ function addSendLine(taskid) {
 function processLastSend(taskid,td){
     td.innerHTML='report'+taskid;
     td.onclick=function () {
-        saveDraftLocal();
-        document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
-        checkHomeworkEvaluation();
+        if(lastclick='other'){
+            document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
+            checkHomeworkEvaluation();
+        }
+        lastclick='last'
     }
 }
 
@@ -342,6 +369,7 @@ function getEmailDataConstantly() {
             if(!data){
                 return false;
             }
+            alert('getdata')
             //返回的json数据解码，数据存进data_array
             var data_array = eval(data);
             receive_data=eval(data);
@@ -349,6 +377,7 @@ function getEmailDataConstantly() {
                 if(data_array[i]['actiontype']=='TaskEmail'){
                     var taskid=data_array[i]['taskid'];
                     addSendLine(taskid);
+                    showAllButton();
                 }
             }
 
@@ -394,12 +423,31 @@ function createEmailTable(parent,datas,tablename,tbodyid) {
 
 
             tr.appendChild(display);
+            /*
             display.setAttribute('id', 'display' + i);
             //取得emailcontent内容
             var content = datas[i]['content'];
             //设置点击展示邮件内容的功能
             var disp = document.getElementById('display' + i);
             disp.onclick = function () {
+                document.getElementById("receiveemail").value = content;
+                $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
+                    alert(data);
+                })
+                document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
+                document.getElementById('r_time').innerHTML='时间:'+timeStamp;
+                var str=groupmemmber['stuname'][1];
+                for(var j=2;j<=groupstunumber;j++){
+                    str+=';'+groupmemmber['stuname'][j];
+                }
+                document.getElementById("r_copy").innerHTML='抄送:'+str;
+            }*/
+            //display.setAttribute('id', 'display' + i);
+            //取得emailcontent内容
+            var content = datas[i]['content'];
+            //设置点击展示邮件内容的功能
+            //var disp = document.getElementById('display' + i);
+            display.onclick = function () {
                 document.getElementById("receiveemail").value = content;
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
                     alert(data);
@@ -418,10 +466,21 @@ function createEmailTable(parent,datas,tablename,tbodyid) {
 //取得发件列表所需数据
 function homeworkList() {
     $.get("stu_homework_list.php", {sid:sid}, function (data) {
-        //返回的json数据解码，数据存进data_array
+        if(!data){
+            homework_data[0]=[];
+            homework_data[0]['content']='';
+            console.log(homework_data);
+            addSendLine(1);
+        }
+        else{
+            //返回的json数据解码，数据存进data_array
+            var homework_array = eval(data);
+            homework_data=homework_array;
+            //创建表格
+            createHomeworkTable(homework_array,'homeworktbody');
+        }
         var homework_array = eval(data);
-        //创建表格
-        createHomeworkTable(homework_array,'homeworktbody');
+        homework_data=homework_array;
     })
 }
 //生成发件列表
@@ -441,7 +500,7 @@ function createHomeworkTable(datas,tbodyid) {
             var taskid=i+1;
             var content=datas[i]['content'];
             var timeStamp=datas[i]['timeStamp'];
-
+            //alert(content)
             display.innerHTML = 'report'+taskid+' '+timeStamp;
 
 
@@ -450,25 +509,32 @@ function createHomeworkTable(datas,tbodyid) {
             //设置点击展示邮件内容的功能
             var disp = document.getElementById('homework' + taskid);
             disp.onclick = function () {
-                document.getElementById("sendemail").value = content;
-                document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
-                saveDraftLocal();
+                if(lastclick='other'){
+                    document.getElementById("sendemail").value = content;
+                    document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
+                }
+                else if(lastclick='last'){
+                    saveDraftLocal();
+                    document.getElementById("sendemail").value = content ;
+                    document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
+
+                }
+                lastclick='other';
             }
         })(i);
     }
     var taskid=receive_data[receive_data.length-1]['taskid'];
+    //如果有已在本地创建但还未提交的任务（上方代码只生成提交过的，两者最多可能差一）
     if(len<taskid){
         addSendLine(taskid);
-        document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
-        checkHomeworkEvaluation();
     }else{
-        document.getElementById("s_title").innerHTML=taskname_url_arr[len]['taskname'];
-        checkHomeworkEvaluation();
         //最后一项发件
         document.getElementById('homework'+len).onclick=function () {
-            saveDraftLocal();
-            document.getElementById("s_title").innerHTML=taskname_url_arr[len]['taskname'];
-            checkHomeworkEvaluation();
+            if(lastclick='other'){
+                document.getElementById("s_title").innerHTML=taskname_url_arr[len]['taskname'];
+                checkHomeworkEvaluation();
+            }
+            lastclick='last';
         }
     }
 

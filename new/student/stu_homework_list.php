@@ -29,3 +29,7 @@ while ($rst = mysqli_fetch_assoc($ret)) {
 if (!empty($homework_array)) {
     echo json_encode($homework_array);
 }
+else{
+    echo(json_encode(''));
+}
+
