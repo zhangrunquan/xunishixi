@@ -1,5 +1,6 @@
 <?php
-header("Content-Type:application/json");
+//此处不能加header
+//header("Content-Type:application/json");
 
 //-----------------获取接口变量----------------------------------------------
 $sid = $_GET['sid'];
@@ -30,6 +31,9 @@ if (!empty($homework_array)) {
     echo json_encode($homework_array);
 }
 else{
-    echo(json_encode(''));
+    $str='noresult';
+    echo(json_encode($str));
 }
+
+
 

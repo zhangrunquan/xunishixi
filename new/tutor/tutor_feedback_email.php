@@ -39,6 +39,10 @@ $ret=mysqli_query($link,$query);
 $info_array=mysqli_fetch_assoc($ret);
 $oknumber=$info_array['oknumber'];
 $taskidnow=$info_array['taskidnow'];
+//插入反馈邮件
+$query="INSERT INTO log(timeStamp,classid,groupid,groupNO,userid,username,actiontype,content,taskid) VALUES ('$time','$classid',
+          '$groupid','$numberingroup','$userid','$username','ReportFeedback','$emailcontent','$taskidnow')";
+mysqli_query($link,$query);
 if($evaluation=='通过'){
 
     //如果通过数等于小组人数，小组当前任务号加1，当前任务通过人数归0
@@ -60,10 +64,7 @@ if($evaluation=='通过'){
         mysqli_query($link,$query);
     }
 }
-//插入反馈邮件
-$query="INSERT INTO log(timeStamp,classid,groupid,groupNO,userid,username,actiontype,content,taskid) VALUES ('$time','$classid',
-          '$groupid','$numberingroup','$userid','$username','ReportFeedback','$emailcontent','$taskidnow')";
-mysqli_query($link,$query);
+
 //更改作业的评价状态
 $query="UPDATE homework_mood SET evaluation='$evaluation' WHERE userid='$userid' AND taskid='$taskid'";
 mysqli_query($link,$query);

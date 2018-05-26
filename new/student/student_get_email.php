@@ -5,7 +5,7 @@
     2.sid
 进度：1.task信息需要独立查询
 */
-
+//此处不能加header
 //header("Content-Type:application/json");
 
 //-----------------获取接口变量----------------------------------------------
@@ -43,4 +43,7 @@ for($i=0;$i<$num;$i++){
 //$email_array[]=$pro;
 if (!empty($email_array)) {
     echo json_encode($email_array);
+}
+else{
+    echo(json_encode('noresult'));
 }
