@@ -3,6 +3,7 @@
 //header("Content-Type:application/json");
 
 //-----------------获取接口变量----------------------------------------------
+
 $sid = $_GET['sid'];
 session_id($sid);
 session_start();
@@ -34,6 +35,7 @@ else{
     $str='noresult';
     echo(json_encode($str));
 }
+
 
 
 

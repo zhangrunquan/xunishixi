@@ -45,7 +45,6 @@ var homework_data=[];
 var attachname ="attach";
 var attachnum=1;
 //-----------------执行部分----------------------------------------------
-getDraft();
 getGroupInfo();
 //取得用户信息
 getUserInfo();
@@ -362,18 +361,19 @@ function getEmailDataConstantly() {
             if(data_array=='noresult'){
                 return false;
             }
-            alert('cons')
             var len=data_array.length;
             for(var i=0;i<len;i++){
                 receive_data.push(data_array[i])
             }
-            alert('getdata')
             //receive_data=eval(data);
             for(var i=0;i<data_array.length;i++){
                 if(data_array[i]['actiontype']=='TaskEmail'){
+                    lastclick='other';
                     var taskid=data_array[i]['taskid'];
                     addSendLine(taskid);
                     showAllButton();
+                    urlList(getTaskidNow());
+
                 }
             }
 
@@ -386,7 +386,6 @@ function getEmailDataConstantly() {
             createEmailTable(email, data_array,'emailtbody');
 
             //ajax异步请求必须注意顺序影响
-            urlList(getTaskidNow());
         }
     });
 }
@@ -440,34 +439,39 @@ function createEmailTable(parent,datas,tbodyid) {
         })(i)
     }
 }
-function getDraft() {
+function getDraft(taskid) {
+    //可优化减少一次查询
     $.ajax({ url: "get_draft.php",
         data:{sid:sid},
         async:false,
         success: function (data) {
-            homework_data.push(eval(data));
+            homework_data[taskid-1]=[];
+            homework_data[taskid-1]['content']=eval(data);
         }
     });
 }
 //取得发件列表所需数据
 function homeworkList() {
     $.get("stu_homework_list.php", {sid:sid}, function (data) {
-        console.log(homework_data)
+        //数组多出一项
+        console.log(data)
         var data_array=eval(data);
         if(data_array=='noresult'){
+            console.log('noresult')
             homework_data[0]=[];
             homework_data[0]['content']='';
             createHomeworkTable(homework_data,'homeworktbody');
         }
         else {
             homework_data=data_array;
-            createHomeworkTable(homework_data, 'homeworktbody');
-
             var taskidnow = receive_data[receive_data.length - 1]['taskid'];
             if (homework_data.length < taskidnow) {
-                alert('godraft')
-                getDraft();
+                getDraft(taskidnow);
             }
+            console.log(homework_data)
+            createHomeworkTable(homework_data, 'homeworktbody');
+
+
         }
 
 
@@ -504,11 +508,11 @@ function createHomeworkTable(datas,tbodyid) {
             //设置点击展示邮件内容的功能
             var disp = document.getElementById('homework' + taskid);
             disp.onclick = function () {
-                if(lastclick='other'){
+                if(lastclick=='other'){
                     document.getElementById("sendemail").value = content;
                     document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];
                 }
-                else if(lastclick='last'){
+                else if(lastclick=='last'){
                     saveDraftLocal();
                     document.getElementById("sendemail").value = content ;
                     document.getElementById("s_title").innerHTML=taskname_url_arr[taskid]['taskname'];

@@ -13,7 +13,7 @@ var maxtimeStamp='1000-01-01 00:00:00';
 // 设置onload事件
 window.onload = function () {
     // 轮询以实现自动的页面更新
-    setInterval("showmessage()", 1500);
+    //setInterval("showmessage()", 1500);
 };
 
 
