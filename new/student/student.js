@@ -164,6 +164,16 @@ function changemood(target,mood) {
     target=mood;
 }
 
+//获取所有信息
+function getInfo() {
+    $.ajax({ url: "info.php",
+        data:{sid:sid},
+        success: function (data) {
+            taskname_url_arr=JSON.parse(data);
+        }
+    });
+}
+
 //-----------------提交和浏览作业部分----------------------------------------------
 //提交作业到后台写入数据库的函数
 function submitHomework() {

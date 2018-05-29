@@ -16,11 +16,7 @@ $query="SELECT url FROM log WHERE userid='$userid'AND url is not null";
 $ret = mysqli_query($link, $query);
 
 mysqli_close($link);
-/*
-while ($rst = mysqli_fetch_assoc($ret)) {
-    $homework_array[] = $rst;
-}
-*/
+
 while ($rst = mysqli_fetch_assoc($ret)) {
     $url=$rst['url'];
     $str=explode(",",$url);
