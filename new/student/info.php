@@ -1,4 +1,6 @@
 <?php
+//header("Content-Type:application/json");
+
 $sid=$_GET['sid'];
 session_id($sid);
 session_start();
@@ -6,7 +8,11 @@ $groupid=$_SESSION['groupid'];
 $classid=$_SESSION['classid'];
 $userid = $_SESSION['userid'];
 
-
+/*
+$userid=1;
+$classid=1;
+$groupid=1;
+*/
 
 //-----------------连接mysql服务器----------------------------------------------
 $link =mysqli_connect('localhost:3306','root','12345678') ;
@@ -25,12 +31,17 @@ $query="SELECT * FROM feedback WHERE userid='$userid'";
 $ret_feedback=mysqli_query($link,$query);
 
 //查询report
-$query="SELECT content FROM report WHERE userid='$userid' limit '$taskidnow'";
+$query="SELECT content FROM report WHERE userid='$userid' limit {$taskidnow}";
 $ret_report=mysqli_query($link,$query);
 
 //查询task的时间
 $query="SELECT timeStamp,checked FROM task WHERE userid='$userid' limit 1";
 $ret_task=mysqli_query($link,$query);
+
+//查询小组成员姓名
+$query="SELECT username FROM account WHERE classid='$classid' AND groupid='$groupid' AND role='student'";
+$ret_group=mysqli_query($link,$query);
+
 
 mysqli_close($link);
 
@@ -50,6 +61,13 @@ $info['task']=[];
 while ($rst = mysqli_fetch_assoc($ret_task)) {
     $info['task'][] = $rst;
 }
+$info['group']=[];
+while ($rst = mysqli_fetch_assoc($ret_group)) {
+    $info['group'][] = $rst;
+}
+//存储用户信息
+$info['user']=[];
+$info['user']=$_SESSION;
 
-
+echo (json_encode($info));
 
