@@ -57,10 +57,26 @@ $info['report']=[];
 while ($rst = mysqli_fetch_assoc($ret_report)) {
     $info['report'][] = $rst;
 }
+
+
+
 $info['task']=[];
 while ($rst = mysqli_fetch_assoc($ret_task)) {
     $info['task'][] = $rst;
 }
+$info['task']['checked']=$info['task'][0]['checked'];
+$time_arr=explode(",",$info['task'][0]['timeStamp']);
+$time_arr = array_filter($time_arr);
+
+foreach ($time_arr as $key=>$value){
+    $info['task'][$key]=[];
+    $info['task'][$key]['timeStamp']=$value;
+    $info['task'][$key]['taskid']=$key+1;
+}
+
+
+
+
 $info['group']=[];
 while ($rst = mysqli_fetch_assoc($ret_group)) {
     $info['group'][] = $rst;

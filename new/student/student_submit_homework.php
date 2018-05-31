@@ -82,8 +82,11 @@ else{
 }
 
 //向report表插入记录
+/*
 $query="INSERT INTO report VALUES ('$classid','$groupid','$numberingroup'
           ,'$userid','$taskidnow','$text','$url')";
+*/
+$query="UPDATE report SET classid='$classid',groupid='$groupid',groupNO='$numberingroup',userid='$userid',taskid='$taskidnow',content='$text',url='$url' WHERE  userid='$userid' AND taskid='$taskidnow'";
 mysqli_query($link,$query);
 
 mysqli_close($link);
