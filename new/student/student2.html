@@ -2,9 +2,12 @@
     <meta charset="utf-8">
     <link href="css/1.css" rel="stylesheet">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="js/tabs.js"></script>
+    <!--<script type="text/javascript" src="js/tabs.js"></script>-->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet"/>
+    <link href="dist/spop.min.css" rel="stylesheet"/>
+    <link href="src/styles.min.css" rel="stylesheet"/>
 </head>
-<body>
+<body >
 <div class="box_shadow">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="image/logo.jpg">
     <div id="nav">
@@ -27,7 +30,7 @@
             <ul class="tab-menu">
                 <li onclick="changeListMood('mainmenu')" class="active">首页</li>
                 <li onclick="changeListMood('receivebox')">收件箱</li>
-                <li onclick="changeListMood('sendbox')">发件箱</li>
+                <li id="sendbox">发件箱</li>
                 <li onclick="changeListMood('resourcebox')">资源</li>
             </ul>
 
@@ -179,8 +182,13 @@
 
     </div><!-- //tab-wrapper -->
 </div>
+
+
 <script src='js/jquery.min.js'></script>
 <script src="../all/jquery-3.3.1.min.js"></script>
+<script src="src/prism.js"></script>
+<script src="dist/spop.min.js"></script>
+<script src="src/scripts.js"></script>
 <script src="js/pdfobject.js"></script>
 <script src="student1.js"></script>
 <script src="chatroom.js"></script>

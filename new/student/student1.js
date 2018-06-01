@@ -7,6 +7,13 @@
 
 */
 
+
+
+window.onbeforeunload = function(){
+    saveDraft();
+    return "确认离开？" ;
+};
+
 //-----------------控制台--------------------
 var getEmailInterval=6000;
 var onlineuserInterval=5000;
@@ -96,7 +103,12 @@ function initialize() {
 
             console.log('uncheckedfeedbacknum '+uncheckedfeedbacknum);
 
+            var lasttask=getLastTaskEmail(info_email.length-1);
+            lasttask['taskid']=taskidnow;
+            lasttask['checked']=info['task']['checked'];
+
             createUI();
+            reminder(info['feedback'],info['task']);
         }
     });
 }
@@ -160,10 +172,14 @@ function getNewEmail() {
 
             console.log('getNewEmail');
             console.log(info);
-
+            //getdata记录本次是否获取到了新邮件
             var getdata=0;
             if(typeof (info['feedback'][0]['content'])!='undefined'){
                 info_email.push(info['feedback'][0]);
+                //提醒未读消息
+                var subject='RE:Report'+info['feedback'][0]['taskid']+'<br/>'+info['feedback'][0]['timeStamp'];
+                spop(subject);
+
                 getdata=1;
                 evaluationchange=1;
             }
@@ -173,6 +189,10 @@ function getNewEmail() {
                 taskidnow+=1;
                 info['task'][0]['taskid']=taskidnow;
                 info_email.push(info['task'][0]);
+                //提醒未读消息
+                subject='task'+taskid+'<br/>'+info['task'][0]['timeStamp'];
+                spop(subject);
+
                 getdata=1;
             }
             if(getdata){
@@ -189,6 +209,22 @@ function getLastTaskEmail(index) {
     }
     else {
         return getLastTaskEmail(index-1);
+    }
+}
+function reminder(feedback,task) {
+    for(var i=0;i<feedback.length;i++){
+        if(feedback[i]['checked']==0){
+            var subject='RE:Report'+feedback[i]['taskid']+'<br/>'+feedback[i]['timeStamp'];
+            spop(subject);
+        }
+    }
+    if(task['checked']==0){
+        //最后一封任务邮件的索引，task数组中有checked索引所以多减一
+        var index=taskidnow-1;
+        var timeStamp=task[index]['timeStamp'];
+        var taskid=index+1;
+        subject='task'+taskid+'<br/>'+timeStamp;
+        spop(subject);
     }
 }
 
@@ -340,17 +376,19 @@ function submitHomework() {
     xhr.send(formdata);
 }
 //保存草稿
-function saveReport() {
-    //先禁用按钮，防止重复提交
-    var text = $.trim(document.getElementById("sendemail").value);
-
+function saveDraft() {
+    if(lastclick=='last'){
+        var text=$.trim(document.getElementById("sendemail").value);
+    }
+    else{
+        text=info_report[info_report.length-1]['content']
+    }
     if(text!=''&&text!='未提交'&&text!='待修改'&&text!='请输入作业内容'){
-        $.get("save_report.php", {sid:sid,text:text}, function (data) {
+        $.get("save_draft.php", {sid:sid,text:text,taskidnow:taskidnow}, function (data) {
             var info = eval(data);
             alert(info)
         })
     }
-    homework_data[homework_data.length-1]['content']=text;
 }
 //检查作业是不是可修改状态，并显示提示语，如果可修改返回true,不可修改返回false
 function checkHomeworkEvaluation() {
@@ -503,6 +541,7 @@ function processLastSend(taskid,td){
 
 function createAndJump() {
     createReport();
+    document.getElementById('sendbox').click();
 }
 function createReport() {
     if(info_report.length<taskidnow){
@@ -559,7 +598,7 @@ function createHomeworkTable(datas,tbodyid) {
                 hideAllButton();
                 lastclick='other';
                 console.log('lastclick changed to :'+lastclick);
-            }
+            }(i)
         })(i);
     }
     //处理最后一项
@@ -638,8 +677,33 @@ function createEmailTable(parent,datas,tbodyid) {
             }
             td.innerHTML = title;
             tr.appendChild(td);
+            /*
+            if(typeof (datas[i]['checked'])!=='undefined'&&datas[i]['checked']==0){
+                //任务邮件情况
+                if(typeof (datas[i]['content'])=='undefined'){
 
+                    checkTaskemail()
+                }
+                //feedback情况
+                else{
+                    checkFeedback(taskid)
+                }
+            }*/
+            td.setAttribute('listindex',i);
             td.onclick = function () {
+                var index=this.getAttribute('listindex');
+                if(typeof (info_email[index]['checked'])!=='undefined'&&info_email[index]['checked']==0){
+                    //任务邮件情况
+                    if(typeof (info_email[index]['content'])=='undefined'){
+                        checkTaskemail();
+                        info_email[index]['checked']=1;
+                    }
+                    //feedback情况
+                    else{
+                        checkFeedback(taskid);
+                        info_email[index]['checked']=1;
+                    }
+                }
                 document.getElementById("receiveemail").value = content;
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
                     alert(data);
@@ -653,6 +717,24 @@ function createEmailTable(parent,datas,tbodyid) {
             }
         })(i)
     }
+}
+function checkTaskemail() {
+    $.ajax({ url: "check_taskemail.php",
+        data:{sid:sid},
+        success: function (data) {
+            var info=eval(data);
+            console.log(info);
+        }
+    });
+}
+function checkFeedback(taskid) {
+    $.ajax({ url: "check_feedback.php",
+        data:{sid:sid,taskid:taskid},
+        success: function (data) {
+            var info=eval(data);
+            console.log(info);
+        }
+    });
 }
 //生成资源列表
 function createUrlTable(datas, tbodyid) {
@@ -719,4 +801,6 @@ function removeInput(nm) {
     return true;
 }
 
-
+function beforeUnload() {
+    return 'sadf';
+}
