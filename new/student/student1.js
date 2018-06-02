@@ -9,16 +9,16 @@
 
 
 
-window.onbeforeunload = function(){
-    saveDraft();
-    return "确认离开？" ;
-};
+
 
 //-----------------控制台--------------------
 var getEmailInterval=6000;
 var onlineuserInterval=5000;
 //小组学生数
 var groupstunumber=4;
+var getChatmsgInterval=3000;
+var firstGetChat=1000;
+var updateOnlineInterval=10000;
 
 //-----------------设置变量---------------------
 //-----------------信息存储---------------------
@@ -60,20 +60,36 @@ var homework_data=[];
 //生成上传按钮部分
 var attachname ="attach";
 var attachnum=1;
+
+//-----------------聊天室------------
+// 记录当前获取到的聊天消息id的最大值，防止获取到重复的信息
+// 服务器只返回maxtimeStamp以后的聊天信息
+var maxChattimeStamp='1000-01-01 00:00:00';
+
 //-----------------执行部分----------------------------------------------
+window.onbeforeunload = function(){
+    saveDraft();
+    return "确认离开？" ;
+};
+
+
 /*
 getGroupInfo();
 //取得用户信息
 getUserInfo();
 taskname_url();
 getEmailData();
-updateGetOnlineuser();
 setInterval("getEmailDataConstantly()", getEmailInterval);
 setInterval("updateGetOnlineuser()", onlineuserInterval);
 */
 initialize();
 prepareAllTable();
+//setTimeout('showmessage()',1000);
 setInterval("getNewEmail()",getEmailInterval);
+// 轮询以实现自动的页面更新
+setInterval("showmessage()", getChatmsgInterval);
+setInterval("updateGetOnlineuser()", updateOnlineInterval);
+
 
 //-----------------设置点击事件------------------
 
@@ -108,6 +124,7 @@ function initialize() {
             lasttask['checked']=info['task']['checked'];
 
             createUI();
+            updateGetOnlineuser();
             reminder(info['feedback'],info['task']);
         }
     });
@@ -145,9 +162,9 @@ function createUI() {
     createEmailTable('emailtable',info_email,'emailtbody');
     createHomeworkTable(info_report,'homeworktbody');
     //填写抄送
-    var str=info_group[0]['username'];
+    var str=info_group['username'][0];
     for(var j=1;j<groupstunumber;j++){
-        str+=';'+info_group[j]['username'];
+        str+=';'+info_group['username'][j];
     }
     document.getElementById("r_copy").innerHTML='抄送:'+str;
 }
@@ -263,29 +280,31 @@ function getGroupInfo() {
 }
 
 */
-//更新在线用户列表;
-/*
+
+
+
 function updateGetOnlineuser() {
-    getGroupInfo();
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
         //返回的json数据解码，数据存进data_array
         var data_array = eval(data);
         var onlineuserlist_str = "";
-        for (var k = 1; k <= groupstunumber; k++) {
-            if (jQuery.inArray(groupmemmber['stuname'][k], data_array['onlineuser_name']) != -1) {
-                onlineuserlist_str += groupmemmber['stuname'][k] + '(在线）<br/>';
+        var len=info_group['userid'].length;
+        for (var k = 0; k <len-1; k++) {
+            if (jQuery.inArray(info_group['userid'][k], data_array['userid']) != -1) {
+                onlineuserlist_str += info_group['username'][k] + '(在线）<br/>';
             } else {
-                onlineuserlist_str += groupmemmber['stuname'][k] + '<br/>';
+                onlineuserlist_str += info_group['username'][k] + '<br/>';
             }
         }
-        if (jQuery.inArray(groupmemmber['tutorname'], data_array['onlineuser_name']) != -1) {
+        if (jQuery.inArray(info_group['userid'][len-1], data_array['userid']) != -1) {
             onlineuserlist_str += '导师&nbsp' + '张华' + '(在线）';
         } else {
             onlineuserlist_str += '导师&nbsp' + '张华';
         }
         document.getElementById("在线列表").innerHTML = onlineuserlist_str;
+        console.log('online list updated!')
     })
-}*/
+}
 
 //-----------------功能小函数----------------------------------------------
 function saveDraftLocal() {
@@ -801,6 +820,66 @@ function removeInput(nm) {
     return true;
 }
 
-function beforeUnload() {
-    return 'sadf';
+
+//-----------------聊天室部分----------------------------------------------
+//显示聊天内容的函数
+function showmessage() {
+    //ajax请求
+    var ajax = new XMLHttpRequest();
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4) {
+            // 将获取到的字符串存入data变量
+            eval('var data = ' + ajax.responseText);
+            // 遍历data数组，把内部的信息一个个的显示到页面上
+            var s = "";
+            for (var i = 0; i < data.length; i++) {
+                s += "(" + data[i].timeStamp + ") >>>";
+                s += "<p>";
+                s += data[i].username + "&nbsp;" + "说：" + data[i].content;
+                s += "</p>";
+            }
+            //记录最大的timeStamp
+            if(data.length!==0){
+                maxChattimeStamp=data[data.length-1].timeStamp;
+            }
+            // 显示聊天内容
+            var showmessage = document.getElementById("up");
+            showmessage.innerHTML += s;
+            //showmessage.innerHTML = s;
+            //showmessage.scrollTop 可以实现div底部最先展示
+            //divnode.scrollHeight而已获得div的高度包括滚动条的高度
+            showmessage.scrollTop = showmessage.scrollHeight - showmessage.style.height;
+            console.log('chat message updated');
+        }
+    };
+    ajax.open('get', './chatroom.php?maxtimeStamp=' + maxChattimeStamp+ '&sid=' + sid);
+    ajax.send(null);
 }
+
+//发送聊天消息的函数
+function send() {
+    var form = document.getElementById('chatform');
+    //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
+    var formdata = new FormData(form);
+    formdata.append('sid', sid);
+    //ajax请求
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            //提示区会提示success表示发送成功
+            //document.getElementById("result").innerHTML = xhr.responseText;
+            //2秒后提示信息消失
+            //setTimeout("hideresult()", 2000);
+        }
+    };
+    xhr.open('post', './chatroom_insert.php');
+    xhr.send(formdata);
+    //自动清空输入框
+    document.getElementById("msg").value = "";
+}
+
+//清除提示发送成功的消息
+function hideresult() {
+    document.getElementById('result').innerHTML = "";
+}
+

@@ -38,9 +38,10 @@ $ret_report=mysqli_query($link,$query);
 $query="SELECT timeStamp,checked FROM task WHERE userid='$userid' limit 1";
 $ret_task=mysqli_query($link,$query);
 
-//查询小组成员姓名
-$query="SELECT username FROM account WHERE classid='$classid' AND groupid='$groupid' AND role='student'";
+//查询小组学生成员
+$query="SELECT username,userid,role FROM account WHERE (classid='$classid' AND groupid='$groupid') OR (classid='$classid' AND role='tutor')";
 $ret_group=mysqli_query($link,$query);
+
 
 
 mysqli_close($link);
@@ -78,9 +79,25 @@ foreach ($time_arr as $key=>$value){
 
 
 $info['group']=[];
+$info['group']['userid']=[];
+$info['group']['username']=[];
+
+$group=[];
 while ($rst = mysqli_fetch_assoc($ret_group)) {
-    $info['group'][] = $rst;
+    $group[] = $rst;
 }
+foreach ($group as $key=>$value){
+    if($group[$key]['role']=='student'){
+        $info['group']['userid'][]=$group[$key]['userid'];
+        $info['group']['username'][]=$group[$key]['username'];
+    }
+    if($group[$key]['role']=='tutor'){
+        $tutorindex=$key;
+    }
+}
+$info['group']['userid'][]=$group[$tutorindex]['userid'];
+$info['group']['username'][]=$group[$tutorindex]['username'];
+
 //存储用户信息
 $info['user']=[];
 $info['user']=$_SESSION;
