@@ -65,7 +65,7 @@ if($evaluation=='通过'){
 
             //更新小组成员task时间
             $time_added=','.$time;
-            $query="UPDATE task SET timeStamp=CONCAT(timeStamp,'$time_added') WHERE userid IN (SELECT userid FROM account WHERE classid='$classid' AND groupid='$groupid')";
+            $query="UPDATE task SET timeStamp=CONCAT(timeStamp,'$time_added'),checked=0 WHERE userid IN (SELECT userid FROM account WHERE classid='$classid' AND groupid='$groupid')";
             mysqli_query($link,$query);
 
 

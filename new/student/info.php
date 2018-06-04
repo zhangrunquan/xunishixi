@@ -1,5 +1,8 @@
 <?php
 //header("Content-Type:application/json");
+$taskemailnum=10;
+
+
 
 $sid=$_GET['sid'];
 session_id($sid);
@@ -47,9 +50,31 @@ $ret_group=mysqli_query($link,$query);
 mysqli_close($link);
 
 //查询xml信息
+$xml=simplexml_load_file('pro.xml');
+$pro=[];
+for($i=0;$i<$taskemailnum;$i++){
+    $task=$xml->task[$i];
+    $taskname=(string)$task->taskName;
+    $pro[$i]=[];
+    $pro[$i]['intro']=[];
+    $pro[$i]['url']=[];
+    $pro[$i]['taskname']=$taskname;
+    $resouces=$task->resources;
+    $num=count($resouces->children());
+    for($k=0;$k<$num;$k++){
+        $pro[$i]['intro'][$k]=(string)$resouces->resource[$k]->introRes;
+        $pro[$i]['url'][$k]=(string)$resouces->resource[$k]->resURL;
+    }
+}
+
+
 
 //把信息存储到一个数组
 $info=[];
+
+$info['pro']=[];
+$info['pro']=$pro;
+
 $info['feedback']=[];
 while ($rst = mysqli_fetch_assoc($ret_feedback)) {
     $info['feedback'][] = $rst;
@@ -98,9 +123,14 @@ foreach ($group as $key=>$value){
 $info['group']['userid'][]=$group[$tutorindex]['userid'];
 $info['group']['username'][]=$group[$tutorindex]['username'];
 
+
+
 //存储用户信息
 $info['user']=[];
 $info['user']=$_SESSION;
 
 echo (json_encode($info));
+
+
+
 

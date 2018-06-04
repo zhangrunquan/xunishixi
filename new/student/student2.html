@@ -127,14 +127,14 @@
                     <div style="overflow:hidden;height:520px;width:800px;float:left;">
                         邮件撰写中&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button id="提交作业" onclick="submitHomework()">回复邮件</button><button id="save" onclick="saveReport()">保存草稿</button>
+                        <button id="提交作业" onclick="submitHomework()" style="display: none">回复邮件</button><button id="save" onclick="saveDraft()" style="display: none">保存草稿</button>
                         </br>收件人：张华<!--<input style="width:600px">-->
                         </br><p id="s_title">主题：</p>&nbsp;&nbsp;&nbsp;<!--<input  style="width:600px">-->
                         <!--<button>添加附件</button>-->
-                        <button id='addfile' onclick="addInput()">添加附件</button>
-                        <button id="deletefile" onclick="deleteInput()">删除附件</button>
+                        <button id='addfile' onclick="addInput()" style="display: none">添加附件</button>
+                        <button id="deletefile" onclick="deleteInput()" style="display: none">删除附件</button>
                         <div style="overflow:hidden;height:70px;width:800px;float:left;background-color: #A9D0F5">
-                            <form id="upload" enctype="multipart/form-data">上传</form>
+                            <form id="upload" enctype="multipart/form-data" style="display: none">上传</form>
                         </div>
                         <textarea id="sendemail" style="resize:none;height:510px;width:800px;margin-top:10px"></textarea>
                     </div>
