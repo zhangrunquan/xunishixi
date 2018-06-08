@@ -6,6 +6,9 @@ var GROUPNUM = 4;
 var EVALUATIONNUM = 4;
 var homework = [];
 var user_info_array = [];
+var group_num=4;
+var maxtimeStamp='1000-01-01 00:00:00';
+
 var sid = getQueryString("sid");
 //存储xml中的信息
 var info_pro=[];
@@ -20,8 +23,59 @@ var stu_numberingroup = 0;
 //getHomework();
 initialize();
 setInterval("buttonControl()", 5000);
-
+window.onload = function(){
+    // 轮询以实现自动的页面更新
+    setInterval(function () {get_chat_data();},1500);
+    //setInterval("updateGetOnlineuser()",2000);
+};
 //-----------------函数定义部分----------------------------------------------
+function get_chat_data(){
+    //ajax请求
+    $.get("get_chat_data.php",{sid:sid,maxtimeStamp:maxtimeStamp},function(data){
+        //返回的json数据解码，数据存进data_array
+        var data_array=eval(data);
+        var s="";
+        for(var k=1;k<=group_num;k++){
+            for(var i=0;i<data[k].length;i++){
+                s += "("+data_array[k][i].timeStamp+") >>>";
+                s += "<p>";
+                s += data_array[k][i].username +"&nbsp;"+"说：" + data_array[k][i].content;
+                s += "</p>";
+            }
+            //maxid增加这一组这一次接收的聊天信息条数
+            //maxid+=data[k].length;
+            var lastmessage=data_array[k].length-1;
+            if(lastmessage!=-1){
+                var lasttimeStamp=data_array[k][lastmessage]['timeStamp'];
+                if(lasttimeStamp>maxtimeStamp){
+                    maxtimeStamp=lasttimeStamp;
+                }
+            }
+
+            // 显示聊天内容（onload事件）
+            var showmessage = document.getElementById("chatcontent"+k);
+            showmessage.innerHTML += s;
+            //重置s
+            s="";
+            //showmessage.scrollTop 可以实现div底部最先展示
+            // divnode.scrollHeight而已获得div的高度包括滚动条的高度
+            //showmessage.scrollTop = showmessage.scrollHeight-showmessage.style.height;
+        }
+
+    })
+}
+
+//发送聊天消息的函数
+function send(chatroomid) {
+    var content=document.getElementById('msg'+chatroomid).value;
+    $.ajax({ url: "multichatroom_insert.php",
+        data:{sid:sid,chatroomid:chatroomid,msg:content},
+        success: function (data) {
+            console.log('send msg '+data)
+        }
+    });
+}
+
 //获取get传值的方法
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -60,6 +114,29 @@ function initialize() {
     })
 }
 
+function makeEmail() {
+    console.log('start makeemail')
+    var check_result = checkAll();
+    var checkallgood=check_result['result'];
+    var choice_arr=check_result['arr'];
+    var index=stu_taskid-1;
+    var text=info_pro[index]['feedbackintro'].trim()+'\n';
+    if(checkallgood==1){
+        text+=info_pro[index]['allAcceptFeedback'].trim()+'\n';
+    }
+    else if(checkallgood == 0){
+        text+=info_pro[index]['allReviseFeedback'].trim()+'\n';
+    }
+    for(var i=0;i<choice_arr.length;i++){
+        if(choice_arr[i]==0){
+            text+=info_pro[index]['feedback'][i].trim()+'\n';
+        }
+    }
+    text+=info_pro[index]['reviseDeadline'].trim()+'\n';
+    text+='祝好！'+'\n'+'张华';
+    document.getElementById('教师反馈').value=text;
+}
+
 function feedbackEmail() {
     var button = document.getElementById('feedback');
     //禁用提交按钮，防止重复反馈
@@ -70,7 +147,6 @@ function feedbackEmail() {
         button.removeAttribute('disabled');
         return (0);
     }
-    // checkallgood 统计所有评价选项   0有中或差  1全为好 2评价没选全
     var check_result = checkAllGood();
     var checkallgood=check_result['result'];
     if (checkallgood == 1) {
@@ -80,6 +156,7 @@ function feedbackEmail() {
     } else {
         return false;
     }
+    /*
     //生成邮件内容
     var choice_arr=check_result['arr'];
     var index=stu_taskid-1;
@@ -96,7 +173,7 @@ function feedbackEmail() {
         }
     }
     text+=info_pro[index]['reviseDeadline'].trim()+'\n';
-
+    */
     //ajax请求将数据送往后台
     $.get("tutor_feedback_email.php", {
         groupid: stu_group,
@@ -141,6 +218,29 @@ function checkAllGood() {
         if (result == 2) {
             alert("评价选项没选全哦，orz");
             checkresult['result']=2;
+            //2代表没选
+            checkresult['arr'][i]=2;
+        }
+        else if (result == 0) {
+            checkresult['arr'][i]=0;
+            checkresult['result']=0;
+        }
+        else {
+            checkresult['arr'][i]=1;
+        }
+    }
+    return checkresult;
+}
+function checkAll() {
+    var checkresult=[];
+    checkresult['arr']=[];
+    checkresult['result']=1;
+    for (var i = 0; i < EVALUATIONNUM; i++) {
+        var result = checkGood("evaluation" + i);
+        if (result == 2) {
+            checkresult['result']=2;
+            //2代表没选
+            checkresult['arr'][i]=2;
         }
         else if (result == 0) {
             checkresult['arr'][i]=0;
@@ -257,6 +357,8 @@ function dialog(groupid, taskid, numberingroup) {
     stu_numberingroup = numberingroup;
     stu_taskid = taskid;
     EVALUATIONNUM=info_pro[taskid-1]['rubrics'].length;
+    openDialog();
+
     $.get("check_homework_evaluation.php", {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
@@ -268,6 +370,7 @@ function dialog(groupid, taskid, numberingroup) {
         var message=info_arr['evaluation'];
         document.getElementById('学生作业').value =info_arr['content'];
         var urldiv=document.getElementById('url');
+        urldiv.innerHTML='';
         for(var i=0;i<info_arr['url'].length;i++){
             var a=document.createElement('a');
             a.href=info_arr['url'][i];
@@ -284,7 +387,8 @@ function dialog(groupid, taskid, numberingroup) {
             textarea.value = message;
             button.hide();
         } else {
-            textarea.value = "";
+            //textarea.value = "";
+            //textarea.setAttribute('readonly', 'readonly');
             textarea.removeAttribute('readonly');
             button.show();
             document.getElementById('feedback').removeAttribute('disabled');
@@ -306,11 +410,15 @@ function dialog(groupid, taskid, numberingroup) {
         var inputb=document.createElement('input');
         inputb.type='radio';
         inputb.name='evaluation'+i;
+        inputb.onchange=makeEmail();
+        /*inputb.onclick=function (ev) {
+            alert(1)
+        };*/
         parent.appendChild(inputb);
         parent.innerHTML+='不通过';
     }
 
-    openDialog();
+    //openDialog();
     console.log('dialog formed');
 }
 /*
