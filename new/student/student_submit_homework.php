@@ -70,7 +70,7 @@ mysqli_query($link,$query);
 
 //更改作业状态记录
 //如果评价是‘待修改’，修改旧记录
-if($evaluation=='待修改'){
+if($evaluation=='待修改'||$evaluation=='未提交'){
     //$query="DELETE FROM homework_mood WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
     $query="UPDATE homework_mood SET evaluation='批改中' WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
     mysqli_query($link,$query);

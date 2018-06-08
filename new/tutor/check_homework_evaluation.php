@@ -28,7 +28,7 @@ $ret=mysqli_query($link,$query);
 $evaluaion_array=mysqli_fetch_assoc($ret);
 
 //查询作业内容
-$query="SELECT max(timeStamp),content FROM log WHERE userid='$userid' AND actiontype='ReportSubmit'";
+$query="SELECT content FROM report WHERE userid='$userid'AND taskid='$taskid'";
 $ret=mysqli_query($link,$query);
 mysqli_close($link);
 $homeworkcontent_arr=mysqli_fetch_assoc($ret);

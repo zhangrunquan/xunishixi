@@ -82,7 +82,9 @@ function initialize() {
             //减去checked项
             taskidnow=objectLength(info['task'])-1;
             sortEmailarr(info['task'],info['feedback'],0);
+            groupstunumber=objectLength(info_group['userid'])-1;
 
+            console.log('group stu num :'+groupstunumber);
             console.log('initialize info');
             console.log(info);
             console.log('info_email');
@@ -274,7 +276,7 @@ function hideAllButton() {
 }
 //显示按钮
 function showButton(id) {
-    document.getElementById(id).style.display='block';
+    document.getElementById(id).style.display='inline';
 }
 //显示发件箱所有按钮
 function showAllButton(){
