@@ -278,7 +278,7 @@ a{text-decoration:none;color:black;}
     <div class="parent" style="background-color: lightgrey;">
         <div class="child" style="background-color: lightblue;">
         	<h5>组一</h5>
-            <div style="width:100%;height:200px;background-color:white;"></div>
+            <div style="width:100%;height:200px;background-color:white;" id="chatcontent1"></div>
             <ul class="accordion" data-accordion>
              <li class="accordion-navigation">
              <a href="#demo">提问</a>
@@ -299,9 +299,9 @@ a{text-decoration:none;color:black;}
 
        </div>
         
-        <div class="child" style="background-color: lightgreen;">
+        <div class="child" style="background-color: lightgreen;" >
         	<h5>组二</h5>
-            <div style="width:100%;height:200px;background-color:white;"></div>
+            <div style="width:100%;height:200px;background-color:white;" id="chatcontent2"></div>
             <ul class="accordion" data-accordion>
              <li class="accordion-navigation">
              <a href="#demo">提问</a>
@@ -323,7 +323,7 @@ a{text-decoration:none;color:black;}
         
         <div class="child" style="background-color: lightsalmon;">
         	<h5>组三</h5>
-            <div style="width:100%;height:200px;background-color:white;"></div>
+            <div style="width:100%;height:200px;background-color:white;" id="chatcontent3"></div>
             <ul class="accordion" data-accordion>
              <li class="accordion-navigation">
              <a href="#demo">提问</a>
@@ -345,7 +345,7 @@ a{text-decoration:none;color:black;}
         
         <div class="child" style="background-color: pink;">
         	<h5>组四</h5>
-            <div style="width:100%;height:200px;background-color:white;"></div>
+            <div style="width:100%;height:200px;background-color:white;" id="chatcontent4"></div>
             <ul class="accordion" data-accordion>
              <li class="accordion-navigation">
              <a href="#demo">提问</a>
@@ -404,15 +404,17 @@ $(document).ready(function() {
       <div style="width:30%;float:left;">
         <textarea style="width:400px;height:480px;resize:none;" readonly="readonly" id="学生作业"></textarea>
       </div>
-      <div style="width:32%;float:left; margin-left:25px;">
-        <div style="float:top;">评价标准标题最好限制字数<br><input type="radio">好<input type="radio">不好<textarea style="resize:none;height:100px" readonly="readonly"></textarea></div>
+     <div id="url"></div>
+     <div style="width:32%;float:left; margin-left:25px;" id="rubrics">
 
-        <div style="float:top;">标准不超过5条&nbsp&nbsp&nbsp<textarea style="resize:none;height:100px" readonly="readonly"></textarea><input type="radio">好<input type="radio">不好</div>
+         <!--      <div style="float:top;">评价标准标题最好限制字数<br><input type="radio">好<input type="radio">不好<textarea style="resize:none;height:100px" readonly="readonly"></textarea></div>
 
-        <div style="float:top;">超过三条，显示滚动条<textarea  style="resize:none;height:108px" readonly="readonly"></textarea><input type="radio">好<input type="radio">不好</div>
+               <div style="float:top;">标准不超过5条&nbsp&nbsp&nbsp<textarea style="resize:none;height:100px" readonly="readonly"></textarea><input type="radio">好<input type="radio">不好</div>
 
+               <div style="float:top;">超过三条，显示滚动条<textarea  style="resize:none;height:108px" readonly="readonly"></textarea><input type="radio">好<input type="radio">不好</div>
+       -->
       </div>
-      <div style="width:30%;float:left;margin-left:25px;"><textarea style="width:385px;height:408px;" id="教师反馈">sds</textarea>
+      <div style="width:30%;float:left;margin-left:25px;"><textarea style="width:385px;height:408px;" id="教师反馈"></textarea>
         <button onclick="feedbackEmail()" id="feedback">发送邮件</button></div>
       <a href = "javascript:void(0)" onclick = "closeDialog()" style="position:absolute;top:10px">
       	<img border="0" src="image/1.png" />
@@ -420,5 +422,6 @@ $(document).ready(function() {
     </div> 
         <div id="fade" class="black_overlay"></div>
 <script src="tutor1.js"></script>
+<script src="multichatroom.js"></script>
 </body>
 </html>

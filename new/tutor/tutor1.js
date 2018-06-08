@@ -71,7 +71,8 @@ function feedbackEmail() {
         return (0);
     }
     // checkallgood 统计所有评价选项   0有中或差  1全为好 2评价没选全
-    var checkallgood = checkAllGood();
+    var check_result = checkAllGood();
+    var checkallgood=check_result['result'];
     if (checkallgood == 1) {
         var evaluation = "通过";
     } else if (checkallgood == 0) {
@@ -80,13 +81,28 @@ function feedbackEmail() {
         return false;
     }
     //生成邮件内容
+    var choice_arr=check_result['arr'];
+    var index=stu_taskid-1;
+    var text=info_pro[index]['feedbackintro'].trim()+'\n';
+    if(checkallgood==1){
+        text+=info_pro[index]['allAcceptFeedback'].trim()+'\n';
+    }
+    else if(checkallgood == 0){
+        text+=info_pro[index]['allReviseFeedback'].trim()+'\n';
+    }
+    for(var i=0;i<choice_arr.length;i++){
+        if(choice_arr[i]==0){
+            text+=info_pro[index]['feedback'][i].trim()+'\n';
+        }
+    }
+    text+=info_pro[index]['reviseDeadline'].trim()+'\n';
 
     //ajax请求将数据送往后台
     $.get("tutor_feedback_email.php", {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
         taskid: stu_taskid,
-        emailcontent: emailcontent,
+        emailcontent: text,
         evaluation: evaluation,
         sid:sid
     }, function (data) {
@@ -102,12 +118,12 @@ function checkGood(radioName) {
     var uncheckednum = 0;
     for (var i = 0; i < obj.length; i++) {
         if (obj[i].checked) {
-            if (obj[i].nextSibling.nodeValue != "好") {
+            if (obj[i].nextSibling.nodeValue != "通过") {
                 return 0;
             }
         } else {
             uncheckednum++;
-            if (uncheckednum == 3) {
+            if (uncheckednum == 2) {
                 return 2;
             }
         }
@@ -117,17 +133,24 @@ function checkGood(radioName) {
 
 //统计所有评价选项   0有中或差  1全为好 2评价没选全
 function checkAllGood() {
-    var check_result = 0;
+    var checkresult=[];
+    checkresult['arr']=[];
+    checkresult['result']=1;
     for (var i = 0; i < EVALUATIONNUM; i++) {
-        check_result = checkGood("evaluation" + i);
-        if (check_result == 2) {
+        var result = checkGood("evaluation" + i);
+        if (result == 2) {
             alert("评价选项没选全哦，orz");
-            return 2;
-        } else if (check_result == 0) {
-            return 0;
+            checkresult['result']=2;
+        }
+        else if (result == 0) {
+            checkresult['arr'][i]=0;
+            checkresult['result']=0;
+        }
+        else {
+            checkresult['arr'][i]=1;
         }
     }
-    return 1;
+    return checkresult;
 }
 /*
 //取得作业表存入homework数组
@@ -173,10 +196,10 @@ function buttonControl() {
             }
             else if(evaluation=='批改中'){
                 button.innerHTML='<img border="0" src="image/2.png">';
-                button.style.display='block';
+                button.style.display='inline';
             }else if(evaluation=='未提交'||evaluation=='待修改'){
                 button.innerHTML='<img border="0" src="image/3.png">';
-                button.style.display='block';
+                button.style.display='inline';
             }
         }
         console.log('button control');
@@ -233,16 +256,27 @@ function dialog(groupid, taskid, numberingroup) {
     stu_group = groupid;
     stu_numberingroup = numberingroup;
     stu_taskid = taskid;
-
+    EVALUATIONNUM=info_pro[taskid-1]['rubrics'].length;
     $.get("check_homework_evaluation.php", {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
         taskid: stu_taskid,
         sid:sid
     }, function (data) {
+        console.log(data)
         var info_arr=JSON.parse(data);
         var message=info_arr['evaluation'];
         document.getElementById('学生作业').value =info_arr['content'];
+        var urldiv=document.getElementById('url');
+        for(var i=0;i<info_arr['url'].length;i++){
+            var a=document.createElement('a');
+            a.href=info_arr['url'][i];
+            a.download='12.pdf';
+            //a.target="_blank";
+            var node = document.createTextNode(info_arr['url'][i]);
+            a.appendChild(node);
+            urldiv.appendChild(a);
+        }
         var button = $("#feedback");
         var textarea = document.getElementById("教师反馈");
         if (message == '作业已通过！' || message == '作业待学生修改！') {
@@ -257,6 +291,25 @@ function dialog(groupid, taskid, numberingroup) {
         }
         console.log('dialog formed');
     });
+    var parent=document.getElementById('rubrics');
+    parent.innerHTML='';
+    for(var i=0;i<info_pro[taskid-1]['rubrics'].length;i++){
+        var div=document.createElement('div');
+        div.setAttribute('style',"float:top;");
+        div.innerHTML=info_pro[taskid-1]['rubrics'][i];
+        parent.appendChild(div);
+        var inputa=document.createElement('input');
+        inputa.type='radio';
+        inputa.name='evaluation'+i;
+        parent.appendChild(inputa);
+        parent.innerHTML+='通过';
+        var inputb=document.createElement('input');
+        inputb.type='radio';
+        inputb.name='evaluation'+i;
+        parent.appendChild(inputb);
+        parent.innerHTML+='不通过';
+    }
+
     openDialog();
     console.log('dialog formed');
 }
