@@ -1,5 +1,5 @@
 /*
-提示：
+提示：初始化info_pop,应对taskid更新情况
 */
 //-----------------常量设置----------------------------------------------
 var GROUPNUM = 4;
@@ -12,7 +12,13 @@ var maxtimeStamp='1000-01-01 00:00:00';
 var sid = getQueryString("sid");
 //存储xml中的信息
 var info_pro=[];
-
+//各小组当前taskid
+var info_taskid=[];
+//记录已发送的预定语句
+var info_pop=[];
+for(var y=0;y<group_num;y++){
+    info_pop[y]=[];
+}
 //--------评价作业时的学生信息
 var stu_group = 0;
 var stu_taskid = 0;
@@ -76,6 +82,76 @@ function send(chatroomid) {
     });
 }
 
+function sendSentence(chatroomid) {
+    var target=document.getElementById('sentence'+chatroomid);
+    var content=target.getAttribute('chatmsg');
+    $.ajax({ url: "multichatroom_insert.php",
+        data:{sid:sid,chatroomid:chatroomid,msg:content},
+        success: function (data) {
+            console.log('send msg '+data)
+        }
+    });
+}
+function initializeSentence() {
+    for(var i=1;i<=group_num;i++){
+        (function () {
+            var id='sentence'+i;
+            sentence(id,0,info_taskid[i-1]['taskidnow'])
+        })(i);
+    }
+    console.log('Sentence initialized')
+}
+//填充预定回复的函数，接受 目标id, 语句在数组中的索引,任务id 作为参数
+function sentence(targetid,index,taskid) {
+    var target=document.getElementById(targetid);
+    var chatname=info_pro[taskid-1]['chatName'][index];
+    var chatmsg=info_pro[taskid-1]['chatMsg'][index];
+    target.value=chatname;
+    target.setAttribute('index',index);
+    target.setAttribute('chatmsg',chatmsg);
+}
+//准备sentence()的参数
+function changesentence(chatroomid,change) {
+    var target=document.getElementById('sentence'+chatroomid);
+    var taskid=info_taskid[chatroomid-1]['taskidnow'];
+    var oldindex=target.getAttribute('index');
+    var newindex=oldindex+change;
+    newindex=checkpop(newindex,taskid,chatroomid,change);
+    if(newindex=='无'){
+        target.innerHTML='没有啦';
+        return false;
+    }
+    /*
+    if(newindex==info_pro[taskid-1]['chatName'].length){
+        newindex=0
+    }
+    else if (newindex==-1){
+        newindex=info_pro[taskid-1]['chatName'].length-1;
+    }*/
+    else{
+        var id='sentence'+chatroomid
+        sentence(id,newindex,taskid);
+    }
+}
+//检查预定语句是否已发送过，如果已发送过，将index变为合适的值
+function checkpop(index,taskid,chatroomid,change) {
+    if(info_pop[chatroomid-1][taskid-1].length==info_pro[taskid - 1]['chatName'].length){
+        return '无';
+    }
+    if (newindex == info_pro[taskid - 1]['chatName'].length) {
+        newindex = 0
+    }
+    else if (newindex == -1) {
+        newindex = info_pro[taskid - 1]['chatName'].length - 1;
+    }
+    if(jQuery.inArray(index, info_pop[chatroomid-1][taskid-1]) != -1) {
+        newindex = index + change;
+        checkpop(newindex, taskid, chatroomid, change);
+    }
+    else {
+        return index;
+    }
+}
 //获取get传值的方法
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -90,6 +166,7 @@ function initialize() {
         var info = JSON.parse(data);
         var homeworkmood=info['homeworkmood'];
         info_pro=info['pro'];
+        info_taskid=info['taskid'];
         for(var i=0;i<homeworkmood.length;i++){
             var numberingroup=homeworkmood[i]['numberingroup'];
             //按规则求出按钮的id，规则为：id三位命名数字分别为：组号，taskid，numberingroup
@@ -109,6 +186,7 @@ function initialize() {
                 button.style.display='inline';
             }
         }
+        initializeSentence()
         console.log('initialize');
         console.log(info);
     })
@@ -286,7 +364,10 @@ function buttonControl() {
 function buttonControl() {
     $.get("button_control.php", {sid:sid}, function (data) {
         //此处解析不能通过alert来查看，但可以直接使用
-        var homeworkmood = eval(data);
+        var info=JSON.parse(data);
+
+        var homeworkmood = info['homeworkmood'];
+        info_taskid=info['taskid'];
         for(var i=0;i<homeworkmood.length;i++){
             var numberingroup=homeworkmood[i]['numberingroup'];
             //按规则求出按钮的id，规则为：id三位命名数字分别为：组号，taskid，numberingroup
@@ -307,7 +388,7 @@ function buttonControl() {
             }
         }
         console.log('button control');
-        console.log(homeworkmood);
+        console.log(info);
     })
 }
 /*

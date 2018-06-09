@@ -17,8 +17,18 @@ mysqli_query($link,'use database1');
 //联合查询作业状态数据
 $query="SELECT taskid,evaluation,groupid,numberingroup FROM account INNER JOIN homework_mood ON account.userid=homework_mood.userid WHERE account.classid='$classid'";
 $ret=mysqli_query($link,$query);
+$query="SELECT groupid,taskidnow FROM group_attr WHERE classid='$classid' ORDER BY groupid";
+$ret_taskid=mysqli_query($link,$query);
 mysqli_close($link);
+$homeworkmood=[];
 while ($rst = mysqli_fetch_assoc($ret)) {
     $homeworkmood[] = $rst;
 }
-echo(json_encode($homeworkmood));
+$taskid_arr=[];
+while ($rst = mysqli_fetch_assoc($ret_taskid)) {
+    $taskid_arr[] = $rst;
+}
+$info=[];
+$info['homeworkmood']=$homeworkmood;
+$info['taskid']=$taskid_arr;
+echo(json_encode($info));

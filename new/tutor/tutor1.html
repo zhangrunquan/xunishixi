@@ -283,9 +283,12 @@ a{text-decoration:none;color:black;}
              <li class="accordion-navigation">
              <a href="#demo">提问</a>
                <div id="demo" class="content active">
-                <input type="text" name="country" value="你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？" 
-                readonly="readonly" />
-                <button type="button">发送</button>
+                <input type="text" name="country" value="你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？"
+                       readonly="readonly" id="sentence1"/>
+                   <button onclick="changesentence(1,-1)">上一条</button>
+                   <button onclick="changesentence(1,1)">下一条</button>
+
+                   <button type="button" onclick="sendSentence(1)">发送</button>
               </div>
             </li>
             <li class="accordion-navigation">
@@ -307,7 +310,7 @@ a{text-decoration:none;color:black;}
              <a href="#demo">提问</a>
                <div id="demo" class="content active">
                 <input type="text" name="country" value="你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？" 
-                readonly="readonly" />
+                readonly="readonly"  id="sentence2"/>
                 <button type="button">发送</button>
               </div>
             </li>
@@ -315,7 +318,7 @@ a{text-decoration:none;color:black;}
             <a href="#demo2">聊天</a>
               <div id="demo2" class="content">
                <input id="msg2">
-               <button type="button" onclick="send(1)" >发送</button>
+               <button type="button" onclick="send(2)" >发送</button>
               </div>
             </li>
             </ul>
@@ -329,7 +332,7 @@ a{text-decoration:none;color:black;}
              <a href="#demo">提问</a>
                <div id="demo" class="content active">
                 <input type="text" name="country" value="你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？" 
-                readonly="readonly" />
+                readonly="readonly"  id="sentence3"/>
                 <button type="button">发送</button>
               </div>
             </li>
@@ -351,7 +354,7 @@ a{text-decoration:none;color:black;}
              <a href="#demo">提问</a>
                <div id="demo" class="content active">
                 <input type="text" name="country" value="你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？" 
-                readonly="readonly" />
+                readonly="readonly"  id="sentence4"/>
                 <button type="button">发送</button>
               </div>
             </li>
@@ -421,7 +424,7 @@ $(document).ready(function() {
       </a>
     </div> 
         <div id="fade" class="black_overlay"></div>
-<script src="../all/jquery-3.3.1.min.js"></script>
+<!--<script src="../all/jquery-3.3.1.min.js"></script>-->
 <script src="tutor1.js"></script>
 <!--<script src="multichatroom.js"></script>-->
 </body>
