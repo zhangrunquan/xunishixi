@@ -8,7 +8,7 @@ var homework = [];
 var user_info_array = [];
 var group_num=4;
 var maxtimeStamp='1000-01-01 00:00:00';
-
+var tasknum=10;
 var sid = getQueryString("sid");
 //存储xml中的信息
 var info_pro=[];
@@ -16,9 +16,7 @@ var info_pro=[];
 var info_taskid=[];
 //记录已发送的预定语句
 var info_pop=[];
-for(var y=0;y<group_num;y++){
-    info_pop[y]=[];
-}
+
 //--------评价作业时的学生信息
 var stu_group = 0;
 var stu_taskid = 0;
@@ -83,14 +81,29 @@ function send(chatroomid) {
 }
 
 function sendSentence(chatroomid) {
+
     var target=document.getElementById('sentence'+chatroomid);
+    var text=target.value;
+    if(text=='没有啦'){
+        return;
+    }
     var content=target.getAttribute('chatmsg');
+
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content},
         success: function (data) {
-            console.log('send msg '+data)
+            console.log('send msg '+data);
+            popSentence(chatroomid)
         }
     });
+}
+function popSentence(chatroomid) {
+    var target=document.getElementById('sentence'+chatroomid);
+    var taskid=info_taskid[chatroomid-1]['taskidnow'];
+    var index=Number(target.getAttribute('index'));
+    var len=info_pop[chatroomid-1][taskid-1].length;
+    info_pop[chatroomid-1][taskid-1][len]=index;
+    changesentence(chatroomid,1)
 }
 function initializeSentence() {
     for(var i=1;i<=group_num;i++){
@@ -106,19 +119,23 @@ function sentence(targetid,index,taskid) {
     var target=document.getElementById(targetid);
     var chatname=info_pro[taskid-1]['chatName'][index];
     var chatmsg=info_pro[taskid-1]['chatMsg'][index];
+    //console.log(chatname);
+    //console.log(index)
     target.value=chatname;
     target.setAttribute('index',index);
     target.setAttribute('chatmsg',chatmsg);
 }
 //准备sentence()的参数
 function changesentence(chatroomid,change) {
+    console.log('change sentence begin')
     var target=document.getElementById('sentence'+chatroomid);
     var taskid=info_taskid[chatroomid-1]['taskidnow'];
-    var oldindex=target.getAttribute('index');
+    var oldindex=Number(target.getAttribute('index'));
     var newindex=oldindex+change;
     newindex=checkpop(newindex,taskid,chatroomid,change);
+    console.log('change sentence result: '+newindex)
     if(newindex=='无'){
-        target.innerHTML='没有啦';
+        target.value='没有啦';
         return false;
     }
     /*
@@ -129,26 +146,32 @@ function changesentence(chatroomid,change) {
         newindex=info_pro[taskid-1]['chatName'].length-1;
     }*/
     else{
-        var id='sentence'+chatroomid
+        var id='sentence'+chatroomid;
         sentence(id,newindex,taskid);
     }
 }
 //检查预定语句是否已发送过，如果已发送过，将index变为合适的值
 function checkpop(index,taskid,chatroomid,change) {
+    console.log('check pop begin');
+    console.log('total chats length: '+info_pro[taskid - 1]['chatName'].length);
+    console.log('info_pop length: '+info_pop[chatroomid-1][taskid-1].length);
     if(info_pop[chatroomid-1][taskid-1].length==info_pro[taskid - 1]['chatName'].length){
+        console.log('pop out');
         return '无';
     }
-    if (newindex == info_pro[taskid - 1]['chatName'].length) {
-        newindex = 0
+    if (index == info_pro[taskid - 1]['chatName'].length) {
+        index = 0
     }
-    else if (newindex == -1) {
-        newindex = info_pro[taskid - 1]['chatName'].length - 1;
+    else if (index == -1) {
+        index = info_pro[taskid - 1]['chatName'].length - 1;
     }
     if(jQuery.inArray(index, info_pop[chatroomid-1][taskid-1]) != -1) {
-        newindex = index + change;
-        checkpop(newindex, taskid, chatroomid, change);
+        var newindex = index + change;
+        console.log('poped index changed to: '+newindex);
+        return(checkpop(newindex, taskid, chatroomid, change));
     }
     else {
+        console.log('checkpop result '+index);
         return index;
     }
 }
@@ -186,12 +209,24 @@ function initialize() {
                 button.style.display='inline';
             }
         }
-        initializeSentence()
+        initializepop();
+        initializeSentence();
         console.log('initialize');
         console.log(info);
     })
 }
 
+function initializepop() {
+    for(var i=0;i<group_num;i++){
+        info_pop[i]=[];
+        for(var k=info_taskid[i]['taskidnow']-1;k<tasknum;k++){
+            /*for(var j=0;j<info_pro[k]['chatMsg'].length;j++){
+                info_pop[i][j]
+            }*/
+            info_pop[i][k]=[];
+        }
+    }
+}
 function makeEmail() {
     console.log('start makeemail')
     var check_result = checkAll();
@@ -359,14 +394,22 @@ function buttonControl() {
 
 
 */
-
+function updateTaskid(newarr) {
+    for(var i=0;i<group_num;i++){
+        if(info_taskid[i]['taskidnow']!=newarr[i]['taskidnow']){
+            var number=i+1;
+            var targetid='sentence'+number;
+            sentence(targetid,0,newarr[i]['taskidnow'])
+        }
+    }
+}
 //控制任务按钮
 function buttonControl() {
     $.get("button_control.php", {sid:sid}, function (data) {
         //此处解析不能通过alert来查看，但可以直接使用
         var info=JSON.parse(data);
-
         var homeworkmood = info['homeworkmood'];
+        updateTaskid(info['taskid']);
         info_taskid=info['taskid'];
         for(var i=0;i<homeworkmood.length;i++){
             var numberingroup=homeworkmood[i]['numberingroup'];
