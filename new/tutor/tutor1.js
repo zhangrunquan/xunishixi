@@ -121,6 +121,7 @@ function makeEmail() {
     var choice_arr=check_result['arr'];
     var index=stu_taskid-1;
     var text=info_pro[index]['feedbackintro'].trim()+'\n';
+
     if(checkallgood==1){
         text+=info_pro[index]['allAcceptFeedback'].trim()+'\n';
     }
@@ -132,7 +133,9 @@ function makeEmail() {
             text+=info_pro[index]['feedback'][i].trim()+'\n';
         }
     }
-    text+=info_pro[index]['reviseDeadline'].trim()+'\n';
+    if(checkallgood==0){
+        text+=info_pro[index]['reviseDeadline'].trim()+'\n';
+    }
     text+='祝好！'+'\n'+'张华';
     document.getElementById('教师反馈').value=text;
 }
@@ -179,7 +182,7 @@ function feedbackEmail() {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
         taskid: stu_taskid,
-        emailcontent: text,
+        emailcontent:emailcontent,
         evaluation: evaluation,
         sid:sid
     }, function (data) {
@@ -231,6 +234,7 @@ function checkAllGood() {
     }
     return checkresult;
 }
+//支持makeemail()的 检查rubrics选择情况的函数
 function checkAll() {
     var checkresult=[];
     checkresult['arr']=[];
@@ -357,7 +361,6 @@ function dialog(groupid, taskid, numberingroup) {
     stu_numberingroup = numberingroup;
     stu_taskid = taskid;
     EVALUATIONNUM=info_pro[taskid-1]['rubrics'].length;
-    openDialog();
 
     $.get("check_homework_evaluation.php", {
         groupid: stu_group,
@@ -386,12 +389,22 @@ function dialog(groupid, taskid, numberingroup) {
             textarea.setAttribute('readonly', 'readonly');
             textarea.value = message;
             button.hide();
+
         } else {
             //textarea.value = "";
             //textarea.setAttribute('readonly', 'readonly');
             textarea.removeAttribute('readonly');
             button.show();
             document.getElementById('feedback').removeAttribute('disabled');
+            //评价按钮的点击功能
+            for(i=0;i<info_pro[taskid-1]['rubrics'].length;i++){
+                document.getElementById('通过'+i).onclick=function (ev) {
+                    makeEmail()
+                };
+                document.getElementById('未通过'+i).onclick=function (ev) {
+                    makeEmail()
+                }
+            }
         }
         console.log('dialog formed');
     });
@@ -405,20 +418,29 @@ function dialog(groupid, taskid, numberingroup) {
         var inputa=document.createElement('input');
         inputa.type='radio';
         inputa.name='evaluation'+i;
+        inputa.id='通过'+i;
         parent.appendChild(inputa);
         parent.innerHTML+='通过';
         var inputb=document.createElement('input');
         inputb.type='radio';
         inputb.name='evaluation'+i;
-        inputb.onchange=makeEmail();
-        /*inputb.onclick=function (ev) {
-            alert(1)
-        };*/
+        //inputb.onchange=makeEmail();
+        inputb.id='未通过'+i;
         parent.appendChild(inputb);
         parent.innerHTML+='不通过';
     }
-
-    //openDialog();
+    /*
+    //评价按钮的点击功能
+    for(i=0;i<info_pro[taskid-1]['rubrics'].length;i++){
+        document.getElementById('通过'+i).onclick=function (ev) {
+            makeEmail()
+        };
+        document.getElementById('未通过'+i).onclick=function (ev) {
+            makeEmail()
+        }
+    }
+    */
+    openDialog();
     console.log('dialog formed');
 }
 /*
