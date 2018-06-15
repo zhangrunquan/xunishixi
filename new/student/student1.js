@@ -12,6 +12,7 @@ var getEmailInterval=6000;
 var groupstunumber=4;
 var getChatmsgInterval=3000;
 var updateOnlineInterval=10000;
+var shareListInterval=10000;
 
 //-----------------设置变量---------------------
 //-----------------信息存储---------------------
@@ -65,6 +66,7 @@ window.onbeforeunload = function(){
 setInterval("getNewEmail()",getEmailInterval);
 setInterval("showmessage()", getChatmsgInterval);
 setInterval("updateGetOnlineuser()", updateOnlineInterval);
+setInterval("shareListData()",shareListInterval);
 
 
 //-----------------函数定义部分----------------------------------------------
@@ -137,9 +139,11 @@ function testFeedback(feedback,index,taskid){
 }
 //用获得数据生成依赖数据的界面，依赖于initialize()取得的数据
 function createUI() {
+    shareListData();
     createEmailTable('emailtable',info_email,'emailtbody');
     createHomeworkTable(info_report,'homeworktbody');
     urlList();
+    document.getElementById('chatroom_headline').innerHTML='NO.'+info_user['groupid']+'小组聊天室';
     //填写抄送
     var str=info_group['username'][0];
     for(var j=1;j<groupstunumber;j++){
@@ -827,8 +831,7 @@ function createUrlTable(datas, tbodyid) {
             var hreftag = document.createElement('a');
             var node = document.createTextNode(datas['intro'][i]);
             hreftag.appendChild(node);
-            //hreftag.setAttribute('href',datas[i]['url']);
-            //display.innerHTML = datas[i]['url'];
+
             display.appendChild(hreftag);
             hreftag.onclick = function (ev) {
                 PDFObject.embed(href, "#pdf")
@@ -862,6 +865,36 @@ function checkFeedback(taskid) {
     });
 }
 //-----------------上传附件部分----------------------------------------------
+function addInput(parentid) {
+    if (attachnum > 0) {
+        var attach = attachname + attachnum;
+        if (createInput(attach,parentid))
+            attachnum = attachnum + 1;
+    }
+}
+function createInput(nm,parentid) {
+    var aElement = document.createElement("input");
+    aElement.name = nm;
+    aElement.id = nm;
+    aElement.type = "file";
+    aElement.size = "50";
+    var deleteinput=document.createElement('input');
+    deleteinput.size = "50";
+    deleteinput.type='button';
+    deleteinput.value='删除';
+    deleteinput.setAttribute('targetid',nm);
+    deleteinput.onclick=function (ev) {
+        var targetid=this.getAttribute('targetid');
+        var target=document.getElementById(targetid);
+        target.parentNode.removeChild(target);
+        this.parentNode.removeChild(this);
+    };
+    if (document.getElementById(parentid).appendChild(aElement) == null||document.getElementById(parentid).appendChild(deleteinput)==null)
+        return false;
+    return true;
+}
+
+/*
 function addInput() {
     if (attachnum > 0) {
         var attach = attachname + attachnum;
@@ -903,8 +936,7 @@ function removeInput(nm) {
         return false;
     return true;
 }
-
-
+*/
 
 //-----------------聊天室部分----------------------------------------------
 //显示聊天内容的函数
@@ -978,3 +1010,68 @@ function changeAutoflow() {
 
 }
 
+//-----------------资源共享----------------------------------------------
+function submitShareFile() {
+    var fileform = document.getElementById('share_upload');
+    //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
+    var formdata = new FormData(fileform);
+    formdata.append('sid',sid);
+
+    //ajax请求
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            console.log('submitShareFile() response: ');
+            console.log(xhr.responseText);
+            fileform.innerHTML='';
+        }
+    };
+    xhr.open('post', 'share_file.php');
+    xhr.send(formdata);
+    console.log('formdata');
+    console.log(formdata);
+}
+//从后台获取分享列表的数据
+function shareListData() {
+    $.ajax({
+        url:'share_list_data.php',
+        data:{sid:sid},
+        success:function (data) {
+            var info=JSON.parse(data);
+            console.log('shareListData result: ');
+            console.log(info);
+            createShareTable(info,'sharelist')
+        }
+    })
+}
+function createShareTable(data,tbodyid) {
+    var tbody = document.getElementById(tbodyid);
+    tbody.innerHTML='';
+    for(var i=0;i<objectLength(data);i++){
+        (function () {
+            var tr = document.createElement("tr");
+            tbody.appendChild(tr);
+            var filename=data['filename'][i];
+            //正则表达式 取得文件扩展名 结果不包含'.'  形如  pdf
+            var FileExt = filename.replace(/.+\./, "").toLowerCase();
+            var sharefile=data['sharefile'][i];
+            var sharetime=data['sharetime'][i];
+
+            var a = document.createElement('a');
+            if(FileExt=='pdf'){
+                a.onclick=function () {
+                    PDFObject.embed(sharefile, "#share_pdf")
+                }
+            }
+            else{
+                a.href=sharefile;
+                a.download=filename;
+            }
+            //var node = document.createTextNode(filename+'\n'+sharetime);
+            var node=document.createElement('span');
+            node.innerHTML=filename+'<br/>'+sharetime;
+            a.appendChild(node);
+            tr.appendChild(a);
+        })(i)
+    }
+}
