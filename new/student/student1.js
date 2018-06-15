@@ -231,6 +231,8 @@ function reminder(feedback,task) {
 //更新在线用户列表
 function updateGetOnlineuser() {
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
+        console.log('online user data: ');
+        console.log(data);
         //返回的json数据解码，数据存进data_array
         var data_array = eval(data);
         var onlineuserlist_str = "";
@@ -1044,6 +1046,7 @@ function shareListData() {
         }
     })
 }
+//根据数据创建共享列表
 function createShareTable(data,tbodyid) {
     var tbody = document.getElementById(tbodyid);
     tbody.innerHTML='';
@@ -1067,7 +1070,6 @@ function createShareTable(data,tbodyid) {
                 a.href=sharefile;
                 a.download=filename;
             }
-            //var node = document.createTextNode(filename+'\n'+sharetime);
             var node=document.createElement('span');
             node.innerHTML=filename+'<br/>'+sharetime;
             a.appendChild(node);

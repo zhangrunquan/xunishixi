@@ -4,7 +4,7 @@
 
 var buttonInterval=5000;
 var chatInterval=2000;
-
+var onlineuserInterval=7000;
 //-----------------常量设置----------------------------------------------
 var GROUPNUM = 4;
 var EVALUATIONNUM = 4;
@@ -34,8 +34,9 @@ setInterval("buttonControl()", buttonInterval);
 window.onload = function(){
     // 轮询以实现自动的页面更新
     setInterval(function () {get_chat_data();},chatInterval);
-    //setInterval("updateGetOnlineuser()",2000);
 };
+setInterval("updateGetOnlineuser()",onlineuserInterval);
+
 //-----------------函数定义部分----------------------------------------------
 function get_chat_data(){
     //ajax请求
@@ -593,6 +594,14 @@ function getUserInfo() {
     $.get("../all/get_user_info.php", {sid:sid}, function (data) {
         //返回的json数据解码，数据存进user_info_array
         user_info_array = eval(data);
+    })
+}
+
+//更新在线用户列表
+function updateGetOnlineuser() {
+    //ajax请求
+    $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
+     console.log(data)
     })
 }
 
