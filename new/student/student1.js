@@ -950,12 +950,30 @@ function showmessage() {
             // 将获取到的字符串存入data变量
             eval('var data = ' + ajax.responseText);
             // 遍历data数组，把内部的信息一个个的显示到页面上
+            var username=info_user['username'];
             var s = "";
+            /*
             for (var i = 0; i < data.length; i++) {
                 s += "(" + data[i].timeStamp + ") >>>";
-                s += "<p>";
+                s += "<p class='box'>";
                 s += data[i].username + "&nbsp;" + "说：" + data[i].content;
                 s += "</p>";
+            }*/
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].username==username){
+                    s += "<p class='userbox'>";
+                    //s += "(" + data[i].timeStamp + ") >>>"+'<br/>';
+                    s += data[i].timeStamp+'<br/>';
+                    s += data[i].username + "&nbsp;" + "说：" + data[i].content;
+                    s += "</p>";
+                }
+                else{
+                    s += "<p class='otherbox'>";
+                    s += "(" + data[i].timeStamp + ") >>>"+'<br/>';
+                    s += data[i].username + "&nbsp;" + "说：" + data[i].content;
+                    s += "</p>";
+                }
+
             }
             //记录最大的timeStamp
             if(data.length!==0){
