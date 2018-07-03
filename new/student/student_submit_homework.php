@@ -90,7 +90,7 @@ else{
 $query="INSERT INTO report VALUES ('$classid','$groupid','$numberingroup'
           ,'$userid','$taskidnow','$text','$url')";
 */
-$query="UPDATE report SET classid='$classid',groupid='$groupid',groupNO='$numberingroup',userid='$userid',taskid='$taskidnow',content='$text',url='$url',urlname='$urlname' WHERE  userid='$userid' AND taskid='$taskidnow'";
+$query="UPDATE report SET classid='$classid',groupid='$groupid',groupNO='$numberingroup',userid='$userid',taskid='$taskidnow',content='$text',url='$url',urlname='$urlname',timeStamp='$time' WHERE  userid='$userid' AND taskid='$taskidnow'";
 mysqli_query($link,$query);
 
 mysqli_close($link);

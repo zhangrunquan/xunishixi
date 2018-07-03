@@ -76,6 +76,7 @@ function initialize() {
     $.ajax({ url: "info.php",
         data:{sid:sid},
         success: function (data) {
+            console.log(data)
             var info=JSON.parse(data);
             info_group=info['group'];
             info_report=info['report'];
@@ -140,6 +141,7 @@ function testFeedback(feedback,index,taskid){
 //用获得数据生成依赖数据的界面，依赖于initialize()取得的数据
 function createUI() {
     shareListData();
+    reportAttachmentData();
     createEmailTable('emailtable',info_email,'emailtbody');
     createHomeworkTable(info_report,'homeworktbody');
     urlList();
@@ -1030,7 +1032,8 @@ function changeAutoflow() {
 
 }
 
-//-----------------资源共享----------------------------------------------
+//-----------------资源共享页面----------------------------------------------
+//提交分享文件
 function submitShareFile() {
     var fileform = document.getElementById('share_upload');
     //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
@@ -1077,6 +1080,50 @@ function createShareTable(data,tbodyid) {
             var FileExt = filename.replace(/.+\./, "").toLowerCase();
             var sharefile=data['sharefile'][i];
             var sharetime=data['sharetime'][i];
+
+            var a = document.createElement('a');
+            if(FileExt=='pdf'){
+                a.onclick=function () {
+                    PDFObject.embed(sharefile, "#share_pdf")
+                }
+            }
+            else{
+                a.href=sharefile;
+                a.download=filename;
+            }
+            var node=document.createElement('span');
+            node.innerHTML=filename+'<br/>'+sharetime;
+            a.appendChild(node);
+            tr.appendChild(a);
+        })(i)
+    }
+}
+//获取历史report的附件的名字和路径
+function reportAttachmentData() {
+    $.ajax({
+        url:'report_attachment.php',
+        data:{sid:sid},
+        success:function (data) {
+            var info=JSON.parse(data);
+            console.log('report_attachment result: ');
+            console.log(info);
+            createAttachmentTable(info,'attachment_history');
+        }
+    })
+}
+//根据数据创建历史report附件列表
+function createAttachmentTable(data,tbodyid) {
+    var tbody = document.getElementById(tbodyid);
+    tbody.innerHTML='';
+    for(var i=0;i<objectLength(data);i++){
+        (function () {
+            var tr = document.createElement("tr");
+            tbody.appendChild(tr);
+            var filename=data['urlname'][i];
+            //正则表达式 取得文件扩展名 结果不包含'.'  形如  pdf
+            var FileExt = filename.replace(/.+\./, "").toLowerCase();
+            var sharefile=data['url'][i];
+            var sharetime=data['time'][i];
 
             var a = document.createElement('a');
             if(FileExt=='pdf'){
