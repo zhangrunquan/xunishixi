@@ -76,7 +76,7 @@ function initialize() {
     $.ajax({ url: "info.php",
         data:{sid:sid},
         success: function (data) {
-            console.log(data)
+            console.log(data);
             var info=JSON.parse(data);
             info_group=info['group'];
             info_report=info['report'];
@@ -339,6 +339,7 @@ function submitHomework() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
+            console.log(xhr.responseText)
             //提示区会提示success表示发送成功
             //document.getElementById("result").innerHTML = xhr.responseText;
             info_report[info_report.length-1]['url']=JSON.parse(xhr.responseText);
@@ -1063,7 +1064,11 @@ function shareListData() {
             var info=JSON.parse(data);
             console.log('shareListData result: ');
             console.log(info);
-            createShareTable(info,'sharelist')
+            console.log(typeof (info['filename'][0]) )
+            if(typeof (info['filename'][0]) !='undefined'){
+                createShareTable(info,'sharelist')
+
+            }
         }
     })
 }
@@ -1123,8 +1128,11 @@ function createAttachmentTable(data,tbodyid) {
             //正则表达式 取得文件扩展名 结果不包含'.'  形如  pdf
             var FileExt = filename.replace(/.+\./, "").toLowerCase();
             var sharefile=data['url'][i];
-            var sharetime=data['time'][i];
-
+            var uploadtime=data['time'][i];
+            var shared=data['shared'][i];
+            var number=data['number'][i];
+            var taskid=data['taskid'][i];
+            //创建并设置a标签和文字node
             var a = document.createElement('a');
             if(FileExt=='pdf'){
                 a.onclick=function () {
@@ -1136,9 +1144,38 @@ function createAttachmentTable(data,tbodyid) {
                 a.download=filename;
             }
             var node=document.createElement('span');
-            node.innerHTML=filename+'<br/>'+sharetime;
+            node.innerHTML=filename+'<br/>'+uploadtime;
+            //绑定标签
             a.appendChild(node);
             tr.appendChild(a);
+            //创建一键分享按钮
+            var button=document.createElement('input');
+            button.type='button';
+            if(shared==0){
+                button.value='分享';
+                button.setAttribute('style',"width:60px;height:25px");
+                button.onclick=function (ev) {
+                    alert(1);
+                    shareAttachment(filename,sharefile,number,taskid);
+                }
+            }
+            else{
+                button.value='已分享';
+                button.setAttribute('disabled','disabled');
+            }
+            //tr.appendChild(button);
+            tbody.appendChild(button);
+
         })(i)
     }
+}
+//分享report附件列表中的附件
+function shareAttachment(filename,url,number,taskid) {
+    $.ajax({
+        url:'share_attachment.php',
+        data:{sid:sid,filename:filename,url:url,taskid:taskid,number:number},
+        success:function (data) {
+            console.log(data);
+        }
+    })
 }

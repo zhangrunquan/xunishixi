@@ -38,6 +38,7 @@ window.onload = function(){
 setInterval("updateGetOnlineuser()",onlineuserInterval);
 
 //-----------------函数定义部分----------------------------------------------
+//获取所有聊天室的聊天信息
 function get_chat_data(){
     //ajax请求
     $.get("get_chat_data.php",{sid:sid,maxtimeStamp:maxtimeStamp},function(data){
@@ -84,7 +85,7 @@ function send(chatroomid) {
         }
     });
 }
-
+//在指定id的聊天室发送当前'预定语'
 function sendSentence(chatroomid) {
 
     var target=document.getElementById('sentence'+chatroomid);
@@ -102,6 +103,7 @@ function sendSentence(chatroomid) {
         }
     });
 }
+//弹出指定id的聊天室当前'预定语'
 function popSentence(chatroomid) {
     var target=document.getElementById('sentence'+chatroomid);
     var taskid=info_taskid[chatroomid-1]['taskidnow'];
@@ -110,6 +112,7 @@ function popSentence(chatroomid) {
     info_pop[chatroomid-1][taskid-1][len]=index;
     changesentence(chatroomid,1)
 }
+//初始化所有聊天室的'预定语'
 function initializeSentence() {
     for(var i=1;i<=group_num;i++){
         (function () {
@@ -187,7 +190,7 @@ function getQueryString(name) {
     if (r != null) return decodeURI(r[2]);
     return null;
 }
-//初始化数据
+//初始化所有内容
 function initialize() {
     $.get("initialize.php", {sid:sid}, function (data) {
         //此处解析不能通过alert来查看，但可以直接使用
@@ -221,6 +224,7 @@ function initialize() {
     })
 }
 
+//创建记录'预定语'被使用的情况的数组（被使用过的会记录在相应数组）
 function initializepop() {
     for(var i=0;i<group_num;i++){
         info_pop[i]=[];
@@ -232,8 +236,9 @@ function initializepop() {
         }
     }
 }
+//形成反馈邮件
 function makeEmail() {
-    console.log('start makeemail')
+    console.log('start makeemail');
     var check_result = checkAll();
     var checkallgood=check_result['result'];
     var choice_arr=check_result['arr'];
@@ -258,6 +263,7 @@ function makeEmail() {
     document.getElementById('教师反馈').value=text;
 }
 
+//发送反馈邮件
 function feedbackEmail() {
     var button = document.getElementById('feedback');
     //禁用提交按钮，防止重复反馈
@@ -408,7 +414,7 @@ function updateTaskid(newarr) {
         }
     }
 }
-//控制任务按钮
+//控制所有任务按钮的状态（颜色，是否显示）
 function buttonControl() {
     $.get("button_control.php", {sid:sid}, function (data) {
         //此处解析不能通过alert来查看，但可以直接使用
@@ -485,6 +491,7 @@ function dialog(group, taskid, numberingoup) {
 
 }
 */
+//对点击任务按钮弹出的对话框的所有处理
 function dialog(groupid, taskid, numberingroup) {
     stu_group = groupid;
     stu_numberingroup = numberingroup;

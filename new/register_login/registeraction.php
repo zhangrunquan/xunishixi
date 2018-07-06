@@ -35,8 +35,8 @@ if ($emailaddress != $re_emailaddress) {
     mysqli_query($conn, 'use database1');
 
     //准备SQL语句,查询用户名
-    $sql_select = "SELECT username FROM account WHERE username = '$username'";
-    $sql_select1 = "SELECT emailaddress FROM account WHERE emailaddress='$emailaddress'";
+    $sql_select = "SELECT username FROM account WHERE username = '$username' limit 1";
+    $sql_select1 = "SELECT emailaddress FROM account WHERE emailaddress='$emailaddress' limit 1";
     //执行SQL语句
     $ret = mysqli_query($conn, $sql_select);
     $ret1 = mysqli_query($conn, $sql_select1);
