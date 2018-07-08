@@ -1,18 +1,20 @@
 /*
 提示：初始化info_pop,应对taskid更新情况
+步骤:1.修改class获取方式
 */
 
 var buttonInterval=5000;
 var chatInterval=2000;
 var onlineuserInterval=7000;
 //-----------------常量设置----------------------------------------------
-var GROUPNUM = 4;
 var EVALUATIONNUM = 4;
 var homework = [];
 var user_info_array = [];
 var group_num=4;
 var maxtimeStamp='1000-01-01 00:00:00';
 var tasknum=10;
+//小组成员数
+var membernum=5;
 var sid = getQueryString("sid");
 //存储xml中的信息
 var info_pro=[];
@@ -22,6 +24,12 @@ var info_taskid=[];
 var info_pop=[];
 //记录教师对应的班级
 var info_classid=[];
+//当前classid
+var classidnow=0;
+//控制是否刷新聊天信息,0不刷新，1刷新
+var chatupdatecontrol=0;
+//控制是否刷新作业图标状态,0不刷新，1刷新
+var buttoncontrol=0;
 
 //--------评价作业时的学生信息
 var stu_group = 0;
@@ -33,6 +41,7 @@ var stu_numberingroup = 0;
 //getHomework();
 initialize();
 setInterval("buttonControl()", buttonInterval);
+
 window.onload = function(){
     // 轮询以实现自动的页面更新
     setInterval(function () {get_chat_data();},chatInterval);
@@ -61,11 +70,12 @@ function classSelect() {
         })(i)
     }
 }
-function changeClass(classid) {
-    alert(classid)
-}
+
 //获取所有聊天室的聊天信息
 function get_chat_data(){
+    if(!chatupdatecontrol){
+        return 0;
+    }
     //ajax请求
     $.get("get_chat_data.php",{sid:sid,maxtimeStamp:maxtimeStamp},function(data){
         //返回的json数据解码，数据存进data_array
@@ -219,12 +229,13 @@ function getQueryString(name) {
 //初始化所有内容
 function initialize() {
     $.get("initialize.php", {sid:sid}, function (data) {
-        //此处解析不能通过alert来查看，但可以直接使用
         var info = JSON.parse(data);
-        var homeworkmood=info['homeworkmood'];
+        //var homeworkmood=info['homeworkmood'];
         info_pro=info['pro'];
         info_taskid=info['taskid'];
         info_classid=info['classid'];
+        /*
+        //第一次处理作业图标状态
         for(var i=0;i<homeworkmood.length;i++){
             var numberingroup=homeworkmood[i]['numberingroup'];
             //按规则求出按钮的id，规则为：id三位命名数字分别为：组号，taskid，numberingroup
@@ -244,16 +255,61 @@ function initialize() {
                 button.style.display='inline';
             }
         }
-        initializepop();
-        initializeSentence();
+        */
+        //initializepop();
+        //initializeSentence();
         classSelect();
         console.log('initialize');
         console.log(info);
     })
 }
+//选择班级后重新初始化数据和界面
+function changeClass(classid) {
+    classidnow=classid;
+    //启动聊天信息自动刷新
+    chatupdatecontrol=1;
+    //清空聊天室旧聊天信息
+    resetChatMsg();
+    //立刻将聊天信息刷新为新切换的班级的
+    get_chat_data();
+    //启动作业图标状态自动刷新
+    buttoncontrol=1;
+    //重置所有作业状态图标
+    resetButton();
+    //立刻将作业图标状态刷新为新切换的班级的
+    buttonControl();
+    //重置预定语弹出数组
+    initializepop();
+    //重置各聊天室预定语
+    initializeSentence();
+}
+//将所有按钮重置回初始隐藏状态
+function resetButton(){
+    for(var i=0;i<group_num;i++){
+        for(var j=0;i<membernum;j++){
+            for(var k=0;k<tasknum;k++){
+                var id=i.toString()+k+j;
+                var button=document.getElementById(id);
+                button.style.display='none';
+            }
+        }
+    }
+}
+//清空所有聊天室的聊天信息
+function resetChatMsg() {
+    for (var k = 1; k <= group_num; k++) {
+        var showmessage = document.getElementById("chatcontent" + k);
+        showmessage.innerHTML = '';
 
+        //showmessage.scrollTop 可以实现div底部最先展示
+        // divnode.scrollHeight而已获得div的高度包括滚动条的高度
+        //showmessage.scrollTop = showmessage.scrollHeight-showmessage.style.height;
+    }
+}
 //创建记录'预定语'被使用的情况的数组（被使用过的会记录在相应数组）
+
 function initializepop() {
+    info_pop=[];
     for(var i=0;i<group_num;i++){
         info_pop[i]=[];
         for(var k=info_taskid[i]['taskidnow']-1;k<tasknum;k++){
@@ -443,7 +499,10 @@ function updateTaskid(newarr) {
     }
 }
 //控制所有任务按钮的状态（颜色，是否显示）
-function buttonControl() {
+function buttonControl(classid) {
+    if(!buttoncontrol){
+        return 0;
+    }
     $.get("button_control.php", {sid:sid}, function (data) {
         //此处解析不能通过alert来查看，但可以直接使用
         var info=JSON.parse(data);
