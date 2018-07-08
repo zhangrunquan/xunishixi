@@ -285,10 +285,11 @@ function changeClass(classid) {
 }
 //将所有按钮重置回初始隐藏状态
 function resetButton(){
-    for(var i=0;i<group_num;i++){
-        for(var j=0;i<membernum;j++){
-            for(var k=0;k<tasknum;k++){
+    for(var i=1;i<=group_num;i++){
+        for(var j=1;j<=membernum;j++){
+            for(var k=1;k<=tasknum;k++){
                 var id=i.toString()+k+j;
+                console.log("id:"+id)
                 var button=document.getElementById(id);
                 button.style.display='none';
             }
@@ -503,7 +504,7 @@ function buttonControl(classid) {
     if(!buttoncontrol){
         return 0;
     }
-    $.get("button_control.php", {sid:sid}, function (data) {
+    $.get("button_control.php", {sid:sid,classid:classidnow}, function (data) {
         //此处解析不能通过alert来查看，但可以直接使用
         var info=JSON.parse(data);
         var homeworkmood = info['homeworkmood'];
