@@ -20,6 +20,8 @@ var info_pro=[];
 var info_taskid=[];
 //记录已发送的预定语句
 var info_pop=[];
+//记录教师对应的班级
+var info_classid=[];
 
 //--------评价作业时的学生信息
 var stu_group = 0;
@@ -38,6 +40,30 @@ window.onload = function(){
 setInterval("updateGetOnlineuser()",onlineuserInterval);
 
 //-----------------函数定义部分----------------------------------------------
+//生成班级选择的下拉框
+function classSelect() {
+    var ul=document.getElementById('class_select');
+    for(var i=0;i<info_classid.length;i++){
+        (function () {
+            var li=document.createElement('li');
+            ul.appendChild(li);
+            var a=document.createElement('a');
+            li.appendChild(a);
+            var classid=info_classid[i];
+            var text=classid+'班';
+            var textnode=document.createTextNode(text);
+            a.appendChild(textnode);
+            a.setAttribute('classid',classid);
+            a.onclick=function (ev) {
+                var classid=this.getAttribute('classid');
+                changeClass(classid);
+            }
+        })(i)
+    }
+}
+function changeClass(classid) {
+    alert(classid)
+}
 //获取所有聊天室的聊天信息
 function get_chat_data(){
     //ajax请求
@@ -198,6 +224,7 @@ function initialize() {
         var homeworkmood=info['homeworkmood'];
         info_pro=info['pro'];
         info_taskid=info['taskid'];
+        info_classid=info['classid'];
         for(var i=0;i<homeworkmood.length;i++){
             var numberingroup=homeworkmood[i]['numberingroup'];
             //按规则求出按钮的id，规则为：id三位命名数字分别为：组号，taskid，numberingroup
@@ -219,6 +246,7 @@ function initialize() {
         }
         initializepop();
         initializeSentence();
+        classSelect();
         console.log('initialize');
         console.log(info);
     })

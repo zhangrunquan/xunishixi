@@ -51,6 +51,14 @@ if ($emailaddress != $re_emailaddress) {
     } else {
         //用户名不存在，插入数据语句
         $sql_insert = "INSERT INTO account(username,password,emailaddress,role,taskidnow) VALUES('$username','$password','$emailaddress','$role',1)";
+        //教师注册处理
+        /*
+        $query="SELECT MAX(tutorid) FROM account limit 1";
+        $ret=mysqli_query($conn,$query);
+        $res=mysqli_fetch_assoc($ret);
+        $newtutorid=$res['tutorid']+1;
+        $sql_insert = "INSERT INTO account(username,password,emailaddress,role,taskidnow,tu) VALUES('$username','$password','$emailaddress','$role',1)";
+        */
         //邮箱发送
         $smtp = new Smtp($smtpserver, $smtpserverport, true, $smtpuser, $smtppass);
         $smtp->debug = true;
