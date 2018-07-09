@@ -10,6 +10,7 @@
 //给出如上信息数组
 function getInfo() {
     return info_arr;
+    
 }
 
 //接受给定参数后将所给id的学生分入指定的班和组
