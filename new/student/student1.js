@@ -231,7 +231,7 @@ function reminder(feedback,task) {
     }
 }
 //更新在线用户列表
-function updateGetOnlineuser() {
+/*function updateGetOnlineuser() {
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
         console.log('online user data: ');
         console.log(data);
@@ -252,6 +252,37 @@ function updateGetOnlineuser() {
             onlineuserlist_str += '导师&nbsp' + '张华';
         }
         document.getElementById("在线列表").innerHTML = onlineuserlist_str;
+        console.log('online list updated!')
+    })
+}*/
+function updateGetOnlineuser() {
+    $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
+        console.log('online user data: ');
+        console.log(data);
+        //返回的json数据解码，数据存进data_array
+        var data_array = eval(data);
+        var select=document.getElementById('online');
+        select.innerHTML='<option>在线列表</option>';
+        var str = "";
+        var len=info_group['userid'].length;
+        for (var k = 0; k <len-1; k++) {
+            var option=document.createElement('option');
+            if (jQuery.inArray(info_group['userid'][k], data_array['userid']) != -1) {
+                str = info_group['username'][k] + '(在线）<br/>';
+            } else {
+                str = info_group['username'][k] + '<br/>';
+            }
+            option.innerHTML=str;
+            select.appendChild(option);
+        }
+        option=document.createElement('option');
+        if (jQuery.inArray(info_group['userid'][len-1], data_array['userid']) != -1) {
+            str = '导师&nbsp' + '张华' + '(在线）';
+        } else {
+            str = '导师&nbsp' + '张华';
+        }
+        option.innerHTML=str;
+        select.appendChild(option);
         console.log('online list updated!')
     })
 }
@@ -1016,6 +1047,7 @@ function send() {
     //自动清空输入框
     document.getElementById("msg").value = "";
 }
+//调用使聊天室右侧滑块滚动至最下方的函数
 function autoflow(id) {
     var target=document.getElementById(id);
     target.scrollTop = target.scrollHeight - target.style.height;
