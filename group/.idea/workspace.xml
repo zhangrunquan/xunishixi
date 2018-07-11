@@ -26,8 +26,8 @@
       <file leaf-file-name="group.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/group.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="46" column="22" lean-forward="false" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+            <state relative-caret-position="483">
+              <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#244#549#0" expanded="false" />
@@ -36,8 +36,38 @@
                 <element signature="n#!!block;n#divide#0" expanded="false" />
                 <element signature="n#!!block;n#makeUI#0" expanded="false" />
                 <element signature="n#!!block;n#assignStu#0" expanded="false" />
-                <element signature="e#2420#2965#0" expanded="false" />
+                <element signature="e#2537#3082#0" expanded="false" />
                 <element signature="n#!!block;n#resetStu#0" expanded="false" />
+                <element signature="n#!!block;n#createClass#0" expanded="false" />
+                <element signature="n#!!block;n#createClassFront#0" expanded="false" />
+                <element signature="n#!!block;n#deleteClass#0" expanded="false" />
+                <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create_class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/create_class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="11" selection-end-column="37" />
+              <folding>
+                <marker date="1531286180104" expanded="true" signature="457:521" ph="INSERT INTO group_attr... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="delete_class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/delete_class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="598">
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding>
+                <marker date="1531287052327" expanded="true" signature="341:404" ph="UPDATE account... " />
+                <marker date="1531287052327" expanded="true" signature="514:542" ph="DELETE FROM account... " />
+                <marker date="1531287052327" expanded="true" signature="514:561" ph="DELETE FROM group_attr... " />
               </folding>
             </state>
           </provider>
@@ -46,8 +76,8 @@
       <file leaf-file-name="reset_stu.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reset_stu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="23">
+              <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="8" selection-end-column="37" />
               <folding>
                 <marker date="1531277977898" expanded="true" signature="337:399" ph="UPDATE account... " />
               </folding>
@@ -93,9 +123,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>class</find>
+      <find>user</find>
     </findStrings>
     <replaceStrings>
       <replace>group</replace>
+      <replace>class</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -107,6 +139,8 @@
         <option value="$PROJECT_DIR$/reset_group.php" />
         <option value="$PROJECT_DIR$/assign_stu.php" />
         <option value="$PROJECT_DIR$/reset_stu.php" />
+        <option value="$PROJECT_DIR$/create_class.php" />
+        <option value="$PROJECT_DIR$/delete_class.php" />
         <option value="$PROJECT_DIR$/group.js" />
       </list>
     </option>
@@ -188,12 +222,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1531269261740</updated>
-      <workItem from="1531269264019" duration="9893000" />
+      <workItem from="1531269264019" duration="14143000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9893000" />
+    <option name="totallyTimeSpent" value="14143000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
@@ -247,19 +281,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="1" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/group.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2352">
-          <caret line="209" column="6" lean-forward="true" selection-start-line="209" selection-start-column="6" selection-end-line="209" selection-end-column="6" />
-          <folding>
-            <marker date="1531271059184" expanded="true" signature="7364:7375" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -287,18 +309,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reset_stu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="23">
+          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="8" selection-end-column="37" />
           <folding>
             <marker date="1531277977898" expanded="true" signature="337:399" ph="UPDATE account... " />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/delete_class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <marker date="1531287052327" expanded="true" signature="341:404" ph="UPDATE account... " />
+            <marker date="1531287052327" expanded="true" signature="514:542" ph="DELETE FROM account... " />
+            <marker date="1531287052327" expanded="true" signature="514:561" ph="DELETE FROM group_attr... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="11" selection-end-column="37" />
+          <folding>
+            <marker date="1531286180104" expanded="true" signature="457:521" ph="INSERT INTO group_attr... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2352">
+          <caret line="209" column="6" lean-forward="true" selection-start-line="209" selection-start-column="6" selection-end-line="209" selection-end-column="6" />
+          <folding>
+            <marker date="1531271059184" expanded="true" signature="7364:7375" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/group.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="46" column="22" lean-forward="false" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+        <state relative-caret-position="483">
+          <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#244#549#0" expanded="false" />
@@ -307,8 +361,12 @@
             <element signature="n#!!block;n#divide#0" expanded="false" />
             <element signature="n#!!block;n#makeUI#0" expanded="false" />
             <element signature="n#!!block;n#assignStu#0" expanded="false" />
-            <element signature="e#2420#2965#0" expanded="false" />
+            <element signature="e#2537#3082#0" expanded="false" />
             <element signature="n#!!block;n#resetStu#0" expanded="false" />
+            <element signature="n#!!block;n#createClass#0" expanded="false" />
+            <element signature="n#!!block;n#createClassFront#0" expanded="false" />
+            <element signature="n#!!block;n#deleteClass#0" expanded="false" />
+            <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
           </folding>
         </state>
       </provider>

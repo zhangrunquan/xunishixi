@@ -53,6 +53,7 @@ function getStuInfo() {
             divide(info);
             console.log('getStuinfo(): ');
             console.log(info_stu);
+            deleteClass(1);
         }
     })
 }
@@ -73,7 +74,7 @@ function divide(info) {
     console.log('divide():');
     console.log(info_stu);
 }
-//生成依赖数据的界面
+//生成依赖数据的界面                                                                                     1111
 function makeUI(){
 
 }
@@ -138,14 +139,55 @@ function resetStu(userid,oldclassid,oldgroupid) {
     }
 }
 //新建班级（添加该班级下所有小组信息）
-function createClass() {
+function createClass(classid) {
+    //数据库处理
+    $.ajax({
+        url:'create_class.php',
+        data:{classid:classid},
+        success:function (data) {
+            console.log('createClass() '+data);
+        }
+    });
+    //前端处理
+    createClassFront(classid)
+}
+//新建班级的前端处理                                                                                     1111
+function createClassFront(classid){
+    info_stu[classid]=[];
+    console.log('createClassFront():');
+    console.log(info_stu);
+}
+//删除班级(删除所有小组信息,释放所有班级成员）
+function deleteClass(classid){
+    //数据库处理
+    $.ajax({
+        url:'delete_class.php',
+        data:{classid:classid},
+        success:function (data) {
+            console.log('deleteClass() '+data);
+        }
+    });
+    //前端处理
+    deleteClassFront(classid)
+}
+//删除班级的前端处理                                                                                     1111
+function deleteClassFront(classid) {
+    //将学生分入0班0组
+    var oldclass=info_stu[classid];
+    for(var i=1;i<oldclass.length;i++){
+        var group=oldclass[i];
+        for(var j=0;j<group.length;j++){
+            var stu=group[j];
+            stu['classid']=0;
+            stu['groupid']=0;
+            info_stu[0][0].push(stu);
+        }
+    }
+    //清空原来班级的数据
+    info_stu[classid]=[];
+    console.log("deleteClassFront():");
+    console.log(info_stu);
+}
 
-}
-//删除班级(删除所有小组信息）
-function deleteClass(){
 
-}
-function test() {
-    console.log(info_stu)
-}
 
