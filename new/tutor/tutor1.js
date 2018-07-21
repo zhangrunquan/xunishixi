@@ -172,7 +172,6 @@ function resetButton(){
         for(var j=1;j<=membernum;j++){
             for(var k=1;k<=tasknum;k++){
                 var id=i.toString()+k+j;
-                console.log("id:"+id)
                 var button=document.getElementById(id);
                 button.style.display='none';
             }
@@ -266,8 +265,7 @@ function sentence(targetid,index,taskid) {
     var target=document.getElementById(targetid);
     var chatname=info_pro[taskid-1]['chatName'][index];
     var chatmsg=info_pro[taskid-1]['chatMsg'][index];
-    //console.log(chatname);
-    //console.log(index)
+
     target.value=chatname;
     target.setAttribute('index',index);
     target.setAttribute('chatmsg',chatmsg);
@@ -412,7 +410,10 @@ function dialog(groupid, taskid, numberingroup) {
     stu_numberingroup = numberingroup;
     stu_taskid = taskid;
     EVALUATIONNUM=info_pro[taskid-1]['rubrics'].length;
-    document.getElementById("教师反馈").innerHTML='';
+    var textarea=document.getElementById("教师反馈");
+    //console.log("clear");
+    textarea.removeAttribute('readonly');
+    textarea.value='';
     $.get("check_homework_evaluation.php", {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
@@ -430,21 +431,18 @@ function dialog(groupid, taskid, numberingroup) {
             a.href=info_arr['url'][i];
             //a.innerText=info_arr['urlname'][i];
             a.download=info_arr['urlname'][i];
-            //a.target="_blank";
             var node = document.createTextNode(info_arr['urlname'][i]);
             a.appendChild(node);
             urldiv.appendChild(a);
         }
         var button = $("#feedback");
-        var textarea = document.getElementById("教师反馈");
         if (message == '作业已通过！' || message == '作业待学生修改！') {
             textarea.setAttribute('readonly', 'readonly');
             textarea.value = message;
             button.hide();
 
         } else {
-            //textarea.value = "";
-            //textarea.setAttribute('readonly', 'readonly');
+
             textarea.removeAttribute('readonly');
             button.show();
             document.getElementById('feedback').removeAttribute('disabled');

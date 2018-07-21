@@ -347,10 +347,16 @@ function submitHomework() {
     var input_arr=document.getElementById('upload').children;
     var len=info_report.length;
     for(var i=0;i<input_arr.length;i++){
-        if(input_arr[i].files!=null){
+        if(input_arr[i].files!=null&&typeof (input_arr[i].files[0])!='undefined'){
             var name=input_arr[i].files[0].name;
             info_report[len-1]['urlname'].push(name);
         }
+        /*
+        if(input_arr[i].value.length){
+            var name=input_arr[i].files[0].name;
+            info_report[len-1]['urlname'].push(name);
+        }*/
+
     }
     hideAllButton();
     saveDraftLocal();
@@ -394,7 +400,7 @@ function saveDraft() {
     if(text!=''&&text!='未提交'&&text!='待修改'&&text!='请输入作业内容'){
         $.get("save_draft.php", {sid:sid,text:text,taskidnow:taskidnow}, function (data) {
             var info = eval(data);
-            alert(info)
+            //alert(info)
         })
     }
 }
@@ -437,12 +443,14 @@ function checkHomeworkEvaluation() {
         console.log('check homework evaluation');
         evaluationchange=0;
         evaluation = eval(data);
+        console.log("evaluation: ");
+        console.log(evaluation);
         var submitbutton = document.getElementById('提交作业');
         var textarea = document.getElementById('sendemail');
         if (evaluation == '未提交' || evaluation == '待修改') {
             showAllButton();
             var content=info_report[info_report.length-1]['content'];
-            if(content!=''){
+            if(content!=''&&content!="作业待教师批改"){
                 textarea.value = content;
             }
             else{

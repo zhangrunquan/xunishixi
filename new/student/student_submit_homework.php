@@ -45,6 +45,9 @@ $shared_str='';
 
 foreach ($_FILES as $key => $value){
     $file=$value;
+    if($file['name']==''){
+        continue;
+    }
     $urlname.=$file['name'].'@!';
     $temp='../upload/'.upload_single($file,$allow_type,$allow_format,$error,$path,$max_size);
     $url.=$temp.',';
