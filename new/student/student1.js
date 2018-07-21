@@ -180,7 +180,10 @@ function getNewEmail() {
                 spop(subject);
 
                 getdata=1;
+
                 evaluationchange=1;
+                console.log("evaluation change to ");
+                console.log(evaluationchange);
             }
             var lasttaskemail=getLastTaskEmail(info_email.length-1);
             var lasttimestamp=lasttaskemail['timeStamp'];
@@ -406,6 +409,7 @@ function saveDraft() {
 }
 //根据作业批改状态显示相应内容
 function checkHomeworkEvaluation() {
+    console.log("check homework eva")
     if(evaluationchange==0){
         console.log('evaluation check escaped');
 
@@ -619,8 +623,9 @@ function createHomeworkTable(datas,tbodyid){
             document.getElementById('upload').innerHTML='';
             document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
             //document.getElementById("s_title").innerHTML = 'last report';
-            checkHomeworkEvaluation();
         }
+        checkHomeworkEvaluation();
+
         //document.getElementById('sendemail').removeAttribute('readonly');
         lastclick = 'last';
         console.log('lastclick changed to :'+lastclick);
@@ -646,7 +651,7 @@ function createEmailTable(parent,datas,tbodyid) {
     tbody.innerHTML='';
     //取得最后一封taskemail的索引，这个索引及其之后的邮件会绑定显示‘回复邮件’按钮的功能
     var index=getLastTaskEmailIndex(info_email.length-1);
-    console.log(index)
+    //console.log(index)
     for (var i = 0; i < index; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
         (function () {
@@ -1115,7 +1120,7 @@ function shareListData() {
 //根据数据创建共享列表
 function createShareTable(data,tbodyid) {
     var tbody = document.getElementById(tbodyid);
-    tbody.innerHTML='';
+    tbody.innerHTML='小组共享';
     for(var i=0;i<objectLength(data);i++){
         (function () {
             var tr = document.createElement("tr");
@@ -1159,7 +1164,7 @@ function reportAttachmentData() {
 //根据数据创建历史report附件列表
 function createAttachmentTable(data,tbodyid) {
     var tbody = document.getElementById(tbodyid);
-    tbody.innerHTML='';
+    tbody.innerHTML='附件历史';
     for(var i=0;i<objectLength(data);i++){
         (function () {
             var tr = document.createElement("tr");
@@ -1195,8 +1200,9 @@ function createAttachmentTable(data,tbodyid) {
                 button.value='分享';
                 button.setAttribute('style',"width:60px;height:25px");
                 button.onclick=function (ev) {
-                    alert(1);
+                    //alert(1);
                     shareAttachment(filename,sharefile,number,taskid);
+                    button.value='已分享';
                 }
             }
             else{
@@ -1211,6 +1217,7 @@ function createAttachmentTable(data,tbodyid) {
 }
 //分享report附件列表中的附件
 function shareAttachment(filename,url,number,taskid) {
+
     $.ajax({
         url:'share_attachment.php',
         data:{sid:sid,filename:filename,url:url,taskid:taskid,number:number},
