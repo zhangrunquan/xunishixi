@@ -168,8 +168,6 @@ function getNewEmail() {
         data:{sid:sid,maxtimestamp:maxEmailTimeStamp},
         success: function (data) {
             var info=JSON.parse(data);
-
-            console.log('getNewEmail');
             console.log(info);
             //getdata记录本次是否获取到了新邮件
             var getdata=0;
@@ -200,7 +198,9 @@ function getNewEmail() {
             if(getdata){
                 hideButton('response');
                 createEmailTable('emailtable',info_email,'emailtbody');
+                createHomeworkTable(info_report,'homeworktbody');
                 urlList();
+                console.log("getNewEmail(): new email comes");
             }
             console.log('info_email');
             console.log(info_email);
@@ -400,7 +400,8 @@ function saveDraft() {
     else{
         text=info_report[info_report.length-1]['content']
     }
-    if(text!=''&&text!='未提交'&&text!='待修改'&&text!='请输入作业内容'){
+    //如果是不需保存的情况则不保存
+    if(text!=''&&text!='作业待教师批改'&&text!='您的作业已通过，等待小组其他成员通过后系统将下发下一个任务'&&text!='请输入作业内容'){
         $.get("save_draft.php", {sid:sid,text:text,taskidnow:taskidnow}, function (data) {
             var info = eval(data);
             //alert(info)
@@ -546,93 +547,161 @@ function createHomeworkTable(datas,tbodyid){
     if(len==0){
         return;
     }
-    //处理最后一项以外的项
-    for (var i = 0; i < len-1; i++) {
-        //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
-        (function () {
-            //新建一行
-            var tr = document.createElement("tr");
-            tbody.appendChild(tr);
-            var td = document.createElement("td");
+    //如果收到了一封新的任务邮件，但还没有创建对应的report
+    if(info_report.length<taskidnow){
+        console.log('收到了一封新的任务邮件，但还没有创建对应的report');
+        for (var i = 0; i < len; i++) {
+            //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
+            (function () {
+                //新建一行
+                var tr = document.createElement("tr");
+                tbody.appendChild(tr);
+                var td = document.createElement("td");
 
-            var taskid=i+1;
-            //规避闭包带来的问题
-            var content=datas[i]['content'];
-            td.setAttribute('index',i);
-            td.innerHTML = 'report'+taskid;
-            tr.appendChild(td);
-            //设置点击展示邮件内容的功能
-            td.onclick = function () {
-                //处理邮件链接
-                var urldiv=document.getElementById('upload');
-                urldiv.innerHTML='';
+                var taskid=i+1;
+                //规避闭包带来的问题
+                var content=datas[i]['content'];
+                td.setAttribute('index',i);
+                td.innerHTML = 'report'+taskid;
+                tr.appendChild(td);
+                //设置点击展示邮件内容的功能
+                td.onclick = function () {
+                    //处理邮件链接
+                    var urldiv=document.getElementById('upload');
+                    urldiv.innerHTML='';
 
-                var index=this.getAttribute('index');
-                //处理邮件文本内容
-                var textarea=document.getElementById("sendemail");
-                if(lastclick=='other'){
-                    textarea.value = content;
-                    document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
+                    var index=this.getAttribute('index');
+                    //处理邮件文本内容
+                    var textarea=document.getElementById("sendemail");
+                    if(lastclick=='other'){
+                        textarea.value = content;
+                        document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
 
+                    }
+                    else if(lastclick=='last'){
+                        console.log('onclick savedraft local');
+                        saveDraftLocal();
+                        textarea.value = content ;
+                        document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
+                    }
+                    hideButton('提交作业');
+                    hideButton('addfile');
+                    hideButton('save');
+                    if(lastclick=='last'){
+                        textarea.setAttribute('readonly','readonly')
+                    }
+                    var url_arr=info_report[index]['url'];
+                    var urlname_arr=info_report[index]['urlname'];
+                    console.log('url_arr');
+                    console.log(url_arr);
+                    console.log('urlname');
+                    console.log(urlname_arr);
+                    for(var k=0;k<url_arr.length;k++){
+                        var a=document.createElement('a');
+                        a.href=url_arr[k];
+                        a.download=urlname_arr[k];
+                        var node = document.createTextNode(urlname_arr[k]);
+                        a.appendChild(node);
+                        urldiv.appendChild(a);
+                    }
+                    lastclick='other';
+                    console.log('lastclick changed to :'+lastclick);
                 }
-                else if(lastclick=='last'){
-                    console.log('onclick savedraft local');
-                    saveDraftLocal();
-                    textarea.value = content ;
-                    document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
-                }
-                hideButton('提交作业');
-                hideButton('addfile');
-                hideButton('save');
-                if(lastclick=='last'){
-                    textarea.setAttribute('readonly','readonly')
-                }
-                var url_arr=info_report[index]['url'];
-                var urlname_arr=info_report[index]['urlname'];
-                console.log('url_arr');
-                console.log(url_arr);
-                console.log('urlname');
-                console.log(urlname_arr);
-                for(var k=0;k<url_arr.length;k++){
-                    var a=document.createElement('a');
-                    a.href=url_arr[k];
-                    a.download=urlname_arr[k];
-                    var node = document.createTextNode(urlname_arr[k]);
-                    a.appendChild(node);
-                    urldiv.appendChild(a);
-                }
-                lastclick='other';
-                console.log('lastclick changed to :'+lastclick);
-            }
-        })(i);
-    }
-    //处理最后一项
-    i=len-1;
-    var tr = document.createElement("tr");
-    tbody.appendChild(tr);
-    var td = document.createElement("td");
-    var taskid=i+1;
-    var content=datas[i]['content'];
-    td.innerHTML = 'report'+taskid;
-    //仅给最后一个report设置id
-    td.id='lastreport';
-    tr.appendChild(td);
-    //设置点击展示邮件内容的功能
-    td.onclick = function () {
-        if (lastclick =='other') {
-            document.getElementById('upload').innerHTML='';
-            document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
-            //document.getElementById("s_title").innerHTML = 'last report';
+            })(i);
         }
-        checkHomeworkEvaluation();
+        lastclick='other';
+        console.log('homeworktable created');
+    }
+    else {  //无未创建的report
+        console.log('无未创建的report');
+        //处理最后一项以外的项
+        for (i = 0; i < len-1; i++) {
+            //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
+            (function () {
+                //新建一行
+                var tr = document.createElement("tr");
+                tbody.appendChild(tr);
+                var td = document.createElement("td");
 
-        //document.getElementById('sendemail').removeAttribute('readonly');
-        lastclick = 'last';
-        console.log('lastclick changed to :'+lastclick);
-    };
+                var taskid=i+1;
+                //规避闭包带来的问题
+                var content=datas[i]['content'];
+                td.setAttribute('index',i);
+                td.innerHTML = 'report'+taskid;
+                tr.appendChild(td);
+                //设置点击展示邮件内容的功能
+                td.onclick = function () {
+                    //处理邮件链接
+                    var urldiv=document.getElementById('upload');
+                    urldiv.innerHTML='';
 
-    lastclick='other';
-    console.log('homeworktable created');
+                    var index=this.getAttribute('index');
+                    //处理邮件文本内容
+                    var textarea=document.getElementById("sendemail");
+                    if(lastclick=='other'){
+                        textarea.value = content;
+                        document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
+
+                    }
+                    else if(lastclick=='last'){
+                        console.log('onclick savedraft local');
+                        saveDraftLocal();
+                        textarea.value = content ;
+                        document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
+                    }
+                    hideButton('提交作业');
+                    hideButton('addfile');
+                    hideButton('save');
+                    if(lastclick=='last'){
+                        textarea.setAttribute('readonly','readonly')
+                    }
+                    var url_arr=info_report[index]['url'];
+                    var urlname_arr=info_report[index]['urlname'];
+                    console.log('url_arr');
+                    console.log(url_arr);
+                    console.log('urlname');
+                    console.log(urlname_arr);
+                    for(var k=0;k<url_arr.length;k++){
+                        var a=document.createElement('a');
+                        a.href=url_arr[k];
+                        a.download=urlname_arr[k];
+                        var node = document.createTextNode(urlname_arr[k]);
+                        a.appendChild(node);
+                        urldiv.appendChild(a);
+                    }
+                    lastclick='other';
+                    console.log('lastclick changed to :'+lastclick);
+                }
+            })(i);
+        }
+        //处理最后一项
+        i=len-1;
+        var tr = document.createElement("tr");
+        tbody.appendChild(tr);
+        var td = document.createElement("td");
+        var taskid=i+1;
+        var content=datas[i]['content'];
+        td.innerHTML = 'report'+taskid;
+        //仅给最后一个report设置id
+        td.id='lastreport';
+        tr.appendChild(td);
+        //设置点击展示邮件内容的功能
+        td.onclick = function () {
+            if (lastclick =='other') {
+                document.getElementById('upload').innerHTML='';
+                document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
+                //document.getElementById("s_title").innerHTML = 'last report';
+            }
+            checkHomeworkEvaluation();
+
+            //document.getElementById('sendemail').removeAttribute('readonly');
+            lastclick = 'last';
+            console.log('lastclick changed to :'+lastclick);
+        };
+
+        lastclick='other';
+        console.log('homeworktable created');
+    }
 }
 //利用递归算法找出info_email中taskid最大的taskemail，参数index为info_email的最后一个索引，即从数组最后一项开始向前检查,返回值为taskemail的索引
 function getLastTaskEmailIndex(index) {
