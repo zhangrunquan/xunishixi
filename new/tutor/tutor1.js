@@ -12,7 +12,7 @@ var homework = [];
 var user_info_array = [];
 var group_num=4;
 var maxtimeStamp='1000-01-01 00:00:00';
-var tasknum=10;
+var tasknum;
 //小组成员数
 var membernum=5;
 var sid = getQueryString("sid");
@@ -37,8 +37,6 @@ var stu_taskid = 0;
 var stu_numberingroup = 0;
 
 //-----------------执行部分----------------------------------------------
-//getUserInfo();
-//getHomework();
 initialize();
 setInterval("buttonControl()", buttonInterval);
 
@@ -57,6 +55,11 @@ function getQueryString(name) {
     if (r != null) return decodeURI(r[2]);
     return null;
 }
+//计算类型为object的数组的长度
+function objectLength(obj) {
+    var arr=Object.keys(obj);
+    return arr.length;
+}
 //取得$_SESSION中的用户信息
 function getUserInfo() {
     $.get("../all/get_user_info.php", {sid:sid}, function (data) {
@@ -74,34 +77,19 @@ function initialize() {
         info_pro=info['pro'];
         info_taskid=info['taskid'];
         info_classid=info['classid'];
-        /*
-        //第一次处理作业图标状态
-        for(var i=0;i<homeworkmood.length;i++){
-            var numberingroup=homeworkmood[i]['numberingroup'];
-            //按规则求出按钮的id，规则为：id三位命名数字分别为：组号，taskid，numberingroup
-            var id=homeworkmood[i]['groupid'].toString()+homeworkmood[i]['taskid']+numberingroup;
-            var button=document.getElementById(id);
-            var evaluation=homeworkmood[i]['evaluation'];
-            //button.setAttribute('evaluation',evaluation);
-            if(evaluation=='通过'){
-                button.innerHTML='<img border="0" src="image/1.png">';
-                button.style.display='inline';
-            }
-            else if(evaluation=='批改中'){
-                button.innerHTML='<img border="0" src="image/2.png">';
-                button.style.display='inline';
-            }else if(evaluation=='未提交'||evaluation=='待修改'){
-                button.innerHTML='<img border="0" src="image/3.png">';
-                button.style.display='inline';
-            }
-        }
-        */
-        //initializepop();
-        //initializeSentence();
+        tasknum=objectLength(info_pro);
         classSelect();
+        //console.log('tasknum');
+        //console.log(tasknum);
         console.log('initialize');
         console.log(info);
     })
+}
+//创建一个任务按钮
+function createButton() {
+    //创建图片标签
+    var img=document.createElement('img');
+
 }
 
 //-----------------切换班级部分-----------------------------------------------------------------------
@@ -398,6 +386,7 @@ function buttonControl(classid) {
             }else if(evaluation=='未提交'||evaluation=='待修改'){
                 button.innerHTML='<img border="0" src="image/3.png">';
                 button.style.display='inline';
+                button.setAttribute('disabled','disabled');
             }
         }
         console.log('button control');

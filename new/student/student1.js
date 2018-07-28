@@ -347,6 +347,7 @@ function changemood(target,mood) {
 function submitHomework() {
     //先禁用按钮，防止重复提交
     //document.getElementById('提交作业').setAttribute('disabled', 'disabled');
+
     var input_arr=document.getElementById('upload').children;
     var len=info_report.length;
     for(var i=0;i<input_arr.length;i++){
@@ -374,12 +375,14 @@ function submitHomework() {
 
     formdata.append('sid', sid);
     formdata.append('text', text);
+    console.log('submithomework evaluation');
+    console.log(evaluation);
     formdata.append('evaluation', evaluation);
     //ajax请求
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            console.log(xhr.responseText)
+            console.log(xhr.responseText);
             //提示区会提示success表示发送成功
             //document.getElementById("result").innerHTML = xhr.responseText;
             info_report[info_report.length-1]['url']=JSON.parse(xhr.responseText);
@@ -445,7 +448,7 @@ function checkHomeworkEvaluation() {
         return;
     }
     $.get("get_homework_evaluation.php", {sid:sid}, function (data) {
-        console.log('check homework evaluation');
+        console.log('check homework evaluation()');
         evaluationchange=0;
         evaluation = eval(data);
         console.log("evaluation: ");
@@ -743,9 +746,12 @@ function createEmailTable(parent,datas,tbodyid) {
                 title=info_pro[taskid-1]['taskname']+'<br>'+timeStamp;
                 //var content=info_user['username']+',你好！';
                 var content='<p>'+info_user['username']+',你好！'+'</p>';
-                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[i]['backgroundinfo']+'</p>';
-                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[i]['taskreq']+'</p>';
-                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[i]['deadline']+'</p>';
+
+                //应读取的info_pro数组的索引是taskid-1
+                var proind=taskid-1;
+                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['backgroundinfo']+'</p>';
+                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['taskreq']+'</p>';
+                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['deadline']+'</p>';
                 //content+=info_pro[i]['taskreq'];
                 //content+=info_pro[i]['deadline'];
                 //content+='\n'+'祝好!'+'\n'+'张华';
@@ -807,9 +813,11 @@ function createEmailTable(parent,datas,tbodyid) {
                 title=info_pro[taskid-1]['taskname']+'<br>'+timeStamp;
                 //var content=info_user['username']+',你好！';
                 var content='<p>'+info_user['username']+',你好！'+'</p>';
-                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[i]['backgroundinfo']+'</p>';
-                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[i]['taskreq']+'</p>';
-                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[i]['deadline']+'</p>';
+                //应读取的info_pro数组的索引是taskid-1
+                var proind=taskid-1;
+                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['backgroundinfo']+'</p>';
+                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['taskreq']+'</p>';
+                content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['deadline']+'</p>';
                 //content+=info_pro[i]['taskreq'];
                 //content+=info_pro[i]['deadline'];
                 //content+='\n'+'祝好!'+'\n'+'张华';
