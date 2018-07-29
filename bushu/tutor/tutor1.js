@@ -37,6 +37,7 @@ var stu_taskid = 0;
 var stu_numberingroup = 0;
 
 //-----------------执行部分----------------------------------------------
+console.log(2)
 initialize();
 setInterval("buttonControl()", buttonInterval);
 
@@ -92,9 +93,10 @@ function initialize() {
 //创建一个任务按钮
 //参数为组号，taskid，numberingroup,索引均从一开始
 function createButton(groupid,taskid,numberingroup,parentnode) {
+/*
     //创建图片标签
     var img=document.createElement('img');
-    img.src="image/3.png";
+    img.src="image/3.png";*/
     //创建button标签
     var button=document.createElement('button');
     button.id=''+groupid+taskid+numberingroup;
@@ -105,7 +107,7 @@ function createButton(groupid,taskid,numberingroup,parentnode) {
     };
     button.style.display='none';
     //元素绑定
-    button.appendChild(img);
+    //button.appendChild(img);
     parentnode.appendChild(button);
 }
 //创建一个任务div（任务图标），参数taskid从1开始索引
@@ -421,14 +423,22 @@ function buttonControl(classid) {
             var evaluation=homeworkmood[i]['evaluation'];
             //button.setAttribute('evaluation',evaluation);
             if(evaluation=='通过'){
-                button.innerHTML='<img border="0" src="image/1.png">';
+                //button.innerHTML='<img border="0" src="image/1.png">';
+                //button.innerHTML='';
+                button.style="background:url('image/1.png')no-repeat;width: 40px;height: 40px;border: none;";
                 button.style.display='inline';
+                //任务图标可能在处于其他状态时被禁止过
+                button.removeAttribute('disabled');
             }
             else if(evaluation=='批改中'){
-                button.innerHTML='<img border="0" src="image/2.png">';
+                //button.innerHTML='<img border="0" src="image/2.png">';
+                button.style="background:url('image/2.png')no-repeat;width: 70px;height: 70px;border: none;";
                 button.style.display='inline';
+                //任务图标可能在处于其他状态时被禁止过
+                button.removeAttribute('disabled');
             }else if(evaluation=='未提交'||evaluation=='待修改'){
-                button.innerHTML='<img border="0" src="image/3.png">';
+                //button.innerHTML='<img border="0" src="image/3.png">';
+                button.style="background:url('image/3.png')no-repeat;width: 70px;height: 70px;border: none;";
                 button.style.display='inline';
                 button.setAttribute('disabled','disabled');
             }

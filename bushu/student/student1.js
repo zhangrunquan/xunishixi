@@ -76,7 +76,7 @@ function initialize() {
     $.ajax({ url: "info.php",
         data:{sid:sid},
         success: function (data) {
-            console.log(data);
+            ////console.log(data);
             var info=JSON.parse(data);
             info_group=info['group'];
             info_report=info['report'];
@@ -87,17 +87,17 @@ function initialize() {
             sortEmailarr(info['task'],info['feedback'],0);
             groupstunumber=objectLength(info_group['userid'])-1;
 
-            console.log('group stu num :'+groupstunumber);
-            console.log('initialize info');
-            console.log(info);
-            console.log('info_email');
-            console.log(info_email);
-            console.log('taskidnow '+taskidnow);
+            ////console.log('group stu num :'+groupstunumber);
+            ////console.log('initialize info');
+            ////console.log(info);
+            ////console.log('info_email');
+            ////console.log(info_email);
+            ////console.log('taskidnow '+taskidnow);
 
             //feedback从零索引，所以从taskidnow-1开始检查
             countUncheckedFeedback(info['feedback'],taskidnow-1);
 
-            console.log('uncheckedfeedbacknum '+uncheckedfeedbacknum);
+            ////console.log('uncheckedfeedbacknum '+uncheckedfeedbacknum);
 
             var lasttask=getLastTaskEmail(info_email.length-1);
             lasttask['taskid']=taskidnow;
@@ -112,7 +112,7 @@ function initialize() {
 //将接收到的feedback和taskemail数组合并为info_email，按timestamp排序，使用了递归
 function sortEmailarr(task,feedback,taskindex) {
     if(typeof (task[taskindex])==='undefined') {
-        console.log('sort end');
+        ////console.log('sort end');
         return 0;
     }
     info_email.push(task[taskindex]);
@@ -168,7 +168,7 @@ function getNewEmail() {
         data:{sid:sid,maxtimestamp:maxEmailTimeStamp},
         success: function (data) {
             var info=JSON.parse(data);
-            console.log(info);
+            ////console.log(info);
             //getdata记录本次是否获取到了新邮件
             var getdata=0;
             if(typeof (info['feedback'][0]['content'])!='undefined'){
@@ -180,8 +180,8 @@ function getNewEmail() {
                 getdata=1;
 
                 evaluationchange=1;
-                console.log("evaluation change to ");
-                console.log(evaluationchange);
+                ////console.log("evaluation change to ");
+                ////console.log(evaluationchange);
             }
             var lasttaskemail=getLastTaskEmail(info_email.length-1);
             var lasttimestamp=lasttaskemail['timeStamp'];
@@ -200,10 +200,10 @@ function getNewEmail() {
                 createEmailTable('emailtable',info_email,'emailtbody');
                 createHomeworkTable(info_report,'homeworktbody');
                 urlList();
-                console.log("getNewEmail(): new email comes");
+                ////console.log("getNewEmail(): new email comes");
             }
-            console.log('info_email');
-            console.log(info_email);
+            ////console.log('info_email');
+            ////console.log(info_email);
         }
     });
 }
@@ -236,8 +236,8 @@ function reminder(feedback,task) {
 //更新在线用户列表
 /*function updateGetOnlineuser() {
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
-        console.log('online user data: ');
-        console.log(data);
+        ////console.log('online user data: ');
+        ////console.log(data);
         //返回的json数据解码，数据存进data_array
         var data_array = eval(data);
         var onlineuserlist_str = "";
@@ -255,13 +255,13 @@ function reminder(feedback,task) {
             onlineuserlist_str += '导师&nbsp' + '张华';
         }
         document.getElementById("在线列表").innerHTML = onlineuserlist_str;
-        console.log('online list updated!')
+        ////console.log('online list updated!')
     })
 }*/
 function updateGetOnlineuser() {
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
-        console.log('online user data: ');
-        console.log(data);
+        ////console.log('online user data: ');
+        ////console.log(data);
         //返回的json数据解码，数据存进data_array
         var data_array = eval(data);
         var select=document.getElementById('online');
@@ -286,16 +286,16 @@ function updateGetOnlineuser() {
         }
         option.innerHTML=str;
         select.appendChild(option);
-        console.log('online list updated!')
+        ////console.log('online list updated!')
     })
 }
 //-----------------功能小函数----------------------------------------------
 //在本地保存草稿，实质是用发件箱输入的内容更新info_report最后一封邮件的['content]
 function saveDraftLocal() {
     info_report[info_report.length-1]['content']=$.trim(document.getElementById("sendemail").value);
-    console.log('saveDraftLocal');
-    console.log('info_report');
-    console.log(info_report);
+    ////console.log('saveDraftLocal');
+    ////console.log('info_report');
+    ////console.log(info_report);
 }
 //获取get传值的方法,（利用正则表达式从链接中获取）
 function getQueryString(name) {
@@ -379,12 +379,12 @@ function submitHomework() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            console.log(xhr.responseText)
+            ////console.log(xhr.responseText)
             //提示区会提示success表示发送成功
             //document.getElementById("result").innerHTML = xhr.responseText;
             info_report[info_report.length-1]['url']=JSON.parse(xhr.responseText);
-            console.log('info report: '+info_report);
-            console.log('作业提交成功');
+            ////console.log('info report: '+info_report);
+            ////console.log('作业提交成功');
             evaluationchange=1;
             checkHomeworkEvaluation();
         }
@@ -410,9 +410,9 @@ function saveDraft() {
 }
 //根据作业批改状态显示相应内容
 function checkHomeworkEvaluation() {
-    console.log("check homework eva")
+    ////console.log("check homework eva")
     if(evaluationchange==0){
-        console.log('evaluation check escaped');
+        ////console.log('evaluation check escaped');
 
         var submitbutton = document.getElementById('提交作业');
         var textarea = document.getElementById('sendemail');
@@ -445,11 +445,11 @@ function checkHomeworkEvaluation() {
         return;
     }
     $.get("get_homework_evaluation.php", {sid:sid}, function (data) {
-        console.log('check homework evaluation');
+        ////console.log('check homework evaluation');
         evaluationchange=0;
         evaluation = eval(data);
-        console.log("evaluation: ");
-        console.log(evaluation);
+        ////console.log("evaluation: ");
+        ////console.log(evaluation);
         var submitbutton = document.getElementById('提交作业');
         var textarea = document.getElementById('sendemail');
         if (evaluation == '未提交' || evaluation == '待修改') {
@@ -495,14 +495,14 @@ function createReport() {
         report['content']='';
         report['urlname']=[];
         info_report.push(report);
-        console.log('report created');
-        console.log(info_report);
+        ////console.log('report created');
+        ////console.log(info_report);
         createHomeworkTable(info_report,'homeworktbody');
         showAllButton();
         $.ajax({ url: "create_report.php",
             data:{sid:sid,taskidnow:taskidnow},
             success: function (data) {
-                console.log('report created in database')
+                ////console.log('report created in database')
             }
         });
     }
@@ -549,7 +549,7 @@ function createHomeworkTable(datas,tbodyid){
     }
     //如果收到了一封新的任务邮件，但还没有创建对应的report
     if(info_report.length<taskidnow){
-        console.log('收到了一封新的任务邮件，但还没有创建对应的report');
+        ////console.log('收到了一封新的任务邮件，但还没有创建对应的report');
         for (var i = 0; i < len; i++) {
             //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
             (function () {
@@ -579,7 +579,7 @@ function createHomeworkTable(datas,tbodyid){
 
                     }
                     else if(lastclick=='last'){
-                        console.log('onclick savedraft local');
+                        ////console.log('onclick savedraft local');
                         saveDraftLocal();
                         textarea.value = content ;
                         document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
@@ -592,10 +592,10 @@ function createHomeworkTable(datas,tbodyid){
                     }
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
-                    console.log('url_arr');
-                    console.log(url_arr);
-                    console.log('urlname');
-                    console.log(urlname_arr);
+                    ////console.log('url_arr');
+                    ////console.log(url_arr);
+                    ////console.log('urlname');
+                    ////console.log(urlname_arr);
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
@@ -605,15 +605,15 @@ function createHomeworkTable(datas,tbodyid){
                         urldiv.appendChild(a);
                     }
                     lastclick='other';
-                    console.log('lastclick changed to :'+lastclick);
+                    ////console.log('lastclick changed to :'+lastclick);
                 }
             })(i);
         }
         lastclick='other';
-        console.log('homeworktable created');
+        ////console.log('homeworktable created');
     }
     else {  //无未创建的report
-        console.log('无未创建的report');
+        ////console.log('无未创建的report');
         //处理最后一项以外的项
         for (i = 0; i < len-1; i++) {
             //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
@@ -644,7 +644,7 @@ function createHomeworkTable(datas,tbodyid){
 
                     }
                     else if(lastclick=='last'){
-                        console.log('onclick savedraft local');
+                        ////console.log('onclick savedraft local');
                         saveDraftLocal();
                         textarea.value = content ;
                         document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
@@ -657,10 +657,10 @@ function createHomeworkTable(datas,tbodyid){
                     }
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
-                    console.log('url_arr');
-                    console.log(url_arr);
-                    console.log('urlname');
-                    console.log(urlname_arr);
+                    ////console.log('url_arr');
+                    ////console.log(url_arr);
+                    ////console.log('urlname');
+                    ////console.log(urlname_arr);
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
@@ -670,7 +670,7 @@ function createHomeworkTable(datas,tbodyid){
                         urldiv.appendChild(a);
                     }
                     lastclick='other';
-                    console.log('lastclick changed to :'+lastclick);
+                    ////console.log('lastclick changed to :'+lastclick);
                 }
             })(i);
         }
@@ -696,11 +696,11 @@ function createHomeworkTable(datas,tbodyid){
 
             //document.getElementById('sendemail').removeAttribute('readonly');
             lastclick = 'last';
-            console.log('lastclick changed to :'+lastclick);
+            ////console.log('lastclick changed to :'+lastclick);
         };
 
         lastclick='other';
-        console.log('homeworktable created');
+        ////console.log('homeworktable created');
     }
 }
 //利用递归算法找出info_email中taskid最大的taskemail，参数index为info_email的最后一个索引，即从数组最后一项开始向前检查,返回值为taskemail的索引
@@ -714,17 +714,18 @@ function getLastTaskEmailIndex(index) {
 }
 //生成系统和教师邮件列表的函数
 function createEmailTable(parent,datas,tbodyid) {
-    console.log('info_email');
-    console.log(info_email);
+    ////console.log('info_email');
+    ////console.log(info_email);
     var tbody=document.getElementById(tbodyid);
     tbody.innerHTML='';
     //取得最后一封taskemail的索引，这个索引及其之后的邮件会绑定显示‘回复邮件’按钮的功能
     var index=getLastTaskEmailIndex(info_email.length-1);
-    //console.log(index)
+    //////console.log(index)
     for (var i = 0; i < index; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
         (function () {
             //新建一行
+            //console.log('enter index loop')
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
             var td= document.createElement("td");
@@ -733,15 +734,7 @@ function createEmailTable(parent,datas,tbodyid) {
             var timeStamp=datas[i]['timeStamp'];
             //taskemail
             if(typeof(info_email[i]['content'])=='undefined'){
-                //title=taskname_url_arr[taskid]['taskname']+'\n'+timeStamp;
-                /*title=info_pro[taskid-1]['taskname']+'<br>'+timeStamp;
-                var content=info_user['username']+',你好！';
-                content+=info_pro[i]['backgroundinfo'];
-                content+=info_pro[i]['taskreq'];
-                content+=info_pro[i]['deadline'];
-                content+='\n'+'祝好!'+'\n'+'张华';*/
                 title=info_pro[taskid-1]['taskname']+'<br>'+timeStamp;
-                //var content=info_user['username']+',你好！';
                 var content='<p>'+info_user['username']+',你好！'+'</p>';
                 //应读取的info_pro数组的索引是taskid-1
                 var proind=taskid-1;
@@ -762,9 +755,14 @@ function createEmailTable(parent,datas,tbodyid) {
                 content = datas[i]['content'];
 
             }
+
             td.innerHTML = title;
             tr.appendChild(td);
             td.setAttribute('listindex',i);
+            //console.log('before ser attr content');
+            ////console.log(content)
+            ////console.log(content)
+           // td.setAttribute('content',content);
             td.onclick = function () {
                 hideButton('response');
                 var index=this.getAttribute('listindex');
@@ -780,9 +778,11 @@ function createEmailTable(parent,datas,tbodyid) {
                         info_email[index]['checked']=1;
                     }
                 }
-                document.getElementById("receiveemail").value = content;
+                document.getElementById("receiveemail").innerHTML = content;
+                //console.log('this.get attr content');
+                ////console.log(this.getAttribute('content'));
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
-                    console.log(data);
+                    ////console.log(data);
                 });
 
                 //document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
@@ -796,6 +796,7 @@ function createEmailTable(parent,datas,tbodyid) {
     for (i = index; i < datas.length; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
         (function () {
+            //console.log('enter datas.len')
             //新建一行
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
@@ -849,7 +850,7 @@ function createEmailTable(parent,datas,tbodyid) {
                 //document.getElementById("receiveemail").value = content;
                 document.getElementById("receiveemail").innerHTML = content;
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
-                    console.log(data);
+                    ////console.log(data);
                 });
 
                 //document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
@@ -904,7 +905,7 @@ function createEmailTable(parent,datas,tbodyid) {
                 }
                 document.getElementById("receiveemail").value = content;
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
-                    console.log(data);
+                    ////console.log(data);
                 });
 
                 //document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
@@ -927,8 +928,8 @@ function urlList() {
             url_arr['url'].push(info_pro[i]['url'][k])
         }
     }
-    console.log('url arr prepared');
-    console.log(url_arr);
+    ////console.log('url arr prepared');
+    ////console.log(url_arr);
     createUrlTable(url_arr, 'urltbody');
 
 
@@ -963,7 +964,7 @@ function createUrlTable(datas, tbodyid) {
 
         })(i)
     }
-    console.log('urltable created');
+    ////console.log('urltable created');
 
 }
 //将taskemail置为已读
@@ -972,7 +973,7 @@ function checkTaskemail() {
         data:{sid:sid},
         success: function (data) {
             var info=eval(data);
-            console.log(info);
+            ////console.log(info);
         }
     });
 }
@@ -982,7 +983,7 @@ function checkFeedback(taskid) {
         data:{sid:sid,taskid:taskid},
         success: function (data) {
             var info=eval(data);
-            console.log(info);
+            ////console.log(info);
         }
     });
 }
@@ -1109,7 +1110,7 @@ function showmessage() {
             if(chatautoflow==1){
                 autoflow('up');
             }
-            console.log('chat message updated');
+            ////console.log('chat message updated');
         }
     };
     ajax.open('get', './chatroom.php?maxtimeStamp=' + maxChattimeStamp+ '&sid=' + sid);
@@ -1163,15 +1164,15 @@ function submitShareFile() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            console.log('submitShareFile() response: ');
-            console.log(xhr.responseText);
+            ////console.log('submitShareFile() response: ');
+            ////console.log(xhr.responseText);
             fileform.innerHTML='';
         }
     };
     xhr.open('post', 'share_file.php');
     xhr.send(formdata);
-    console.log('formdata');
-    console.log(formdata);
+    ////console.log('formdata');
+    ////console.log(formdata);
 }
 //从后台获取分享列表的数据
 function shareListData() {
@@ -1180,9 +1181,9 @@ function shareListData() {
         data:{sid:sid},
         success:function (data) {
             var info=JSON.parse(data);
-            console.log('shareListData result: ');
-            console.log(info);
-            console.log(typeof (info['filename'][0]) )
+            ////console.log('shareListData result: ');
+            ////console.log(info);
+            ////console.log(typeof (info['filename'][0]) )
             if(typeof (info['filename'][0]) !='undefined'){
                 createShareTable(info,'sharelist')
 
@@ -1228,8 +1229,8 @@ function reportAttachmentData() {
         data:{sid:sid},
         success:function (data) {
             var info=JSON.parse(data);
-            console.log('report_attachment result: ');
-            console.log(info);
+            ////console.log('report_attachment result: ');
+            ////console.log(info);
             createAttachmentTable(info,'attachment_history');
         }
     })
@@ -1295,7 +1296,7 @@ function shareAttachment(filename,url,number,taskid) {
         url:'share_attachment.php',
         data:{sid:sid,filename:filename,url:url,taskid:taskid,number:number},
         success:function (data) {
-            console.log(data);
+            ////console.log(data);
         }
     })
 }
