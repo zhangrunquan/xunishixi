@@ -8,7 +8,7 @@ date_default_timezone_set('PRC');
 
 //-----------------常量设置----------------------------------------------
 $NUMBERINGROUP=4;
-$TASKNUM=10;
+$TASKNUM;
 
 //-----------------获取接口变量----------------------------------------------
 $sid=$_GET['sid'];
@@ -21,6 +21,7 @@ $taskid=$_GET['taskid'];
 $numberingroup=$_GET['numberingroup'];
 $groupid=$_GET['groupid'];
 $evaluation=$_GET['evaluation'];
+$TASKNUM=$_GET['tasknum'];
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
 $usern = "root";
@@ -70,7 +71,8 @@ if($evaluation=='通过'){
 
     //如果通过数等于小组人数，小组当前任务号加1，当前任务通过人数归0
     if($oknumber==$NUMBERINGROUP-1){
-        if($taskidnow<=$TASKNUM){
+        //倒数第二个及其之前任务的处理，下发新任务，重置任务状态
+        if($taskidnow<$TASKNUM){
             $query="UPDATE group_attr SET taskidnow='$taskidnow'+1,oknumber=0 WHERE classid='$classid'AND groupid='$groupid'";
             mysqli_query($link,$query);
             //发送下一个任务
@@ -99,7 +101,6 @@ if($evaluation=='通过'){
                     echo("error: failed to insert into (table)homework_mood in tutor_feedback_email.php");
                 }
             }
-
 
         }
     }

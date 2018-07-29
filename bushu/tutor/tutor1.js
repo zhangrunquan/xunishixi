@@ -650,7 +650,8 @@ function feedbackEmail() {
         taskid: stu_taskid,
         emailcontent:emailcontent,
         evaluation: evaluation,
-        sid:sid
+        sid:sid,
+        tasknum:tasknum
     }, function (data) {
         //php文件运行成功返回的data为success
         alert(data);

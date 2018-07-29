@@ -176,15 +176,14 @@ function getNewEmail() {
                 //提醒未读消息
                 var subject='RE:Report'+info['feedback'][0]['taskid']+'<br/>'+info['feedback'][0]['timeStamp'];
                 spop(subject);
-
                 getdata=1;
 
-                evaluationchange=1;
                 ////console.log("evaluation change to ");
                 ////console.log(evaluationchange);
             }
             var lasttaskemail=getLastTaskEmail(info_email.length-1);
             var lasttimestamp=lasttaskemail['timeStamp'];
+            //比较接收的taskemail更新时间与当前的最后一封taskemail是否相同，若不同说明收到了新taskemail
             if(info['task'][0]['timeStamp']!=lasttimestamp){
                 taskidnow+=1;
                 info['task'][0]['taskid']=taskidnow;
@@ -192,15 +191,14 @@ function getNewEmail() {
                 //提醒未读消息
                 subject='task'+taskidnow+'<br/>'+info['task'][0]['timeStamp'];
                 spop(subject);
-
                 getdata=1;
             }
             if(getdata){
+                evaluationchange=1;
                 hideButton('response');
                 createEmailTable('emailtable',info_email,'emailtbody');
                 createHomeworkTable(info_report,'homeworktbody');
                 urlList();
-                ////console.log("getNewEmail(): new email comes");
             }
             ////console.log('info_email');
             ////console.log(info_email);
@@ -345,8 +343,6 @@ function changemood(target,mood) {
 //-----------------发件箱部分----------------------------------------------
 //提交作业到后台写入数据库的函数
 function submitHomework() {
-    //先禁用按钮，防止重复提交
-    //document.getElementById('提交作业').setAttribute('disabled', 'disabled');
     var input_arr=document.getElementById('upload').children;
     var len=info_report.length;
     for(var i=0;i<input_arr.length;i++){
@@ -354,12 +350,6 @@ function submitHomework() {
             var name=input_arr[i].files[0].name;
             info_report[len-1]['urlname'].push(name);
         }
-        /*
-        if(input_arr[i].value.length){
-            var name=input_arr[i].files[0].name;
-            info_report[len-1]['urlname'].push(name);
-        }*/
-
     }
     hideAllButton();
     saveDraftLocal();
@@ -379,7 +369,7 @@ function submitHomework() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            ////console.log(xhr.responseText)
+            //console.log(xhr.responseText)
             //提示区会提示success表示发送成功
             //document.getElementById("result").innerHTML = xhr.responseText;
             info_report[info_report.length-1]['url']=JSON.parse(xhr.responseText);
@@ -402,6 +392,8 @@ function saveDraft() {
     }
     //如果是不需保存的情况则不保存
     if(text!=''&&text!='作业待教师批改'&&text!='您的作业已通过，等待小组其他成员通过后系统将下发下一个任务'&&text!='请输入作业内容'){
+        console.log('saveDraft()');
+        console.log(text);
         $.get("save_draft.php", {sid:sid,text:text,taskidnow:taskidnow}, function (data) {
             var info = eval(data);
             //alert(info)
@@ -410,7 +402,7 @@ function saveDraft() {
 }
 //根据作业批改状态显示相应内容
 function checkHomeworkEvaluation() {
-    ////console.log("check homework eva")
+    console.log("check homework eva")
     if(evaluationchange==0){
         ////console.log('evaluation check escaped');
 
@@ -448,8 +440,8 @@ function checkHomeworkEvaluation() {
         ////console.log('check homework evaluation');
         evaluationchange=0;
         evaluation = eval(data);
-        ////console.log("evaluation: ");
-        ////console.log(evaluation);
+        console.log("evaluation: from database ");
+        console.log(evaluation);
         var submitbutton = document.getElementById('提交作业');
         var textarea = document.getElementById('sendemail');
         if (evaluation == '未提交' || evaluation == '待修改') {
@@ -495,14 +487,14 @@ function createReport() {
         report['content']='';
         report['urlname']=[];
         info_report.push(report);
-        ////console.log('report created');
-        ////console.log(info_report);
+        console.log('report created');
+        console.log(info_report);
         createHomeworkTable(info_report,'homeworktbody');
         showAllButton();
         $.ajax({ url: "create_report.php",
             data:{sid:sid,taskidnow:taskidnow},
             success: function (data) {
-                ////console.log('report created in database')
+                //console.log('report created in database')
             }
         });
     }
@@ -549,7 +541,7 @@ function createHomeworkTable(datas,tbodyid){
     }
     //如果收到了一封新的任务邮件，但还没有创建对应的report
     if(info_report.length<taskidnow){
-        ////console.log('收到了一封新的任务邮件，但还没有创建对应的report');
+        console.log('收到了一封新的任务邮件，但还没有创建对应的report');
         for (var i = 0; i < len; i++) {
             //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
             (function () {
@@ -613,7 +605,7 @@ function createHomeworkTable(datas,tbodyid){
         ////console.log('homeworktable created');
     }
     else {  //无未创建的report
-        ////console.log('无未创建的report');
+        console.log('无未创建的report');
         //处理最后一项以外的项
         for (i = 0; i < len-1; i++) {
             //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
@@ -688,7 +680,8 @@ function createHomeworkTable(datas,tbodyid){
         //设置点击展示邮件内容的功能
         td.onclick = function () {
             if (lastclick =='other') {
-                document.getElementById('upload').innerHTML='';
+                //showAllButton();
+                //document.getElementById('upload').innerHTML='';
                 document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
                 //document.getElementById("s_title").innerHTML = 'last report';
             }
@@ -925,6 +918,9 @@ function urlList() {
     for (var i = 0; i <taskidnow; i++) {
         for (var k = 0; k < info_pro[i]['intro'].length; k++) {
             url_arr['intro'].push(info_pro[i]['intro'][k]);
+            info_pro[i]['url'][k]='xml_attachment/'+info_pro[i]['url'][k].trim();
+            console.log("字符串拼接结果");
+            console.log(info_pro[i]['url'][k]);
             url_arr['url'].push(info_pro[i]['url'][k])
         }
     }
