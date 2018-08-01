@@ -425,7 +425,7 @@ function buttonControl(classid) {
             if(evaluation=='通过'){
                 //button.innerHTML='<img border="0" src="image/1.png">';
                 //button.innerHTML='';
-                button.style="background:url('image/1.png')no-repeat;width: 40px;height: 40px;border: none;";
+                button.style="background:url('image/4.png')no-repeat;width: 70px;height: 70px;border: none;";
                 button.style.display='inline';
                 //任务图标可能在处于其他状态时被禁止过
                 button.removeAttribute('disabled');
@@ -522,17 +522,6 @@ function dialog(groupid, taskid, numberingroup) {
         parent.appendChild(inputb);
         parent.innerHTML+='不通过';
     }
-    /*
-    //评价按钮的点击功能
-    for(i=0;i<info_pro[taskid-1]['rubrics'].length;i++){
-        document.getElementById('通过'+i).onclick=function (ev) {
-            makeEmail()
-        };
-        document.getElementById('未通过'+i).onclick=function (ev) {
-            makeEmail()
-        }
-    }
-    */
     openDialog();
     console.log('dialog formed');
 }

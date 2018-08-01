@@ -232,30 +232,6 @@ function reminder(feedback,task) {
     }
 }
 //更新在线用户列表
-/*function updateGetOnlineuser() {
-    $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
-        ////console.log('online user data: ');
-        ////console.log(data);
-        //返回的json数据解码，数据存进data_array
-        var data_array = eval(data);
-        var onlineuserlist_str = "";
-        var len=info_group['userid'].length;
-        for (var k = 0; k <len-1; k++) {
-            if (jQuery.inArray(info_group['userid'][k], data_array['userid']) != -1) {
-                onlineuserlist_str += info_group['username'][k] + '(在线）<br/>';
-            } else {
-                onlineuserlist_str += info_group['username'][k] + '<br/>';
-            }
-        }
-        if (jQuery.inArray(info_group['userid'][len-1], data_array['userid']) != -1) {
-            onlineuserlist_str += '导师&nbsp' + '张华' + '(在线）';
-        } else {
-            onlineuserlist_str += '导师&nbsp' + '张华';
-        }
-        document.getElementById("在线列表").innerHTML = onlineuserlist_str;
-        ////console.log('online list updated!')
-    })
-}*/
 function updateGetOnlineuser() {
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
         ////console.log('online user data: ');
@@ -1013,49 +989,7 @@ function createInput(nm,parentid) {
     return true;
 }
 
-/*
-function addInput() {
-    if (attachnum > 0) {
-        var attach = attachname + attachnum;
-        if (createInput(attach))
-            attachnum = attachnum + 1;
-    }
-}
-function deleteInput() {
-    if (attachnum > 1) {
-        attachnum = attachnum - 1;
-        if (!removeInput())
-            attachnum = attachnum + 1;
-    }
-}
-function createInput(nm) {
-    var aElement = document.createElement("input");
-    aElement.name = nm;
-    aElement.id = nm;
-    aElement.type = "file";
-    aElement.size = "50";
-    var deleteinput=document.createElement('input');
-    deleteinput.size = "50";
-    deleteinput.type='button';
-    deleteinput.value='删除';
-    deleteinput.setAttribute('targetid',nm);
-    deleteinput.onclick=function (ev) {
-        var targetid=this.getAttribute('targetid');
-        var target=document.getElementById(targetid);
-        target.parentNode.removeChild(target);
-        this.parentNode.removeChild(this);
-    };
-    if (document.getElementById("upload").appendChild(aElement) == null||document.getElementById('upload').appendChild(deleteinput)==null)
-        return false;
-    return true;
-}
-function removeInput(nm) {
-    var aElement = document.getElementById("upload");
-    if (aElement.removeChild(aElement.lastChild) == null)
-        return false;
-    return true;
-}
-*/
+
 
 //-----------------聊天室部分----------------------------------------------
 //显示聊天内容的函数
@@ -1162,7 +1096,7 @@ function submitShareFile() {
         if (xhr.readyState == 4) {
             ////console.log('submitShareFile() response: ');
             ////console.log(xhr.responseText);
-            fileform.innerHTML='';
+            fileform.innerHTML='上传文件';
         }
     };
     xhr.open('post', 'share_file.php');
@@ -1264,15 +1198,16 @@ function createAttachmentTable(data,tbodyid) {
             a.appendChild(node);
             tr.appendChild(a);
             //创建一键分享按钮
-            var button=document.createElement('input');
+            var button=document.createElement('button');
             button.type='button';
             if(shared==0){
-                button.value='分享';
+                button.innerHTML='分享';
                 button.setAttribute('style',"width:60px;height:25px");
                 button.onclick=function (ev) {
                     //alert(1);
                     shareAttachment(filename,sharefile,number,taskid);
-                    button.value='已分享';
+                    button.innerHTML='已分享';
+                    button.setAttribute('disabled','disabled');
                 }
             }
             else{
