@@ -87,7 +87,6 @@ function initialize() {
             sortEmailarr(info['task'],info['feedback'],0);
             //计算小组成员数，-1为减去tutor
             groupstunumber=objectLength(info_group['userid'])-1;
-
             console.log('initialize info');
             console.log(info);
             console.log('info_email');
@@ -512,7 +511,7 @@ function createHomeworkTable(datas,tbodyid){
                 //设置点击展示邮件内容的功能
                 td.onclick = function () {
                     //处理邮件链接
-                    var urldiv=document.getElementById('upload');
+                    var urldiv=document.getElementById('attach');
                     urldiv.innerHTML='';
                     var index=this.getAttribute('index');
                     //处理邮件文本内容
@@ -533,9 +532,9 @@ function createHomeworkTable(datas,tbodyid){
                     if(lastclick=='last'){
                         textarea.setAttribute('readonly','readonly')
                     }
-                    //此处似乎没有工作
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
+                    console.log('make ')
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
@@ -544,6 +543,7 @@ function createHomeworkTable(datas,tbodyid){
                         a.appendChild(node);
                         urldiv.appendChild(a);
                     }
+
                     lastclick='other';
                 }
             })(i);
@@ -569,8 +569,10 @@ function createHomeworkTable(datas,tbodyid){
                 //设置点击展示邮件内容的功能
                 td.onclick = function () {
                     //处理邮件链接
-                    var urldiv=document.getElementById('upload');
+                    //var urldiv=document.getElementById('upload');
+                    var urldiv=document.getElementById('attach');
                     urldiv.innerHTML='';
+                    document.getElementById('upload').innerHTML='';
 
                     var index=this.getAttribute('index');
                     //处理邮件文本内容
@@ -593,15 +595,18 @@ function createHomeworkTable(datas,tbodyid){
                     }
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
-
+                    urldiv.innerHTML='';
+                    console.log('make finish');
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
                         a.download=urlname_arr[k];
                         var node = document.createTextNode(urlname_arr[k]);
                         a.appendChild(node);
+                        console.log(typeof urldiv);
                         urldiv.appendChild(a);
                     }
+
                     lastclick='other';
                 }
             })(i);
@@ -620,6 +625,8 @@ function createHomeworkTable(datas,tbodyid){
         //设置点击展示邮件内容的功能
         td.onclick = function () {
             if (lastclick =='other') {
+                document.getElementById('attach').innerHTML='';
+                console.log('last clear');
                 document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
             }
             checkHomeworkEvaluation();
@@ -776,8 +783,6 @@ function urlList() {
         for (var k = 0; k < info_pro[i]['intro'].length; k++) {
             url_arr['intro'].push(info_pro[i]['intro'][k]);
             info_pro[i]['url'][k]='xml_attachment/'+info_pro[i]['url'][k].trim();
-            console.log("字符串拼接结果");
-            console.log(info_pro[i]['url'][k]);
             url_arr['url'].push(info_pro[i]['url'][k])
         }
     }

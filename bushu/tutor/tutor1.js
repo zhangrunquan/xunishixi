@@ -1,19 +1,20 @@
-/*
-提示：初始化info_pop,应对taskid更新情况
-步骤:1.修改class获取方式
-*/
 
+//-----------------控制台----------------------------------------------
 var buttonInterval=5000;
 var chatInterval=2000;
 var onlineuserInterval=7000;
 //-----------------常量设置----------------------------------------------
-var EVALUATIONNUM = 4;
-
+//report评价标准的数量，（可能没有必要使用全局变量）
+var EVALUATIONNUM ;
+//小组数
 var group_num=4;
+//聊天室的最大时间戳，每次查询只查时间戳以后的聊天信息
 var maxtimeStamp='1000-01-01 00:00:00';
+//任务数量，会在初始化时根据xml内容获取
 var tasknum;
-//小组成员数
+//小组成员最大数量
 var membernum=5;
+//sessionID
 var sid = getQueryString("sid");
 //存储xml中的信息
 var info_pro=[];
@@ -25,9 +26,9 @@ var info_pop=[];
 var info_classid=[];
 //当前classid
 var classidnow=0;
-//控制是否刷新聊天信息,0不刷新，1刷新
+//控制是否刷新聊天信息,0不刷新，1刷新,（可能是用于防止在更换班级时，之前已发出的ajax请求造成干扰，但并不确定有用）
 var chatupdatecontrol=0;
-//控制是否刷新作业图标状态,0不刷新，1刷新
+//控制是否刷新作业图标状态,0不刷新，1刷新（可能是用于防止在更换班级时，之前已发出的ajax请求造成干扰，但并不确定有用）
 var buttoncontrol=0;
 
 //--------评价作业时的学生信息
@@ -36,7 +37,6 @@ var stu_taskid = 0;
 var stu_numberingroup = 0;
 
 //-----------------执行部分----------------------------------------------
-console.log(2)
 initialize();
 setInterval("buttonControl()", buttonInterval);
 
@@ -69,7 +69,6 @@ function initialize() {
         console.log('initialize');
         console.log(data);
         var info = JSON.parse(data);
-        //var homeworkmood=info['homeworkmood'];
         info_pro=info['pro'];
         info_taskid=info['taskid'];
         info_classid=info['classid'];
@@ -77,7 +76,6 @@ function initialize() {
         console.log('tasknum');
         console.log(tasknum);
         classSelect();
-        //1111111111111111111111111111111
         createAllTaskbutton(group_num,tasknum);
         console.log('initialize');
         console.log(info);
@@ -86,21 +84,14 @@ function initialize() {
 //创建一个任务按钮
 //参数为组号，taskid，numberingroup,索引均从一开始
 function createButton(groupid,taskid,numberingroup,parentnode) {
-/*
-    //创建图片标签
-    var img=document.createElement('img');
-    img.src="image/3.png";*/
     //创建button标签
     var button=document.createElement('button');
     button.id=''+groupid+taskid+numberingroup;
-    console.log('button created id:');
-    console.log(button.id);
     button.onclick=function (ev) {
         dialog(groupid,taskid,numberingroup);
     };
     button.style.display='none';
     //元素绑定
-    //button.appendChild(img);
     parentnode.appendChild(button);
 }
 //创建一个任务div（任务图标），参数taskid从1开始索引
@@ -187,10 +178,6 @@ function resetChatMsg() {
     for (var k = 1; k <= group_num; k++) {
         var showmessage = document.getElementById("chatcontent" + k);
         showmessage.innerHTML = '';
-
-        //showmessage.scrollTop 可以实现div底部最先展示
-        // divnode.scrollHeight而已获得div的高度包括滚动条的高度
-        //showmessage.scrollTop = showmessage.scrollHeight-showmessage.style.height;
     }
 }
 //将所有按钮重置回初始隐藏状态
@@ -231,8 +218,6 @@ function get_chat_data(){
                 s += data_array[k][i].username +"&nbsp;"+"说：" + data_array[k][i].content;
                 s += "</p>";
             }
-            //maxid增加这一组这一次接收的聊天信息条数
-            //maxid+=data[k].length;
             var lastmessage=data_array[k].length-1;
             if(lastmessage!=-1){
                 var lasttimeStamp=data_array[k][lastmessage]['timeStamp'];
@@ -246,9 +231,6 @@ function get_chat_data(){
             showmessage.innerHTML += s;
             //重置s
             s="";
-            //showmessage.scrollTop 可以实现div底部最先展示
-            // divnode.scrollHeight而已获得div的高度包括滚动条的高度
-            //showmessage.scrollTop = showmessage.scrollHeight-showmessage.style.height;
         }
 
     })
@@ -259,7 +241,6 @@ function send(chatroomid) {
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
         success: function (data) {
-            console.log('send msg '+data)
         }
     });
 }
@@ -280,9 +261,6 @@ function initializepop() {
     for(var i=0;i<group_num;i++){
         info_pop[i]=[];
         for(var k=info_taskid[i]['taskidnow']-1;k<tasknum;k++){
-            /*for(var j=0;j<info_pro[k]['chatMsg'].length;j++){
-                info_pop[i][j]
-            }*/
             info_pop[i][k]=[];
         }
     }
@@ -299,24 +277,15 @@ function sentence(targetid,index,taskid) {
 }
 //改变指定聊天室当前'预定语',(上一条，下一条)
 function changesentence(chatroomid,change) {
-    console.log('change sentence begin')
     var target=document.getElementById('sentence'+chatroomid);
     var taskid=info_taskid[chatroomid-1]['taskidnow'];
     var oldindex=Number(target.getAttribute('index'));
     var newindex=oldindex+change;
     newindex=checkpop(newindex,taskid,chatroomid,change);
-    console.log('change sentence result: '+newindex)
     if(newindex=='无'){
         target.value='没有啦';
         return false;
     }
-    /*
-    if(newindex==info_pro[taskid-1]['chatName'].length){
-        newindex=0
-    }
-    else if (newindex==-1){
-        newindex=info_pro[taskid-1]['chatName'].length-1;
-    }*/
     else{
         var id='sentence'+chatroomid;
         sentence(id,newindex,taskid);
@@ -324,14 +293,12 @@ function changesentence(chatroomid,change) {
 }
 //在指定id的聊天室发送当前'预定语'
 function sendSentence(chatroomid) {
-
     var target=document.getElementById('sentence'+chatroomid);
     var text=target.value;
     if(text=='没有啦'){
         return;
     }
     var content=target.getAttribute('chatmsg');
-
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
         success: function (data) {
@@ -394,7 +361,6 @@ function updateGetOnlineuser() {
     })
 }
 
-
 //-----------------批改报告部分----------------------------------------------------------------------------
 //-----------------界面总体处理---------------------------------------------
 //控制所有任务按钮的状态（颜色，是否显示）
@@ -414,30 +380,24 @@ function buttonControl(classid) {
             var id=homeworkmood[i]['groupid'].toString()+homeworkmood[i]['taskid']+numberingroup;
             var button=document.getElementById(id);
             var evaluation=homeworkmood[i]['evaluation'];
-            //button.setAttribute('evaluation',evaluation);
+            //根据状态显示不同的图标
             if(evaluation=='通过'){
-                //button.innerHTML='<img border="0" src="image/1.png">';
-                //button.innerHTML='';
                 button.style="background:url('image/4.png')no-repeat;width: 70px;height: 70px;border: none;";
                 button.style.display='inline';
                 //任务图标可能在处于其他状态时被禁止过
                 button.removeAttribute('disabled');
             }
             else if(evaluation=='批改中'){
-                //button.innerHTML='<img border="0" src="image/2.png">';
                 button.style="background:url('image/2.png')no-repeat;width: 70px;height: 70px;border: none;";
                 button.style.display='inline';
                 //任务图标可能在处于其他状态时被禁止过
                 button.removeAttribute('disabled');
             }else if(evaluation=='未提交'||evaluation=='待修改'){
-                //button.innerHTML='<img border="0" src="image/3.png">';
                 button.style="background:url('image/3.png')no-repeat;width: 70px;height: 70px;border: none;";
                 button.style.display='inline';
                 button.setAttribute('disabled','disabled');
             }
         }
-        console.log('button control');
-        console.log(info);
     })
 }
 //展开作业评价面板前的准备处理
@@ -613,24 +573,6 @@ function feedbackEmail() {
     } else {
         return false;
     }
-    /*
-    //生成邮件内容
-    var choice_arr=check_result['arr'];
-    var index=stu_taskid-1;
-    var text=info_pro[index]['feedbackintro'].trim()+'\n';
-    if(checkallgood==1){
-        text+=info_pro[index]['allAcceptFeedback'].trim()+'\n';
-    }
-    else if(checkallgood == 0){
-        text+=info_pro[index]['allReviseFeedback'].trim()+'\n';
-    }
-    for(var i=0;i<choice_arr.length;i++){
-        if(choice_arr[i]==0){
-            text+=info_pro[index]['feedback'][i].trim()+'\n';
-        }
-    }
-    text+=info_pro[index]['reviseDeadline'].trim()+'\n';
-    */
     //ajax请求将数据送往后台
     $.get("tutor_feedback_email.php", {
         groupid: stu_group,

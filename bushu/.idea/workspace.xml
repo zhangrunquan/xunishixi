@@ -14,17 +14,10 @@
       <file leaf-file-name="student1.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/student/student1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2221">
-              <caret line="1029" column="38" lean-forward="false" selection-start-line="1029" selection-start-column="38" selection-end-line="1029" selection-end-column="38" />
+            <state relative-caret-position="329">
+              <caret line="88" column="64" lean-forward="false" selection-start-line="88" selection-start-column="64" selection-end-line="88" selection-end-column="64" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="n#!!block;n#sortEmailarr#0" expanded="false" />
-                <element signature="n#!!block;n#testFeedback#0" expanded="false" />
                 <element signature="n#!!block;n#createUI#0" expanded="false" />
-                <element signature="n#!!block;n#getLastTaskEmail#0" expanded="false" />
-                <element signature="n#!!block;n#reminder#0" expanded="false" />
-                <element signature="n#!!block;n#prepareTable#0" expanded="false" />
-                <element signature="n#!!block;n#prepareAllTable#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -40,55 +33,127 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tutor1.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutor/tutor1.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3202">
-              <caret line="294" column="19" lean-forward="false" selection-start-line="294" selection-start-column="19" selection-end-line="294" selection-end-column="19" />
-              <folding>
-                <element signature="n#script#4;n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#script#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#8197#8230#0" expanded="false" />
-                <element signature="n#script#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#9780#10325#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tutor1.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tutor1.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tutor/tutor1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="465" column="17" lean-forward="true" selection-start-line="465" selection-start-column="17" selection-end-line="465" selection-end-column="17" />
+            <state relative-caret-position="690">
+              <caret line="83" column="10" lean-forward="true" selection-start-line="83" selection-start-column="10" selection-end-line="83" selection-end-column="10" />
               <folding>
+                <element signature="e#1046#1131#0" expanded="false" />
+                <element signature="e#1191#1288#0" expanded="false" />
+                <element signature="n#!!block;n#getQueryString#0" expanded="false" />
+                <element signature="n#!!block;n#objectLength#0" expanded="false" />
+                <element signature="n#!!block;n#initialize#0" expanded="false" />
+                <element signature="e#1848#2293#0" expanded="false" />
+                <element signature="n#!!block;n#createButton#0" expanded="false" />
+                <element signature="e#2556#2609#0" expanded="false" />
+                <element signature="n#!!block;n#createTaskdiv#0" expanded="false" />
+                <element signature="e#2918#2970#0" expanded="false" />
+                <element signature="n#!!block;n#appendTask#0" expanded="false" />
+                <element signature="e#3161#3211#0" expanded="false" />
+                <element signature="n#!!block;n#createAllTaskbutton#0" expanded="false" />
+                <element signature="e#3306#3421#0" expanded="false" />
                 <element signature="n#!!block;n#classSelect#0" expanded="false" />
+                <element signature="e#3654#4220#0" expanded="false" />
+                <element signature="e#3677#4210#0" expanded="false" />
+                <element signature="e#4089#4200#0" expanded="false" />
                 <element signature="n#!!block;n#changeClass#0" expanded="false" />
                 <element signature="n#!!block;n#resetChatroom#0" expanded="false" />
                 <element signature="n#!!block;n#resetChatMsg#0" expanded="false" />
+                <element signature="e#4842#4955#0" expanded="false" />
+                <element signature="n#!!block;n#resetButton#0" expanded="false" />
+                <element signature="e#5032#5285#0" expanded="false" />
+                <element signature="e#5071#5279#0" expanded="false" />
+                <element signature="e#5112#5269#0" expanded="false" />
+                <element signature="e#5290#5388#0" expanded="false" />
                 <element signature="n#!!block;n#get_chat_data#0" expanded="false" />
+                <element signature="e#5526#5551#0" expanded="false" />
+                <element signature="e#5664#6681#0" expanded="false" />
+                <element signature="e#5696#5729#0" expanded="false" />
+                <element signature="e#5925#6674#0" expanded="false" />
+                <element signature="e#5972#6195#0" expanded="false" />
+                <element signature="e#6279#6483#0" expanded="false" />
+                <element signature="e#6402#6469#0" expanded="false" />
                 <element signature="n#!!block;n#send#0" expanded="false" />
+                <element signature="e#6801#6963#0" expanded="false" />
+                <element signature="e#6946#6957#0" expanded="false" />
+                <element signature="e#6968#7036#0" expanded="false" />
                 <element signature="n#!!block;n#initializeSentence#0" expanded="false" />
+                <element signature="e#7119#7254#0" expanded="false" />
+                <element signature="e#7142#7243#0" expanded="false" />
                 <element signature="n#!!block;n#initializepop#0" expanded="false" />
+                <element signature="e#7409#7545#0" expanded="false" />
+                <element signature="e#7497#7539#0" expanded="false" />
                 <element signature="n#!!block;n#sentence#0" expanded="false" />
                 <element signature="n#!!block;n#changesentence#0" expanded="false" />
-                <element signature="e#9115#9293#0" expanded="false" />
+                <element signature="e#8264#8321#0" expanded="false" />
+                <element signature="e#8330#8413#0" expanded="false" />
                 <element signature="n#!!block;n#sendSentence#0" expanded="false" />
+                <element signature="e#8582#8605#0" expanded="false" />
+                <element signature="e#8665#8906#0" expanded="false" />
+                <element signature="e#8810#8900#0" expanded="false" />
                 <element signature="n#!!block;n#popSentence#0" expanded="false" />
                 <element signature="n#!!block;n#checkpop#0" expanded="false" />
+                <element signature="e#9643#9702#0" expanded="false" />
+                <element signature="e#9761#9786#0" expanded="false" />
+                <element signature="e#9813#9881#0" expanded="false" />
+                <element signature="e#9952#10120#0" expanded="false" />
+                <element signature="e#10130#10206#0" expanded="false" />
                 <element signature="n#!!block;n#updateTaskid#0" expanded="false" />
+                <element signature="e#10298#10535#0" expanded="false" />
+                <element signature="e#10363#10529#0" expanded="false" />
+                <element signature="e#10538#10607#0" expanded="false" />
                 <element signature="n#!!block;n#updateGetOnlineuser#0" expanded="false" />
+                <element signature="e#10732#10765#0" expanded="false" />
+                <element signature="e#10770#10871#0" expanded="false" />
+                <element signature="n#!!block;n#buttonControl#0" expanded="false" />
+                <element signature="e#11022#11047#0" expanded="false" />
+                <element signature="e#11126#12618#0" expanded="false" />
+                <element signature="e#11367#12612#0" expanded="false" />
+                <element signature="e#11764#12025#0" expanded="false" />
+                <element signature="e#12064#12325#0" expanded="false" />
+                <element signature="e#12370#12602#0" expanded="false" />
+                <element signature="n#!!block;n#dialog#0" expanded="false" />
+                <element signature="e#13040#13161#0" expanded="false" />
+                <element signature="e#13179#14687#0" expanded="false" />
+                <element signature="e#13539#13823#0" expanded="false" />
+                <element signature="e#13965#14100#0" expanded="false" />
+                <element signature="e#14129#14681#0" expanded="false" />
+                <element signature="e#14372#14671#0" expanded="false" />
+                <element signature="e#14482#14533#0" expanded="false" />
+                <element signature="e#14606#14657#0" expanded="false" />
+                <element signature="e#14838#15453#0" expanded="false" />
+                <element signature="e#15489#15560#0" expanded="false" />
+                <element signature="n#!!block;n#makeEmail#0" expanded="false" />
+                <element signature="e#15860#15931#0" expanded="false" />
+                <element signature="e#15962#16033#0" expanded="false" />
+                <element signature="e#16074#16183#0" expanded="false" />
+                <element signature="e#16104#16177#0" expanded="false" />
+                <element signature="e#16207#16275#0" expanded="false" />
                 <element signature="n#!!block;n#checkGood#0" expanded="false" />
+                <element signature="e#16557#16822#0" expanded="false" />
+                <element signature="e#16587#16694#0" expanded="false" />
+                <element signature="e#16643#16684#0" expanded="false" />
+                <element signature="e#16700#16816#0" expanded="false" />
+                <element signature="e#16765#16806#0" expanded="false" />
                 <element signature="n#!!block;n#checkAll#0" expanded="false" />
-                <element signature="e#19429#19982#0" expanded="false" />
+                <element signature="e#17019#17385#0" expanded="false" />
+                <element signature="e#17096#17201#0" expanded="false" />
+                <element signature="e#17232#17317#0" expanded="false" />
+                <element signature="e#17331#17379#0" expanded="false" />
+                <element signature="e#17413#17483#0" expanded="false" />
+                <element signature="n#!!block;n#feedbackEmail#0" expanded="false" />
+                <element signature="e#17740#17842#0" expanded="false" />
+                <element signature="e#17954#17992#0" expanded="false" />
+                <element signature="e#18021#18056#0" expanded="false" />
+                <element signature="e#18062#18091#0" expanded="false" />
+                <element signature="e#18150#18363#0" expanded="false" />
+                <element signature="e#18381#18469#0" expanded="false" />
                 <element signature="n#!!block;n#checkAllGood#0" expanded="false" />
-                <marker date="1533114666718" expanded="true" signature="3514:3516" ph="{...}" />
+                <element signature="e#18655#19056#0" expanded="false" />
+                <element signature="e#18732#18872#0" expanded="false" />
+                <element signature="e#18903#18988#0" expanded="false" />
+                <element signature="e#19002#19050#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -127,6 +192,27 @@
                 <marker date="1533113770550" expanded="true" signature="807:886" ph="delete from onlineuser... " />
                 <marker date="1533113770550" expanded="true" signature="957:1002" ph="delete from onlineuser... " />
                 <marker date="1533113770550" expanded="true" signature="1050:1301" ph="insert into onlineuser... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="student2.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/student/student2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="97" column="43" lean-forward="true" selection-start-line="97" selection-start-column="43" selection-end-line="97" selection-end-column="43" />
+              <folding>
+                <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#body#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#hr#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -197,14 +283,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>password</find>
-      <find>功</find>
-      <find>create</find>
-      <find>onbe</find>
-      <find>createEMail</find>
-      <find>receiveemail</find>
-      <find>console</find>
-      <find>buttonC</find>
       <find>feedback</find>
       <find>submitH</find>
       <find>createHO</find>
@@ -227,6 +305,14 @@
       <find>user_info_array</find>
       <find>EVALUATIONNUM</find>
       <find>通过</find>
+      <find>maxtimeStamp</find>
+      <find>chatupdatecontrol</find>
+      <find>upload</find>
+      <find>attch</find>
+      <find>createH</find>
+      <find>attach</find>
+      <find>urldiv</find>
+      <find>changeLis</find>
     </findStrings>
     <replaceStrings>
       <replace>receiveemail</replace>
@@ -287,12 +373,10 @@
         <option value="$PROJECT_DIR$/tutor/button_control.php" />
         <option value="$PROJECT_DIR$/tutor/multichatroom_insert.php" />
         <option value="$PROJECT_DIR$/homepage/menu.html" />
-        <option value="$PROJECT_DIR$/student/student2.html" />
         <option value="$PROJECT_DIR$/student/get_homework_evaluation.php" />
         <option value="$PROJECT_DIR$/tutor/initialize.php" />
         <option value="$PROJECT_DIR$/tutor/tutor1.html" />
         <option value="$PROJECT_DIR$/tutor/tutor_feedback_email.php" />
-        <option value="$PROJECT_DIR$/student/student1.js" />
         <option value="$PROJECT_DIR$/student/chatroom.php" />
         <option value="$PROJECT_DIR$/student/check_feedback.php" />
         <option value="$PROJECT_DIR$/student/check_taskemail.php" />
@@ -309,6 +393,8 @@
         <option value="$PROJECT_DIR$/tutor/get_chat_data.php" />
         <option value="$PROJECT_DIR$/tutor/update_get_onlineuser.php" />
         <option value="$PROJECT_DIR$/tutor/tutor1.js" />
+        <option value="$PROJECT_DIR$/student/student2.html" />
+        <option value="$PROJECT_DIR$/student/student1.js" />
       </list>
     </option>
   </component>
@@ -406,6 +492,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="F:/下载2/new1" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="log&#9;FILE&#9;file://C:/wamp64/www/xunishixi/bushu/register_login" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -465,12 +552,12 @@
       <workItem from="1532138697937" duration="11084000" />
       <workItem from="1532584407422" duration="473000" />
       <workItem from="1532746219600" duration="29503000" />
-      <workItem from="1533082028451" duration="15925000" />
+      <workItem from="1533082028451" duration="21484000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="395325000" />
+    <option name="totallyTimeSpent" value="400884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
@@ -512,7 +599,7 @@
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="47" />
+      <option name="time" value="48" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -761,17 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student/student2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="140" column="41" lean-forward="false" selection-start-line="139" selection-start-column="42" selection-end-line="140" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student/share_file.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="553">
@@ -996,34 +1072,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tutor/pro.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="60" column="25" lean-forward="false" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tutor/tutor1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3202">
-          <caret line="294" column="19" lean-forward="false" selection-start-line="294" selection-start-column="19" selection-end-line="294" selection-end-column="19" />
-          <folding>
-            <element signature="n#script#4;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#8197#8230#0" expanded="false" />
-            <element signature="n#script#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#9780#10325#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tutor/tutor_feedback_email.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
@@ -1046,23 +1094,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student/student1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2221">
-          <caret line="1029" column="38" lean-forward="false" selection-start-line="1029" selection-start-column="38" selection-end-line="1029" selection-end-column="38" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#sortEmailarr#0" expanded="false" />
-            <element signature="n#!!block;n#testFeedback#0" expanded="false" />
-            <element signature="n#!!block;n#createUI#0" expanded="false" />
-            <element signature="n#!!block;n#getLastTaskEmail#0" expanded="false" />
-            <element signature="n#!!block;n#reminder#0" expanded="false" />
-            <element signature="n#!!block;n#prepareTable#0" expanded="false" />
-            <element signature="n#!!block;n#prepareAllTable#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tutor/update_get_onlineuser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
@@ -1075,32 +1106,183 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tutor/tutor1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="136" column="99" lean-forward="false" selection-start-line="136" selection-start-column="99" selection-end-line="136" selection-end-column="99" />
+          <folding>
+            <element signature="n#script#4;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#8197#8230#0" expanded="false" />
+            <element signature="n#script#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#9780#10325#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tutor/pro.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-115">
+          <caret line="60" column="25" lean-forward="false" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tutor/tutor1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="465" column="17" lean-forward="true" selection-start-line="465" selection-start-column="17" selection-end-line="465" selection-end-column="17" />
+        <state relative-caret-position="690">
+          <caret line="83" column="10" lean-forward="true" selection-start-line="83" selection-start-column="10" selection-end-line="83" selection-end-column="10" />
           <folding>
+            <element signature="e#1046#1131#0" expanded="false" />
+            <element signature="e#1191#1288#0" expanded="false" />
+            <element signature="n#!!block;n#getQueryString#0" expanded="false" />
+            <element signature="n#!!block;n#objectLength#0" expanded="false" />
+            <element signature="n#!!block;n#initialize#0" expanded="false" />
+            <element signature="e#1848#2293#0" expanded="false" />
+            <element signature="n#!!block;n#createButton#0" expanded="false" />
+            <element signature="e#2556#2609#0" expanded="false" />
+            <element signature="n#!!block;n#createTaskdiv#0" expanded="false" />
+            <element signature="e#2918#2970#0" expanded="false" />
+            <element signature="n#!!block;n#appendTask#0" expanded="false" />
+            <element signature="e#3161#3211#0" expanded="false" />
+            <element signature="n#!!block;n#createAllTaskbutton#0" expanded="false" />
+            <element signature="e#3306#3421#0" expanded="false" />
             <element signature="n#!!block;n#classSelect#0" expanded="false" />
+            <element signature="e#3654#4220#0" expanded="false" />
+            <element signature="e#3677#4210#0" expanded="false" />
+            <element signature="e#4089#4200#0" expanded="false" />
             <element signature="n#!!block;n#changeClass#0" expanded="false" />
             <element signature="n#!!block;n#resetChatroom#0" expanded="false" />
             <element signature="n#!!block;n#resetChatMsg#0" expanded="false" />
+            <element signature="e#4842#4955#0" expanded="false" />
+            <element signature="n#!!block;n#resetButton#0" expanded="false" />
+            <element signature="e#5032#5285#0" expanded="false" />
+            <element signature="e#5071#5279#0" expanded="false" />
+            <element signature="e#5112#5269#0" expanded="false" />
+            <element signature="e#5290#5388#0" expanded="false" />
             <element signature="n#!!block;n#get_chat_data#0" expanded="false" />
+            <element signature="e#5526#5551#0" expanded="false" />
+            <element signature="e#5664#6681#0" expanded="false" />
+            <element signature="e#5696#5729#0" expanded="false" />
+            <element signature="e#5925#6674#0" expanded="false" />
+            <element signature="e#5972#6195#0" expanded="false" />
+            <element signature="e#6279#6483#0" expanded="false" />
+            <element signature="e#6402#6469#0" expanded="false" />
             <element signature="n#!!block;n#send#0" expanded="false" />
+            <element signature="e#6801#6963#0" expanded="false" />
+            <element signature="e#6946#6957#0" expanded="false" />
+            <element signature="e#6968#7036#0" expanded="false" />
             <element signature="n#!!block;n#initializeSentence#0" expanded="false" />
+            <element signature="e#7119#7254#0" expanded="false" />
+            <element signature="e#7142#7243#0" expanded="false" />
             <element signature="n#!!block;n#initializepop#0" expanded="false" />
+            <element signature="e#7409#7545#0" expanded="false" />
+            <element signature="e#7497#7539#0" expanded="false" />
             <element signature="n#!!block;n#sentence#0" expanded="false" />
             <element signature="n#!!block;n#changesentence#0" expanded="false" />
-            <element signature="e#9115#9293#0" expanded="false" />
+            <element signature="e#8264#8321#0" expanded="false" />
+            <element signature="e#8330#8413#0" expanded="false" />
             <element signature="n#!!block;n#sendSentence#0" expanded="false" />
+            <element signature="e#8582#8605#0" expanded="false" />
+            <element signature="e#8665#8906#0" expanded="false" />
+            <element signature="e#8810#8900#0" expanded="false" />
             <element signature="n#!!block;n#popSentence#0" expanded="false" />
             <element signature="n#!!block;n#checkpop#0" expanded="false" />
+            <element signature="e#9643#9702#0" expanded="false" />
+            <element signature="e#9761#9786#0" expanded="false" />
+            <element signature="e#9813#9881#0" expanded="false" />
+            <element signature="e#9952#10120#0" expanded="false" />
+            <element signature="e#10130#10206#0" expanded="false" />
             <element signature="n#!!block;n#updateTaskid#0" expanded="false" />
+            <element signature="e#10298#10535#0" expanded="false" />
+            <element signature="e#10363#10529#0" expanded="false" />
+            <element signature="e#10538#10607#0" expanded="false" />
             <element signature="n#!!block;n#updateGetOnlineuser#0" expanded="false" />
+            <element signature="e#10732#10765#0" expanded="false" />
+            <element signature="e#10770#10871#0" expanded="false" />
+            <element signature="n#!!block;n#buttonControl#0" expanded="false" />
+            <element signature="e#11022#11047#0" expanded="false" />
+            <element signature="e#11126#12618#0" expanded="false" />
+            <element signature="e#11367#12612#0" expanded="false" />
+            <element signature="e#11764#12025#0" expanded="false" />
+            <element signature="e#12064#12325#0" expanded="false" />
+            <element signature="e#12370#12602#0" expanded="false" />
+            <element signature="n#!!block;n#dialog#0" expanded="false" />
+            <element signature="e#13040#13161#0" expanded="false" />
+            <element signature="e#13179#14687#0" expanded="false" />
+            <element signature="e#13539#13823#0" expanded="false" />
+            <element signature="e#13965#14100#0" expanded="false" />
+            <element signature="e#14129#14681#0" expanded="false" />
+            <element signature="e#14372#14671#0" expanded="false" />
+            <element signature="e#14482#14533#0" expanded="false" />
+            <element signature="e#14606#14657#0" expanded="false" />
+            <element signature="e#14838#15453#0" expanded="false" />
+            <element signature="e#15489#15560#0" expanded="false" />
+            <element signature="n#!!block;n#makeEmail#0" expanded="false" />
+            <element signature="e#15860#15931#0" expanded="false" />
+            <element signature="e#15962#16033#0" expanded="false" />
+            <element signature="e#16074#16183#0" expanded="false" />
+            <element signature="e#16104#16177#0" expanded="false" />
+            <element signature="e#16207#16275#0" expanded="false" />
             <element signature="n#!!block;n#checkGood#0" expanded="false" />
+            <element signature="e#16557#16822#0" expanded="false" />
+            <element signature="e#16587#16694#0" expanded="false" />
+            <element signature="e#16643#16684#0" expanded="false" />
+            <element signature="e#16700#16816#0" expanded="false" />
+            <element signature="e#16765#16806#0" expanded="false" />
             <element signature="n#!!block;n#checkAll#0" expanded="false" />
-            <element signature="e#19429#19982#0" expanded="false" />
+            <element signature="e#17019#17385#0" expanded="false" />
+            <element signature="e#17096#17201#0" expanded="false" />
+            <element signature="e#17232#17317#0" expanded="false" />
+            <element signature="e#17331#17379#0" expanded="false" />
+            <element signature="e#17413#17483#0" expanded="false" />
+            <element signature="n#!!block;n#feedbackEmail#0" expanded="false" />
+            <element signature="e#17740#17842#0" expanded="false" />
+            <element signature="e#17954#17992#0" expanded="false" />
+            <element signature="e#18021#18056#0" expanded="false" />
+            <element signature="e#18062#18091#0" expanded="false" />
+            <element signature="e#18150#18363#0" expanded="false" />
+            <element signature="e#18381#18469#0" expanded="false" />
             <element signature="n#!!block;n#checkAllGood#0" expanded="false" />
-            <marker date="1533114666718" expanded="true" signature="3514:3516" ph="{...}" />
+            <element signature="e#18655#19056#0" expanded="false" />
+            <element signature="e#18732#18872#0" expanded="false" />
+            <element signature="e#18903#18988#0" expanded="false" />
+            <element signature="e#19002#19050#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student/student1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="88" column="64" lean-forward="false" selection-start-line="88" selection-start-column="64" selection-end-line="88" selection-end-column="64" />
+          <folding>
+            <element signature="n#!!block;n#createUI#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student/student2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="97" column="43" lean-forward="true" selection-start-line="97" selection-start-column="43" selection-end-line="97" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#body#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#hr#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
