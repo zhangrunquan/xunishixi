@@ -34,8 +34,6 @@ $allow_format=array('jpg','jpeg','gif');
 $error='no error';
 
 
-
-
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
 $usern = "root";
@@ -57,11 +55,7 @@ while($share_arr=mysqli_fetch_assoc($ret)) {
     $sharetime_str = $share_arr['sharetime'];
     $filename_str = $share_arr['filename'];
 }
-/*
-$share_arr=mysqli_fetch_assoc($ret);
-$sharefile_str=$share_arr[0]['sharefile'];
-$sharetime_str=$share_arr[0]['sharetime'];
-$filename_str=$share_arr[0]['filename'];*/
+
 
 foreach ($_FILES as $key => $value){
     $file=$value;
@@ -94,7 +88,9 @@ $info['sharefile']=$sharefile_arr;
 $info['sharetime']=$sharetime_arr;
 echo(json_encode($info));
 
-
+//参数为文件（$FILES中的项），允许的类型，允许的格式，错误，路径，允许的文件大小
+//其中一些参数目前没有用到
+//使用方法较难简洁的说明，请参照本文件使用实例，如遇到问题问题推荐重写
 function upload_single($file,$allow_type,$allow_format=array(),$error,$path,$max_size){
     //判断文件是否有效
     //if(is_uploaded_file($file))

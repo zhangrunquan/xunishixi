@@ -6,9 +6,7 @@ session_id($sid);
 session_start();
 $userid=$_SESSION['userid'];
 $taskid=$_GET['taskid'];
-/*
-$userid=1;
-$taskid=1;*/
+
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
 $usern = "root";

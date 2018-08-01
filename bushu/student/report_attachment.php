@@ -34,7 +34,6 @@ $urlname_arr=[];
 $shared_arr=[];
 while($res=mysqli_fetch_assoc($ret)){
     $url_arr=explode(',',$res['url']);
-    //echo ($res['url']);
     $url_arr=array_filter($url_arr);
     foreach ($url_arr as $value){
         $info['url'][]=$value;

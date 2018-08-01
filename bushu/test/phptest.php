@@ -1,4 +1,5 @@
 <?php
+//测试数据库连接是否正常
 $servername = "47.96.146.26";
 $username = "root";
 $password = "B4F393c91945";

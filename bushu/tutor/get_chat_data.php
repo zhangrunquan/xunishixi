@@ -15,7 +15,6 @@ session_id($sid);
 session_start();
 $userid=$_SESSION['userid'];
 $classid=$_GET['classid'];
-//$maxid=$_GET["maxid"];
 $maxtimeStamp=$_GET['maxtimeStamp'];
 
 //$chat_data数组用来存放聊天信息
@@ -33,11 +32,9 @@ $res = mysqli_set_charset($link, 'utf8');
 mysqli_query($link, 'use '.$dbname);
 
 for($i=1;$i<=$group_num;$i++){
-    //$groupid=$_SESSION["group".(string)$i];
-    //$query="SELECT timeStamp,username,content FROM log WHERE classid='$classid' AND groupid='$i' AND actiontype='ChatMsg' AND timeStamp>'$maxtimeStamp';";
+
     $query="SELECT timeStamp,username,content FROM chat WHERE classid='$classid' AND groupid='$i' AND timeStamp>'$maxtimeStamp';";
 
-    //$query="select * from message where groupid='$groupid'and messageid>'$maxid'";
     $result=mysqli_query($link,$query);
 
     $info = array();

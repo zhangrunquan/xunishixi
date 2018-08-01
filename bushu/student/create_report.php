@@ -24,13 +24,7 @@ $numberingroup=$_SESSION['numberingroup'];
 
 $url='';
 $text='';
-/*
-$userid=1;
-$classid=1;
-$time=date('Y-m-d H:i:s',time());
-$groupid=2;
-$numberingroup=5;
-$taskidnow=3;*/
+
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
 $usern = "root";

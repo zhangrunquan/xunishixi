@@ -38,6 +38,7 @@ $evaluaion_array=mysqli_fetch_assoc($ret);
 $query="SELECT content,url,urlname FROM report WHERE userid='$userid'AND taskid='$taskid'";
 $ret=mysqli_query($link,$query);
 mysqli_close($link);
+//将信息整合到一个数组
 $homeworkcontent_arr=mysqli_fetch_assoc($ret);
 $info_arr['content']=$homeworkcontent_arr['content'];
 $url_str=$homeworkcontent_arr['url'];
@@ -62,16 +63,4 @@ else if ($evaluaion=='待修改') {
 }
 $info_arr['evaluation']=$evaluaion;
 echo(json_encode($info_arr));
-/*
-$evaluaion_array=mysqli_fetch_assoc($ret);
-$evaluaion=$evaluaion_array['evaluation'];
-*/
-/*
-if($evaluaion=='通过'){
-    echo(json_encode('作业已通过！'));
-    exit();
-}
-else if ($evaluaion=='待修改') {
-    echo(json_encode('作业待学生修改！'));
-}
-*/
+

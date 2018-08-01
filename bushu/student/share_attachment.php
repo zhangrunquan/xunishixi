@@ -33,6 +33,7 @@ $qurey="SELECT shared FROM report WHERE userid='$userid' AND taskid='$taskid' li
 $ret=mysqli_query($link,$qurey);
 while($res=mysqli_fetch_assoc($ret)){
     $shared_arr=explode(',',$res['shared']);
+    //将值为''的元素从数组中过滤掉
     $shared_arr=array_filter($shared_arr,"shared");
     $shared_arr[$number]=1;
 }
@@ -48,6 +49,7 @@ $query="UPDATE group_attr SET filename=CONCAT(IFNULL(filename,''),'$filename','@
 mysqli_query($link,$query);
 echo('share attachment success!');
 
+//用于array_filter
 function shared($var){
     if($var!=''){
         return true;

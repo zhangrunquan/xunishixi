@@ -23,13 +23,6 @@ $classid=$_SESSION['classid'];
 date_default_timezone_set('PRC');
 $time=date('Y-m-d H:i:s',time());
 
-/*
-$userid=1;
-$username='af';
-$groupid=1;
-$classid=1;
-$time='2018-05-11 16:36:35';
-*/
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
 $usern = "root";
@@ -62,28 +55,9 @@ while ($onlineuser=mysqli_fetch_assoc($result)){
     $onlineuser_name[]=$onlineuser['userid'];
 }
 
-//获取小组的教师
-/*
-$query="SELECT username FROM account WHERE classid='$classid' AND role='tutor' LIMIT 1";
-$ret=mysqli_query($link,$query);
-$tutor_name_array=mysqli_fetch_assoc($ret);
-$tutor_name=$tutor_name_array['username'];
-*/
-/*
-//获取小组全部学生成员
-$query="SELECT username FROM account WHERE classid='$classid' AND groupid='$groupid' AND role='student'";
-$ret=mysqli_query($link,$query);
-mysqli_close($link);
-*/
-//整理所有信息存入$info_array
+
 $info_array=array();
-/*
-$info_array['student_name']=array();
-while($stu_name=mysqli_fetch_assoc($ret)){
-    $info_array['student_name'][]=$stu_name['username'];
-}
-*/
-//$info_array['tutor_name']=$tutor_name;
+
 $info_array['userid']=$onlineuser_name;
 //回显json格式的结果
 if(!empty($info_array)) {

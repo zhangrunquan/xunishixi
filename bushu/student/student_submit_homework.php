@@ -17,7 +17,6 @@ session_start();
 $evaluation=$_POST['evaluation'];
 $text=$_POST["text"];
 $userid=$_SESSION['userid'];
-//$taskidnow=$_SESSION['taskidnow'];
 $classid=$_SESSION['classid'];
 $username=$_SESSION['username'];
 $time=date('Y-m-d H:i:s',time());
@@ -34,11 +33,7 @@ $allow_type=array('image/jpg','image/jpeg','image/gif');
 $allow_format=array('jpg','jpeg','gif');
 $error='no error';
 
-/*
-$filename=upload_single($file,$allow_type,$allow_format,$error,$path,$max_size);
-$href='upload/'.$filename;
-echo ($filename);
-*/
+
 $url_arr=[];
 //记录文件分享状态（shared字段）的字符串
 $shared_str='';
@@ -54,11 +49,7 @@ foreach ($_FILES as $key => $value){
     $url_arr[]=$temp;
     $shared_str.='0,';
 }
-/*
-$query="insert into href VALUES ('$href')";
-mysqli_query($link,$query);
-echo "<a href='{$href}'>打开</a>";
-*/
+
 
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
@@ -88,7 +79,6 @@ mysqli_query($link,$query);
 //更改作业状态记录
 //如果评价是‘待修改’，修改旧记录
 if($evaluation=='待修改'|| $evaluation=='未提交'){
-    //$query="DELETE FROM homework_mood WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
     $query="UPDATE homework_mood SET evaluation='批改中' WHERE userid='$userid' AND taskid='$taskidnow' limit 1";
     mysqli_query($link,$query);
 }
@@ -99,18 +89,16 @@ else{
 }
 
 //向report表插入记录
-/*
-$query="INSERT INTO report VALUES ('$classid','$groupid','$numberingroup'
-          ,'$userid','$taskidnow','$text','$url')";
-*/
 $query="UPDATE report SET classid='$classid',groupid='$groupid',groupNO='$numberingroup',userid='$userid',taskid='$taskidnow',content='$text',url='$url',urlname='$urlname',timeStamp='$time',shared='$shared_str' WHERE  userid='$userid' AND taskid='$taskidnow'";
 mysqli_query($link,$query);
 
 mysqli_close($link);
-//回显发送成功提示
-//echo("作业提交成功！");
+//返回前端需要的文件名信息（此处设计不合理，文件名不必要绕圈从后台返回，只是为了当时的方便
 echo(json_encode($url_arr));
 
+//参数为文件（$FILES中的项），允许的类型，允许的格式，错误，路径，允许的文件大小
+//其中一些参数目前没有用到
+//使用方法较难简洁的说明，请参照本文件使用实例，如遇到问题问题推荐重写
 function upload_single($file,$allow_type,$allow_format=array(),$error,$path,$max_size){
     //判断文件是否有效
     //if(is_uploaded_file($file))

@@ -1,7 +1,5 @@
 <?php
-//header("Content-Type:application/json");
 $taskemailnum=10;
-
 
 
 $sid=$_GET['sid'];
@@ -10,12 +8,6 @@ session_start();
 $groupid=$_SESSION['groupid'];
 $classid=$_SESSION['classid'];
 $userid = $_SESSION['userid'];
-
-/*
-$userid=1;
-$classid=1;
-$groupid=1;
-*/
 
 //-----------------mysql参数----------------------------------------------
 $servername = "47.96.146.26";
@@ -122,8 +114,6 @@ foreach ($time_arr as $key=>$value){
 }
 
 
-
-
 $info['group']=[];
 $info['group']['userid']=[];
 $info['group']['username']=[];
@@ -143,7 +133,6 @@ foreach ($group as $key=>$value){
 }
 $info['group']['userid'][]=$group[$tutorindex]['userid'];
 $info['group']['username'][]=$group[$tutorindex]['username'];
-
 
 
 //存储用户信息

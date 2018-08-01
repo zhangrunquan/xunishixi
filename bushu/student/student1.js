@@ -198,6 +198,7 @@ function getNewEmail() {
     });
 }
 //利用递归算法找出info_email中taskid最大的taskemail，参数index为info_email的最后一个索引，即从数组最后一项开始向前检查
+//参数：info_email的最后一个索引
 function getLastTaskEmail(index) {
     //如果[content]未定义，说明这是任务邮件
     if(typeof(info_email[index]['content'])=='undefined'){
@@ -207,7 +208,8 @@ function getLastTaskEmail(index) {
         return getLastTaskEmail(index-1);
     }
 }
-//初始化信息后，第一次生成提醒，依赖initialize()取得的数据
+//初始化信息后，第一次生成pop提醒，依赖initialize()取得的数据，pop提醒在点击查看邮件后才会关闭对这封邮件的提醒（更改数据库），只关闭气泡，下次登录仍会提醒
+//参数：initialize获得的feedback，task数组
 function reminder(feedback,task) {
     for(var i=0;i<feedback.length;i++){
         if(feedback[i]['checked']==0){
@@ -227,15 +229,14 @@ function reminder(feedback,task) {
 //更新在线用户列表
 function updateGetOnlineuser() {
     $.get("update_get_onlineuser.php", {sid: sid}, function (data) {
-        ////console.log('online user data: ');
-        ////console.log(data);
-        //返回的json数据解码，数据存进data_array
+        //返回json数据
         var data_array = eval(data);
         var select=document.getElementById('online');
         select.innerHTML='<option>在线列表</option>';
         var str = "";
         var len=info_group['userid'].length;
         for (var k = 0; k <len-1; k++) {
+            //检查所有同组学生是否在在线的清单中
             var option=document.createElement('option');
             if (jQuery.inArray(info_group['userid'][k], data_array['userid']) != -1) {
                 str = info_group['username'][k] + '(在线）<br/>';
@@ -245,6 +246,7 @@ function updateGetOnlineuser() {
             option.innerHTML=str;
             select.appendChild(option);
         }
+        //检查tutor是否在在线清单中
         option=document.createElement('option');
         if (jQuery.inArray(info_group['userid'][len-1], data_array['userid']) != -1) {
             str = '导师&nbsp' + '张华' + '(在线）';
@@ -253,16 +255,12 @@ function updateGetOnlineuser() {
         }
         option.innerHTML=str;
         select.appendChild(option);
-        ////console.log('online list updated!')
     })
 }
 //-----------------功能小函数----------------------------------------------
 //在本地保存草稿，实质是用发件箱输入的内容更新info_report最后一封邮件的['content]
 function saveDraftLocal() {
     info_report[info_report.length-1]['content']=$.trim(document.getElementById("sendemail").value);
-    ////console.log('saveDraftLocal');
-    ////console.log('info_report');
-    ////console.log(info_report);
 }
 //获取get传值的方法,（利用正则表达式从链接中获取）
 function getQueryString(name) {
@@ -279,7 +277,6 @@ function hideButton(id) {
 function hideAllButton() {
     hideButton('提交作业');
     hideButton('addfile');
-    //hideButton('deletefile');
     hideButton('save');
     hideButton('upload')
 }
@@ -291,7 +288,6 @@ function showButton(id) {
 function showAllButton(){
     showButton('提交作业');
     showButton('addfile');
-    //showButton('deletefile');
     showButton('save');
     showButton('upload')
 }
@@ -301,14 +297,10 @@ function objectLength(obj) {
     return arr.length;
 }
 
-//改变记录状态的变量，（现在没用到）
-function changemood(target,mood) {
-    target=mood;
-}
-
 //-----------------发件箱部分----------------------------------------------
 //提交作业到后台写入数据库的函数
 function submitHomework() {
+    //获取上传的文件的文件名，按顺序加进info_report数组（此处的存储可能并没用到）
     var input_arr=document.getElementById('upload').children;
     var len=info_report.length;
     for(var i=0;i<input_arr.length;i++){
@@ -317,17 +309,17 @@ function submitHomework() {
             info_report[len-1]['urlname'].push(name);
         }
     }
+
     hideAllButton();
     saveDraftLocal();
 
-
+    //获取发件内容
     var text = document.getElementById("sendemail").value;
-    //
+    //获取上传文件的表单元素
     var fileform = document.getElementById('upload');
     //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
     var formdata = new FormData(fileform);
     document.getElementById('upload').innerHTML='';
-
     formdata.append('sid', sid);
     formdata.append('text', text);
     formdata.append('evaluation', evaluation);
@@ -335,12 +327,9 @@ function submitHomework() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            //console.log(xhr.responseText)
             //提示区会提示success表示发送成功
-            //document.getElementById("result").innerHTML = xhr.responseText;
             info_report[info_report.length-1]['url']=JSON.parse(xhr.responseText);
-            ////console.log('info report: '+info_report);
-            ////console.log('作业提交成功');
+            //将evaluationchange置为1，保证checkevaluation（）会查询数据库
             evaluationchange=1;
             checkHomeworkEvaluation();
         }
@@ -350,29 +339,29 @@ function submitHomework() {
 }
 //向数据库保存草稿
 function saveDraft() {
+    //如果发件箱页面最后点击的是可编辑的发件（当前任务），直接从输入框中获得内容
     if(lastclick=='last'){
         var text=$.trim(document.getElementById("sendemail").value);
     }
+    //如果发件箱页面最后点击的是以前的发件（非当前任务），从info_report中获得内容，
+    //（编辑完当前report，再点击查看之前的report内容时，会用saveDraftLocal（）将当前report保存到info_report）
     else{
         text=info_report[info_report.length-1]['content']
     }
-    //如果是不需保存的情况则不保存
+    //如果是不需保存的情况则不保存，及输入为空或为自动显示的默认信息
     if(text!=''&&text!='作业待教师批改'&&text!='您的作业已通过，等待小组其他成员通过后系统将下发下一个任务'&&text!='请输入作业内容'){
         console.log('saveDraft()');
         console.log(text);
         $.get("save_draft.php", {sid:sid,text:text,taskidnow:taskidnow}, function (data) {
-            var info = eval(data);
-            //alert(info)
         })
     }
 }
 //根据作业批改状态显示相应内容
 function checkHomeworkEvaluation() {
-    console.log("check homework eva")
+    //如果作业批改状态并无改变的可能性，不查询数据库，查看本地记录的状态
     if(evaluationchange==0){
-        ////console.log('evaluation check escaped');
-
         var submitbutton = document.getElementById('提交作业');
+        //发件内容输入区
         var textarea = document.getElementById('sendemail');
         if (evaluation == '未提交' || evaluation == '待修改') {
             var content=info_report[info_report.length-1]['content'];
@@ -388,26 +377,23 @@ function checkHomeworkEvaluation() {
             return true;
         }
         else if (evaluation == '批改中') {
-            //document.getElementById("sendemail").value="作业待教师批改";
             textarea.setAttribute('readonly', 'readonly');
             textarea.value = "作业待教师批改";
             submitbutton.setAttribute('disabled', 'disabled');
         }
         else if (evaluation == '通过') {
-            //document.getElementById("sendemail").value="您的作业已通过，等待小组其他成员通过后系统将下发下一个任务";
             textarea.value = "您的作业已通过，等待小组其他成员通过后系统将下发下一个任务";
             textarea.setAttribute('readonly', 'readonly');
             submitbutton.setAttribute('disabled', 'disabled');
 
         }
+        //查询客户端信息后直接结束，不查数据库
         return;
     }
+    //向数据库查询作业评价状态
     $.get("get_homework_evaluation.php", {sid:sid}, function (data) {
-        ////console.log('check homework evaluation');
         evaluationchange=0;
         evaluation = eval(data);
-        console.log("evaluation: from database ");
-        console.log(evaluation);
         var submitbutton = document.getElementById('提交作业');
         var textarea = document.getElementById('sendemail');
         if (evaluation == '未提交' || evaluation == '待修改') {
@@ -440,27 +426,28 @@ function checkHomeworkEvaluation() {
 }
 //
 //-----------------收件箱部分----------------------------------------------
-//如果符合条件，创建一封新发件，并跳转到发件箱
+//如果当前有未创建的report，创建并跳转到发件箱，若无则只跳转
 function createAndJump() {
     createReport();
+    //模拟点击发件箱->最后一封邮件
     document.getElementById('sendbox').click();
     document.getElementById('lastreport').click();
 }
 //创建新report
 function createReport() {
+    //如果有未创建的report才会创建（收到新任务邮件后第一点击回复邮件按钮时）
     if(info_report.length<taskidnow){
+        //在info_report中添加这个report的信息
         var report=[];
         report['content']='';
         report['urlname']=[];
         info_report.push(report);
-        console.log('report created');
-        console.log(info_report);
+        //刷新发件列表
         createHomeworkTable(info_report,'homeworktbody');
         showAllButton();
         $.ajax({ url: "create_report.php",
             data:{sid:sid,taskidnow:taskidnow},
             success: function (data) {
-                //console.log('report created in database')
             }
         });
     }
@@ -476,7 +463,7 @@ function prepareTable(parent,tablename,tbodyid) {
     var table = document.createElement("table");
     table.id = tablename;
     parent.appendChild(table);
-
+    //生成表头（似乎没用到）
     var thead = document.createElement("thead");
     table.appendChild(thead);
 
@@ -502,12 +489,12 @@ function createHomeworkTable(datas,tbodyid){
     var tbody=document.getElementById(tbodyid);
     tbody.innerHTML='';
     var len=datas.length;
+    //第一封邮件还未创建时直接返回
     if(len==0){
         return;
     }
-    //如果收到了一封新的任务邮件，但还没有创建对应的report
+    //如果收到了一封新的任务邮件，但还没有创建对应的report，此时所有的按钮都应为
     if(info_report.length<taskidnow){
-        console.log('收到了一封新的任务邮件，但还没有创建对应的report');
         for (var i = 0; i < len; i++) {
             //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
             (function () {
@@ -527,17 +514,15 @@ function createHomeworkTable(datas,tbodyid){
                     //处理邮件链接
                     var urldiv=document.getElementById('upload');
                     urldiv.innerHTML='';
-
                     var index=this.getAttribute('index');
                     //处理邮件文本内容
                     var textarea=document.getElementById("sendemail");
                     if(lastclick=='other'){
                         textarea.value = content;
                         document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
-
                     }
                     else if(lastclick=='last'){
-                        ////console.log('onclick savedraft local');
+                        //此处保存草稿的目的存疑，感觉可能导致bug
                         saveDraftLocal();
                         textarea.value = content ;
                         document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
@@ -548,12 +533,9 @@ function createHomeworkTable(datas,tbodyid){
                     if(lastclick=='last'){
                         textarea.setAttribute('readonly','readonly')
                     }
+                    //此处似乎没有工作
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
-                    ////console.log('url_arr');
-                    ////console.log(url_arr);
-                    ////console.log('urlname');
-                    ////console.log(urlname_arr);
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
@@ -563,15 +545,12 @@ function createHomeworkTable(datas,tbodyid){
                         urldiv.appendChild(a);
                     }
                     lastclick='other';
-                    ////console.log('lastclick changed to :'+lastclick);
                 }
             })(i);
         }
         lastclick='other';
-        ////console.log('homeworktable created');
     }
     else {  //无未创建的report
-        console.log('无未创建的report');
         //处理最后一项以外的项
         for (i = 0; i < len-1; i++) {
             //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
@@ -602,7 +581,6 @@ function createHomeworkTable(datas,tbodyid){
 
                     }
                     else if(lastclick=='last'){
-                        ////console.log('onclick savedraft local');
                         saveDraftLocal();
                         textarea.value = content ;
                         document.getElementById("s_title").innerHTML= '主题:'+info_pro[index]['taskname'];
@@ -615,10 +593,7 @@ function createHomeworkTable(datas,tbodyid){
                     }
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
-                    ////console.log('url_arr');
-                    ////console.log(url_arr);
-                    ////console.log('urlname');
-                    ////console.log(urlname_arr);
+
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
@@ -628,7 +603,6 @@ function createHomeworkTable(datas,tbodyid){
                         urldiv.appendChild(a);
                     }
                     lastclick='other';
-                    ////console.log('lastclick changed to :'+lastclick);
                 }
             })(i);
         }
@@ -640,30 +614,24 @@ function createHomeworkTable(datas,tbodyid){
         var taskid=i+1;
         var content=datas[i]['content'];
         td.innerHTML = 'report'+taskid;
-        //仅给最后一个report设置id
+        //仅给最后一个report设置id（可能未用到）
         td.id='lastreport';
         tr.appendChild(td);
         //设置点击展示邮件内容的功能
         td.onclick = function () {
             if (lastclick =='other') {
-                //showAllButton();
-                //document.getElementById('upload').innerHTML='';
                 document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
-                //document.getElementById("s_title").innerHTML = 'last report';
             }
             checkHomeworkEvaluation();
-
-            //document.getElementById('sendemail').removeAttribute('readonly');
             lastclick = 'last';
-            ////console.log('lastclick changed to :'+lastclick);
         };
 
         lastclick='other';
-        ////console.log('homeworktable created');
     }
 }
 //利用递归算法找出info_email中taskid最大的taskemail，参数index为info_email的最后一个索引，即从数组最后一项开始向前检查,返回值为taskemail的索引
 function getLastTaskEmailIndex(index) {
+    //content无定义的是taskemail
     if(typeof(info_email[index]['content'])=='undefined'){
         return index;
     }
@@ -673,18 +641,14 @@ function getLastTaskEmailIndex(index) {
 }
 //生成系统和教师邮件列表的函数
 function createEmailTable(parent,datas,tbodyid) {
-    ////console.log('info_email');
-    ////console.log(info_email);
     var tbody=document.getElementById(tbodyid);
     tbody.innerHTML='';
     //取得最后一封taskemail的索引，这个索引及其之后的邮件会绑定显示‘回复邮件’按钮的功能
     var index=getLastTaskEmailIndex(info_email.length-1);
-    //////console.log(index)
     for (var i = 0; i < index; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
         (function () {
             //新建一行
-            //console.log('enter index loop')
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
             var td= document.createElement("td");
@@ -700,9 +664,6 @@ function createEmailTable(parent,datas,tbodyid) {
                 content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['backgroundinfo']+'</p>';
                 content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['taskreq']+'</p>';
                 content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['deadline']+'</p>';
-                //content+=info_pro[i]['taskreq'];
-                //content+=info_pro[i]['deadline'];
-                //content+='\n'+'祝好!'+'\n'+'张华';
                 content+='<p align="right">祝好！</p>';
                 content+='<p align="right">张华&nbsp&nbsp&nbsp&nbsp</p>';
                 td.id='taskemail'+taskid
@@ -718,13 +679,10 @@ function createEmailTable(parent,datas,tbodyid) {
             td.innerHTML = title;
             tr.appendChild(td);
             td.setAttribute('listindex',i);
-            //console.log('before ser attr content');
-            ////console.log(content)
-            ////console.log(content)
-           // td.setAttribute('content',content);
             td.onclick = function () {
                 hideButton('response');
                 var index=this.getAttribute('listindex');
+                //如果邮件未读，点击时置为已读
                 if(typeof (info_email[index]['checked'])!=='undefined'&&info_email[index]['checked']==0){
                     //任务邮件情况
                     if(typeof (info_email[index]['content'])=='undefined'){
@@ -738,13 +696,9 @@ function createEmailTable(parent,datas,tbodyid) {
                     }
                 }
                 document.getElementById("receiveemail").innerHTML = content;
-                //console.log('this.get attr content');
-                ////console.log(this.getAttribute('content'));
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
-                    ////console.log(data);
                 });
 
-                //document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
                 document.getElementById("r_title").innerHTML= '主题:'+info_pro[taskid-1]['taskname'];
 
                 document.getElementById('r_time').innerHTML='时间:'+timeStamp;
@@ -755,7 +709,6 @@ function createEmailTable(parent,datas,tbodyid) {
     for (i = index; i < datas.length; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
         (function () {
-            //console.log('enter datas.len')
             //新建一行
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
@@ -765,18 +718,13 @@ function createEmailTable(parent,datas,tbodyid) {
             var timeStamp=datas[i]['timeStamp'];
             //taskemail
             if(typeof(info_email[i]['content'])=='undefined'){
-                //title=taskname_url_arr[taskid]['taskname']+'\n'+timeStamp;
                 title=info_pro[taskid-1]['taskname']+'<br>'+timeStamp;
-                //var content=info_user['username']+',你好！';
                 var content='<p>'+info_user['username']+',你好！'+'</p>';
                 //应读取的info_pro数组的索引是taskid-1
                 var proind=taskid-1;
                 content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['backgroundinfo']+'</p>';
                 content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['taskreq']+'</p>';
                 content+='<p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+info_pro[proind]['deadline']+'</p>';
-                //content+=info_pro[i]['taskreq'];
-                //content+=info_pro[i]['deadline'];
-                //content+='\n'+'祝好!'+'\n'+'张华';
                 content+='<p align="right">祝好！</p>';
                 content+='<p align="right">张华&nbsp&nbsp&nbsp&nbsp</p>';
                 td.id='taskemail'+taskid;
@@ -806,13 +754,10 @@ function createEmailTable(parent,datas,tbodyid) {
                         info_email[index]['checked']=1;
                     }
                 }
-                //document.getElementById("receiveemail").value = content;
                 document.getElementById("receiveemail").innerHTML = content;
                 $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
-                    ////console.log(data);
                 });
 
-                //document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
                 document.getElementById("r_title").innerHTML= '主题:'+info_pro[taskid-1]['taskname'];
 
                 document.getElementById('r_time').innerHTML='时间:'+timeStamp;
@@ -820,67 +765,13 @@ function createEmailTable(parent,datas,tbodyid) {
             }
         })(i)
     }
-    /*
-    for (var i = 0; i < datas.length; i++) {
-        //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
-        (function () {
-            //新建一行
-            var tr = document.createElement("tr");
-            tbody.appendChild(tr);
-            var td= document.createElement("td");
-
-            var taskid=datas[i]['taskid'];
-            var timeStamp=datas[i]['timeStamp'];
-            //taskemail
-            if(typeof(info_email[i]['content'])=='undefined'){
-                //title=taskname_url_arr[taskid]['taskname']+'\n'+timeStamp;
-                title='taskemail'+taskid+'<br>'+timeStamp;
-                var content='renwu';
-                td.id='taskemail'+taskid
-            }
-            //feedback
-            else
-            {
-                var title='RE:Report'+taskid+'<br>'+timeStamp;
-                content = datas[i]['content'];
-
-            }
-            td.innerHTML = title;
-            tr.appendChild(td);
-            td.setAttribute('listindex',i);
-            td.onclick = function () {
-                var index=this.getAttribute('listindex');
-                if(typeof (info_email[index]['checked'])!=='undefined'&&info_email[index]['checked']==0){
-                    //任务邮件情况
-                    if(typeof (info_email[index]['content'])=='undefined'){
-                        checkTaskemail();
-                        info_email[index]['checked']=1;
-                    }
-                    //feedback情况
-                    else{
-                        checkFeedback(taskid);
-                        info_email[index]['checked']=1;
-                    }
-                }
-                document.getElementById("receiveemail").value = content;
-                $.get("read_task_log.php", {sid:sid,taskid:taskid}, function (data) {
-                    ////console.log(data);
-                });
-
-                //document.getElementById("r_title").innerHTML=taskname_url_arr[taskid]['taskname'];
-                document.getElementById("r_title").innerHTML='taskname';
-
-                document.getElementById('r_time').innerHTML='时间:'+timeStamp;
-
-            }
-        })(i)
-    }*/
 }
 //处理生成资源列表所需的数据结构
 function urlList() {
     var url_arr = [];
     url_arr['intro'] = [];
     url_arr['url'] = [];
+    //因历史原因，将数组的结构变换一下
     for (var i = 0; i <taskidnow; i++) {
         for (var k = 0; k < info_pro[i]['intro'].length; k++) {
             url_arr['intro'].push(info_pro[i]['intro'][k]);
@@ -890,8 +781,6 @@ function urlList() {
             url_arr['url'].push(info_pro[i]['url'][k])
         }
     }
-    ////console.log('url arr prepared');
-    ////console.log(url_arr);
     createUrlTable(url_arr, 'urltbody');
 
 
@@ -907,7 +796,7 @@ function createUrlTable(datas, tbodyid) {
             //新建一行
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
-            /*在新创建的行内创建'邮件n'的单元格，附加点击展示邮件内容的功能*/
+
             //设置新建的td元素
             var display = document.createElement("td");
 
@@ -923,19 +812,14 @@ function createUrlTable(datas, tbodyid) {
             };
 
             tr.appendChild(display);
-
         })(i)
     }
-    ////console.log('urltable created');
-
 }
 //将taskemail置为已读
 function checkTaskemail() {
     $.ajax({ url: "check_taskemail.php",
         data:{sid:sid},
         success: function (data) {
-            var info=eval(data);
-            ////console.log(info);
         }
     });
 }
@@ -944,8 +828,6 @@ function checkFeedback(taskid) {
     $.ajax({ url: "check_feedback.php",
         data:{sid:sid,taskid:taskid},
         success: function (data) {
-            var info=eval(data);
-            ////console.log(info);
         }
     });
 }
@@ -993,17 +875,9 @@ function showmessage() {
             // 遍历data数组，把内部的信息一个个的显示到页面上
             var username=info_user['username'];
             var s = "";
-            /*
-            for (var i = 0; i < data.length; i++) {
-                s += "(" + data[i].timeStamp + ") >>>";
-                s += "<p class='box'>";
-                s += data[i].username + "&nbsp;" + "说：" + data[i].content;
-                s += "</p>";
-            }*/
             for (var i = 0; i < data.length; i++) {
                 if(data[i].username==username){
                     s += "<p class='userbox'>";
-                    //s += "(" + data[i].timeStamp + ") >>>"+'<br/>';
                     s += data[i].timeStamp+'<br/>';
                     s += data[i].username + "&nbsp;" + "说：" + data[i].content;
                     s += "</p>";
@@ -1023,14 +897,10 @@ function showmessage() {
             // 显示聊天内容
             var showmessage = document.getElementById("up");
             showmessage.innerHTML += s;
-            //showmessage.innerHTML = s;
-            //showmessage.scrollTop 可以实现div底部最先展示
-            //divnode.scrollHeight而已获得div的高度包括滚动条的高度
-            //showmessage.scrollTop = showmessage.scrollHeight - showmessage.style.height;
+            //自动滚动功能
             if(chatautoflow==1){
                 autoflow('up');
             }
-            ////console.log('chat message updated');
         }
     };
     ajax.open('get', './chatroom.php?maxtimeStamp=' + maxChattimeStamp+ '&sid=' + sid);
@@ -1069,7 +939,6 @@ function changeAutoflow() {
         chatautoflow=1;
         document.getElementById('autocontrol').value='停止自动滚动';
     }
-
 }
 
 //-----------------资源共享页面----------------------------------------------
@@ -1084,29 +953,22 @@ function submitShareFile() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            ////console.log('submitShareFile() response: ');
-            ////console.log(xhr.responseText);
             fileform.innerHTML='上传文件';
         }
     };
     xhr.open('post', 'share_file.php');
     xhr.send(formdata);
-    ////console.log('formdata');
-    ////console.log(formdata);
 }
-//从后台获取分享列表的数据
+//从后台获取分享列表的数据（可以用时间戳优化一下，减少返回的数据量）
 function shareListData() {
     $.ajax({
         url:'share_list_data.php',
         data:{sid:sid},
         success:function (data) {
             var info=JSON.parse(data);
-            ////console.log('shareListData result: ');
-            ////console.log(info);
-            ////console.log(typeof (info['filename'][0]) )
+            //如果获取到了数据
             if(typeof (info['filename'][0]) !='undefined'){
                 createShareTable(info,'sharelist')
-
             }
         }
     })
@@ -1126,11 +988,14 @@ function createShareTable(data,tbodyid) {
             var sharetime=data['sharetime'][i];
 
             var a = document.createElement('a');
+            //pdf情况，点击功能为在网页端查看
+            //采用了pdf插件（js/pdfboject.min.js,该文件下的某几个文件可能也是插件的一部分)
             if(FileExt=='pdf'){
                 a.onclick=function () {
                     PDFObject.embed(sharefile, "#share_pdf")
                 }
             }
+            //普通文件点击下载
             else{
                 a.href=sharefile;
                 a.download=filename;
@@ -1149,8 +1014,6 @@ function reportAttachmentData() {
         data:{sid:sid},
         success:function (data) {
             var info=JSON.parse(data);
-            ////console.log('report_attachment result: ');
-            ////console.log(info);
             createAttachmentTable(info,'attachment_history');
         }
     })
@@ -1194,7 +1057,6 @@ function createAttachmentTable(data,tbodyid) {
                 button.innerHTML='分享';
                 button.setAttribute('style',"width:60px;height:25px");
                 button.onclick=function (ev) {
-                    //alert(1);
                     shareAttachment(filename,sharefile,number,taskid);
                     button.innerHTML='已分享';
                     button.setAttribute('disabled','disabled');
@@ -1204,7 +1066,6 @@ function createAttachmentTable(data,tbodyid) {
                 button.value='已分享';
                 button.setAttribute('disabled','disabled');
             }
-            //tr.appendChild(button);
             tbody.appendChild(button);
 
         })(i)
@@ -1212,12 +1073,10 @@ function createAttachmentTable(data,tbodyid) {
 }
 //分享report附件列表中的附件
 function shareAttachment(filename,url,number,taskid) {
-
     $.ajax({
         url:'share_attachment.php',
         data:{sid:sid,filename:filename,url:url,taskid:taskid,number:number},
         success:function (data) {
-            ////console.log(data);
         }
     })
 }

@@ -8,8 +8,7 @@ var chatInterval=2000;
 var onlineuserInterval=7000;
 //-----------------常量设置----------------------------------------------
 var EVALUATIONNUM = 4;
-var homework = [];
-var user_info_array = [];
+
 var group_num=4;
 var maxtimeStamp='1000-01-01 00:00:00';
 var tasknum;
@@ -61,13 +60,7 @@ function objectLength(obj) {
     var arr=Object.keys(obj);
     return arr.length;
 }
-//取得$_SESSION中的用户信息
-function getUserInfo() {
-    $.get("../all/get_user_info.php", {sid:sid}, function (data) {
-        //返回的json数据解码，数据存进user_info_array
-        user_info_array = eval(data);
-    })
-}
+
 
 //-----------------初始化----------------------------------------------
 //初始化所有内容
@@ -447,50 +440,57 @@ function buttonControl(classid) {
         console.log(info);
     })
 }
-//对点击任务按钮弹出的对话框的所有处理
+//展开作业评价面板前的准备处理
 function dialog(groupid, taskid, numberingroup) {
+    //将当前这在评价的作业的学生的信息存入全局变量
     stu_group = groupid;
     stu_numberingroup = numberingroup;
     stu_taskid = taskid;
     EVALUATIONNUM=info_pro[taskid-1]['rubrics'].length;
+    //重置输入反馈内容的标签
     var textarea=document.getElementById("教师反馈");
-    //console.log("clear");
     textarea.removeAttribute('readonly');
     textarea.value='';
+
     $.get("check_homework_evaluation.php", {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
         taskid: stu_taskid,
         sid:sid
     }, function (data) {
-        console.log(data);
         var info_arr=JSON.parse(data);
+        //学生作业评价状态
         var message=info_arr['evaluation'];
+        //显示学生作业内容
         document.getElementById('学生作业').value =info_arr['content'];
+        //清空附件显示区
         var urldiv=document.getElementById('url');
         urldiv.innerHTML='';
+        //将附件显示到附件显示区
         for(var i=0;i<info_arr['url'].length;i++){
             var a=document.createElement('a');
             a.href=info_arr['url'][i];
-            //a.innerText=info_arr['urlname'][i];
             a.download=info_arr['urlname'][i];
             var node = document.createTextNode(info_arr['urlname'][i]);
             a.appendChild(node);
             urldiv.appendChild(a);
         }
+        //获取反馈按钮
         var button = $("#feedback");
+        //通过或待修改时禁止编辑和提交反馈邮件
         if (message == '作业已通过！' || message == '作业待学生修改！') {
             textarea.setAttribute('readonly', 'readonly');
             textarea.value = message;
             button.hide();
-
-        } else {
-
+        }
+        //未提交时
+        else {
             textarea.removeAttribute('readonly');
             button.show();
             document.getElementById('feedback').removeAttribute('disabled');
             //评价按钮的点击功能
             for(i=0;i<info_pro[taskid-1]['rubrics'].length;i++){
+                //点击评价的按钮时会动态生成反馈邮件内容
                 document.getElementById('通过'+i).onclick=function (ev) {
                     makeEmail()
                 };
@@ -499,8 +499,8 @@ function dialog(groupid, taskid, numberingroup) {
                 }
             }
         }
-        console.log('dialog formed');
     });
+    //设置评价按钮
     var parent=document.getElementById('rubrics');
     parent.innerHTML='';
     for(var i=0;i<info_pro[taskid-1]['rubrics'].length;i++){
@@ -517,13 +517,12 @@ function dialog(groupid, taskid, numberingroup) {
         var inputb=document.createElement('input');
         inputb.type='radio';
         inputb.name='evaluation'+i;
-        //inputb.onchange=makeEmail();
         inputb.id='未通过'+i;
         parent.appendChild(inputb);
         parent.innerHTML+='不通过';
     }
+    //展开作业评价面板
     openDialog();
-    console.log('dialog formed');
 }
 //-----------------反馈邮件形成----------------------------------------------
 //形成反馈邮件
