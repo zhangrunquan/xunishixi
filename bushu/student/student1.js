@@ -1,65 +1,65 @@
 /*
 问题：1.（在线列表）教师重名，应换成更可靠的id
-       3.将changelistmood改为changemood
        4.可能可以合并请求来减少请求次数
        6.可以根据新邮件来减少checkhoemworkevaluaion
 进度：
 */
 
 //-----------------控制台--------------------
+//查询反馈和任务邮件的间隔
 var getEmailInterval=6000;
 //小组学生数
 var groupstunumber=4;
+//获取聊天信息的间隔
 var getChatmsgInterval=3000;
+//更新在线用户列表的间隔
 var updateOnlineInterval=10000;
+//小组共分享文件列表的更新间隔
 var shareListInterval=10000;
 
 //-----------------设置变量---------------------
 //-----------------信息存储---------------------
+//info_开头的全局数组用于存储各种信息，可以在控制台查看initialize()函数的返回数据查看结构和内容
+//原则上应减少所有非必要的对数据库的查询，所以将信息都如此缓存在客户端
 //组内教师和学生信息
 var info_group=[];
 //发出的邮件
 var info_report=[];
 //用户信息
 var info_user=[];
-//feedback和taskemail
+//feedback和taskemail合并后按时间排序的数组
 var info_email=[];
-//当前的taskid
-var taskidnow;
-//feedback未读数
-var uncheckedfeedbacknum=0;
-//作业评价状态改变的可能性，每次收到新feedback置1，每次checkhomeworkevaluation()后置0,由于可能离线期间收到feedback，登录时默认为1
-var evaluationchange=1;
-//当前最新report评价
-var evaluation='';
 //从pro.xml获得的信息
 var info_pro=[];
 
-//listMood是下拉栏状态，初始为“主页”
-var listMood = "mainmenu";
+//当前的taskid
+var taskidnow;
+//作业评价状态改变的可能性，为1时checkevaluation()函数会查询数据库，为0时仅会查询客户端的信息
+var evaluationchange=1;
+//当前最新report评价
+var evaluation='';
 //sid以get方式传值，从网址中获得参数
 var sid = getQueryString("sid");
 
 //-----------------发件箱------------
 //记录最后一次点击的发件列表项是否为最后一封,可为'other'和'last'
 var lastclick='other';
-//记录上一次查询的作业评价状态
-var lastevaluation='';
-//生成上传按钮部分
+//用于生成上传按钮的变量
 var attachname ="attach";
 var attachnum=1;
 //-----------------收件箱------------
-//收件列表邮件的最大时间戳
+//收件列表邮件的最大时间戳，每次收到邮件时更新为最新一封邮件的时间，从数据库查询时只查询最大时间戳之后的时间，避免获取重复的信息
 var maxEmailTimeStamp='1000-01-01 00:00:00';
 //-----------------聊天室------------
-// 记录当前获取到的聊天消息id的最大值，防止获取到重复的信息
-// 服务器只返回maxtimeStamp以后的聊天信息
+// 同上，服务器只返回maxtimeStamp以后的聊天信息
 var maxChattimeStamp='1000-01-01 00:00:00';
+//聊天室自动滚动功能是否开启
 var chatautoflow=1;
 //-----------------执行部分----------------------------------------------
 initialize();
 prepareAllTable();
 window.onbeforeunload = function(){
+    //关闭页面前保存草稿
     saveDraft();
     return "确认离开？" ;
 };
@@ -76,43 +76,42 @@ function initialize() {
     $.ajax({ url: "info.php",
         data:{sid:sid},
         success: function (data) {
-            ////console.log(data);
             var info=JSON.parse(data);
             info_group=info['group'];
             info_report=info['report'];
             info_user=info['user'];
             info_pro=info['pro'];
-            //减去checked项
+            //根据task数组长度计算taskidnow，-1为减去checked项
             taskidnow=objectLength(info['task'])-1;
+            //合并任务邮件，反馈邮件的信息，按时间排序存入info_eamil数组
             sortEmailarr(info['task'],info['feedback'],0);
+            //计算小组成员数，-1为减去tutor
             groupstunumber=objectLength(info_group['userid'])-1;
 
-            ////console.log('group stu num :'+groupstunumber);
-            ////console.log('initialize info');
-            ////console.log(info);
-            ////console.log('info_email');
-            ////console.log(info_email);
-            ////console.log('taskidnow '+taskidnow);
+            console.log('initialize info');
+            console.log(info);
+            console.log('info_email');
+            console.log(info_email);
 
-            //feedback从零索引，所以从taskidnow-1开始检查
-            countUncheckedFeedback(info['feedback'],taskidnow-1);
-
-            ////console.log('uncheckedfeedbacknum '+uncheckedfeedbacknum);
-
+            //补充最后一封邮件的信息，（此处补充的信息可能没有被使用）
             var lasttask=getLastTaskEmail(info_email.length-1);
             lasttask['taskid']=taskidnow;
             lasttask['checked']=info['task']['checked'];
 
+            //创建一些依赖数据的界面
             createUI();
+            //更新在线用户列表
             updateGetOnlineuser();
+            //生成新消息提醒
             reminder(info['feedback'],info['task']);
         }
     });
 }
+
+//此处使用的排序方法较为令人费解，且功能独立，如果出现了问题难以修改建议直接用别的思路重写
 //将接收到的feedback和taskemail数组合并为info_email，按timestamp排序，使用了递归
 function sortEmailarr(task,feedback,taskindex) {
     if(typeof (task[taskindex])==='undefined') {
-        ////console.log('sort end');
         return 0;
     }
     info_email.push(task[taskindex]);
@@ -140,27 +139,22 @@ function testFeedback(feedback,index,taskid){
 }
 //用获得数据生成依赖数据的界面，依赖于initialize()取得的数据
 function createUI() {
+    //生成各列表
     shareListData();
     reportAttachmentData();
     createEmailTable('emailtable',info_email,'emailtbody');
     createHomeworkTable(info_report,'homeworktbody');
     urlList();
+    //聊天室名字
     document.getElementById('chatroom_headline').innerHTML='NO.'+info_user['groupid']+'小组聊天室';
-    //填写抄送
+    //填写抄送一栏的内容
     var str=info_group['username'][0];
     for(var j=1;j<groupstunumber;j++){
         str+=';'+info_group['username'][j];
     }
     document.getElementById("r_copy").innerHTML='抄送:'+str;
 }
-//检查未读feedback数目，（好像没用到）
-function countUncheckedFeedback(feedback,startindex) {
-    for(var i=startindex;i<feedback.length;i++){
-        if(feedback[i]['checked']==0){
-            uncheckedfeedbacknum+=1;
-        }
-    }
-}
+
 //轮询取得新收到的邮件
 function getNewEmail() {
     maxEmailTimeStamp=info_email[info_email.length-1]['timeStamp'];
@@ -168,8 +162,7 @@ function getNewEmail() {
         data:{sid:sid,maxtimestamp:maxEmailTimeStamp},
         success: function (data) {
             var info=JSON.parse(data);
-            ////console.log(info);
-            //getdata记录本次是否获取到了新邮件
+            //getdata记录本次是否获查询到了新邮件
             var getdata=0;
             if(typeof (info['feedback'][0]['content'])!='undefined'){
                 info_email.push(info['feedback'][0]);
@@ -177,10 +170,8 @@ function getNewEmail() {
                 var subject='RE:Report'+info['feedback'][0]['taskid']+'<br/>'+info['feedback'][0]['timeStamp'];
                 spop(subject);
                 getdata=1;
-
-                ////console.log("evaluation change to ");
-                ////console.log(evaluationchange);
             }
+            //取得当前已获得的最后一封taskemail
             var lasttaskemail=getLastTaskEmail(info_email.length-1);
             var lasttimestamp=lasttaskemail['timeStamp'];
             //比较接收的taskemail更新时间与当前的最后一封taskemail是否相同，若不同说明收到了新taskemail
@@ -194,19 +185,21 @@ function getNewEmail() {
                 getdata=1;
             }
             if(getdata){
+                //evaluationchange记录作业评价状态改变的可能性，收到新邮件时评价状态可能改变了，置为1
                 evaluationchange=1;
                 hideButton('response');
+                //刷新收件和发件列表
                 createEmailTable('emailtable',info_email,'emailtbody');
                 createHomeworkTable(info_report,'homeworktbody');
                 urlList();
             }
-            ////console.log('info_email');
-            ////console.log(info_email);
+
         }
     });
 }
 //利用递归算法找出info_email中taskid最大的taskemail，参数index为info_email的最后一个索引，即从数组最后一项开始向前检查
 function getLastTaskEmail(index) {
+    //如果[content]未定义，说明这是任务邮件
     if(typeof(info_email[index]['content'])=='undefined'){
         return info_email[index];
     }
@@ -307,10 +300,7 @@ function objectLength(obj) {
     var arr=Object.keys(obj);
     return arr.length;
 }
-//改变当前所在页面（发件箱，收件箱...)的记录，（现在没用到）
-function changeListMood(mood) {
-    listMood = mood;
-}
+
 //改变记录状态的变量，（现在没用到）
 function changemood(target,mood) {
     target=mood;

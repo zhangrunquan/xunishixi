@@ -11,249 +11,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="student1.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="student1.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/student/student1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="1205" column="46" lean-forward="true" selection-start-line="1205" selection-start-column="46" selection-end-line="1205" selection-end-column="46" />
+            <state relative-caret-position="520">
+              <caret line="216" column="5" lean-forward="true" selection-start-line="216" selection-start-column="5" selection-end-line="216" selection-end-column="5" />
               <folding>
-                <element signature="e#332#376#0" expanded="false" />
-                <element signature="e#905#939#0" expanded="false" />
-                <element signature="e#1098#1132#0" expanded="false" />
-                <element signature="e#1193#1227#0" expanded="false" />
-                <element signature="e#1491#1532#0" expanded="false" />
-                <element signature="n#!!block;n#initialize#0" expanded="false" />
-                <element signature="e#1961#3227#0" expanded="false" />
-                <element signature="e#2037#3221#0" expanded="false" />
-                <element signature="e#2475#2525#0" expanded="false" />
+                <element signature="n#!!doc" expanded="true" />
                 <element signature="n#!!block;n#sortEmailarr#0" expanded="false" />
-                <element signature="e#3388#3450#0" expanded="false" />
                 <element signature="n#!!block;n#testFeedback#0" expanded="false" />
-                <element signature="e#3782#3807#0" expanded="false" />
-                <element signature="e#3848#3920#0" expanded="false" />
-                <element signature="e#3962#4076#0" expanded="false" />
-                <element signature="e#4117#4142#0" expanded="false" />
                 <element signature="n#!!block;n#createUI#0" expanded="false" />
-                <element signature="e#4565#4616#0" expanded="false" />
-                <element signature="n#!!block;n#countUncheckedFeedback#0" expanded="false" />
-                <element signature="e#4805#4898#0" expanded="false" />
-                <element signature="e#4844#4892#0" expanded="false" />
-                <element signature="n#!!block;n#getNewEmail#0" expanded="false" />
-                <element signature="e#5018#6660#0" expanded="false" />
-                <element signature="e#5130#6654#0" expanded="false" />
-                <element signature="e#5183#5205#0" expanded="false" />
-                <element signature="e#5336#5710#0" expanded="false" />
-                <element signature="e#5604#5645#0" expanded="false" />
-                <element signature="e#5970#6280#0" expanded="false" />
-                <element signature="e#6304#6560#0" expanded="false" />
-                <element signature="e#6573#6603#0" expanded="false" />
-                <element signature="n#!!block;n#getLastTaskEmail#0" expanded="false" />
-                <element signature="e#6838#6879#0" expanded="false" />
-                <element signature="e#6889#6938#0" expanded="false" />
-                <element signature="n#!!block;n#reminder#0" expanded="false" />
-                <element signature="e#7051#7226#0" expanded="false" />
-                <element signature="e#7090#7220#0" expanded="false" />
-                <element signature="e#7253#7484#0" expanded="false" />
-                <element signature="n#!!block;n#updateGetOnlineuser#0" expanded="false" />
-                <element signature="e#7598#8712#0" expanded="false" />
-                <element signature="e#7608#7646#0" expanded="false" />
-                <element signature="e#7962#8348#0" expanded="false" />
-                <element signature="e#8106#8184#0" expanded="false" />
-                <element signature="e#8190#8264#0" expanded="false" />
-                <element signature="e#8483#8539#0" expanded="false" />
-                <element signature="e#8545#8592#0" expanded="false" />
-                <element signature="n#!!block;n#saveDraftLocal#0" expanded="false" />
-                <element signature="e#8973#9007#0" expanded="false" />
-                <element signature="n#!!block;n#getQueryString#0" expanded="false" />
-                <element signature="n#!!block;n#hideButton#0" expanded="false" />
-                <element signature="n#!!block;n#hideAllButton#0" expanded="false" />
-                <element signature="n#!!block;n#showButton#0" expanded="false" />
-                <element signature="n#!!block;n#showAllButton#0" expanded="false" />
-                <element signature="n#!!block;n#objectLength#0" expanded="false" />
-                <element signature="n#!!block;n#changeListMood#0" expanded="false" />
-                <element signature="n#!!block;n#changemood#0" expanded="false" />
-                <element signature="n#!!block;n#submitHomework#0" expanded="false" />
-                <element signature="e#10376#10579#0" expanded="false" />
-                <element signature="e#10459#10573#0" expanded="false" />
-                <element signature="e#11099#11558#0" expanded="false" />
-                <element signature="e#11134#11552#0" expanded="false" />
-                <element signature="e#11148#11179#0" expanded="false" />
-                <element signature="e#11387#11432#0" expanded="false" />
-                <element signature="n#!!block;n#saveDraft#0" expanded="false" />
-                <element signature="e#11700#11776#0" expanded="false" />
-                <element signature="e#11785#11850#0" expanded="false" />
-                <element signature="e#11961#12194#0" expanded="false" />
-                <element signature="e#12115#12187#0" expanded="false" />
-                <element signature="n#!!block;n#checkHomeworkEvaluation#0" expanded="false" />
-                <element signature="e#12316#13575#0" expanded="false" />
-                <element signature="e#12549#12949#0" expanded="false" />
-                <element signature="e#12677#12734#0" expanded="false" />
-                <element signature="e#12751#12810#0" expanded="false" />
-                <element signature="e#12988#13229#0" expanded="false" />
-                <element signature="e#13267#13553#0" expanded="false" />
-                <element signature="e#13644#15073#0" expanded="false" />
-                <element signature="e#14022#14442#0" expanded="false" />
-                <element signature="e#14170#14227#0" expanded="false" />
-                <element signature="e#14244#14303#0" expanded="false" />
-                <element signature="e#14481#14722#0" expanded="false" />
-                <element signature="e#14760#15045#0" expanded="false" />
-                <element signature="n#!!block;n#createAndJump#0" expanded="false" />
-                <element signature="n#!!block;n#createReport#0" expanded="false" />
-                <element signature="e#15398#15894#0" expanded="false" />
-                <element signature="e#15688#15886#0" expanded="false" />
-                <element signature="e#15801#15876#0" expanded="false" />
-                <element signature="n#!!block;n#prepareTable#0" expanded="false" />
-                <element signature="e#16093#16135#0" expanded="false" />
-                <element signature="n#!!block;n#prepareAllTable#0" expanded="false" />
-                <element signature="n#!!block;n#createHomeworkTable#0" expanded="false" />
-                <element signature="e#17061#17084#0" expanded="false" />
-                <element signature="e#17157#19904#0" expanded="false" />
-                <element signature="e#17249#19821#0" expanded="false" />
-                <element signature="e#17348#19806#0" expanded="false" />
-                <element signature="e#17833#19792#0" expanded="false" />
-                <element signature="e#18174#18353#0" expanded="false" />
-                <element signature="e#18400#18689#0" expanded="false" />
-                <element signature="e#18854#18946#0" expanded="false" />
-                <element signature="e#19093#19120#0" expanded="false" />
-                <element signature="e#19318#19662#0" expanded="false" />
-                <element signature="e#19914#23642#0" expanded="false" />
-                <element signature="e#20024#22596#0" expanded="false" />
-                <element signature="e#20123#22581#0" expanded="false" />
-                <element signature="e#20608#22567#0" expanded="false" />
-                <element signature="e#20949#21128#0" expanded="false" />
-                <element signature="e#21175#21464#0" expanded="false" />
-                <element signature="e#21629#21721#0" expanded="false" />
-                <element signature="e#21868#21895#0" expanded="false" />
-                <element signature="e#22093#22437#0" expanded="false" />
-                <element signature="e#23001#23557#0" expanded="false" />
-                <element signature="e#23040#23330#0" expanded="false" />
-                <element signature="e#23058#23076#0" expanded="false" />
-                <element signature="n#!!block;n#getLastTaskEmailIndex#0" expanded="false" />
-                <element signature="e#23840#23869#0" expanded="false" />
-                <element signature="e#23879#23933#0" expanded="false" />
-                <element signature="n#!!block;n#createEmailTable#0" expanded="false" />
-                <element signature="e#24007#24037#0" expanded="false" />
-                <element signature="e#24319#27484#0" expanded="false" />
-                <element signature="e#24410#27474#0" expanded="false" />
-                <element signature="e#24424#24430#0" expanded="false" />
-                <element signature="e#24791#25686#0" expanded="false" />
-                <element signature="e#25371#25405#0" expanded="false" />
-                <element signature="e#25739#25865#0" expanded="false" />
-                <element signature="e#25989#26030#0" expanded="false" />
-                <element signature="e#26192#27464#0" expanded="false" />
-                <element signature="e#26396#26824#0" expanded="false" />
-                <element signature="e#26501#26622#0" expanded="false" />
-                <element signature="e#26680#26806#0" expanded="false" />
-                <element signature="e#26918#26957#0" expanded="false" />
-                <element signature="e#27105#27167#0" expanded="false" />
-                <element signature="e#27528#30607#0" expanded="false" />
-                <element signature="e#27619#30597#0" expanded="false" />
-                <element signature="e#27633#27665#0" expanded="false" />
-                <element signature="e#27999#29032#0" expanded="false" />
-                <element signature="e#28716#28750#0" expanded="false" />
-                <element signature="e#29085#29211#0" expanded="false" />
-                <element signature="e#29359#30587#0" expanded="false" />
-                <element signature="e#29563#29991#0" expanded="false" />
-                <element signature="e#29668#29789#0" expanded="false" />
-                <element signature="e#29847#29973#0" expanded="false" />
-                <element signature="e#30228#30290#0" expanded="false" />
-                <element signature="e#30612#32744#0" expanded="false" />
-                <element signature="n#!!block;n#urlList#0" expanded="false" />
-                <element signature="e#32899#33261#0" expanded="false" />
-                <element signature="e#32963#33255#0" expanded="false" />
-                <element signature="e#33266#33302#0" expanded="false" />
-                <element signature="n#!!block;n#createUrlTable#0" expanded="false" />
-                <element signature="e#33571#34332#0" expanded="false" />
-                <element signature="e#33662#34322#0" expanded="false" />
-                <element signature="e#33781#33817#0" expanded="false" />
-                <element signature="e#34211#34272#0" expanded="false" />
-                <element signature="n#!!block;n#checkTaskemail#0" expanded="false" />
-                <element signature="e#34433#34605#0" expanded="false" />
-                <element signature="e#34520#34599#0" expanded="false" />
-                <element signature="n#!!block;n#checkFeedback#0" expanded="false" />
-                <element signature="e#34670#34855#0" expanded="false" />
-                <element signature="e#34770#34849#0" expanded="false" />
-                <element signature="n#!!block;n#addInput#0" expanded="false" />
-                <element signature="e#34985#35118#0" expanded="false" />
-                <element signature="n#!!block;n#createInput#0" expanded="false" />
-                <element signature="e#35533#35736#0" expanded="false" />
-                <element signature="e#35921#35991#0" expanded="false" />
-                <element signature="n#!!block;n#showmessage#0" expanded="false" />
-                <element signature="e#36121#37969#0" expanded="false" />
-                <element signature="e#36157#37963#0" expanded="false" />
-                <element signature="e#36369#36639#0" expanded="false" />
-                <element signature="e#36690#37323#0" expanded="false" />
-                <element signature="e#36738#37039#0" expanded="false" />
-                <element signature="e#37060#37308#0" expanded="false" />
-                <element signature="e#37384#37463#0" expanded="false" />
-                <element signature="e#37599#37627#0" expanded="false" />
-                <element signature="e#37853#37900#0" expanded="false" />
-                <element signature="n#!!block;n#send#0" expanded="false" />
-                <element signature="e#38380#38432#0" expanded="false" />
-                <element signature="e#38415#38426#0" expanded="false" />
-                <element signature="n#!!block;n#autoflow#0" expanded="false" />
-                <element signature="n#!!block;n#changeAutoflow#0" expanded="false" />
-                <element signature="e#38791#38883#0" expanded="false" />
-                <element signature="e#38892#38986#0" expanded="false" />
-                <element signature="n#!!block;n#submitShareFile#0" expanded="false" />
-                <element signature="n#!!block;n#shareListData#0" expanded="false" />
-                <element signature="e#39764#40188#0" expanded="false" />
-                <element signature="e#39857#40182#0" expanded="false" />
-                <element signature="e#39910#39952#0" expanded="false" />
-                <element signature="e#40105#40172#0" expanded="false" />
-                <element signature="n#!!block;n#createShareTable#0" expanded="false" />
-                <element signature="e#40815#40949#0" expanded="false" />
-                <element signature="e#40855#40935#0" expanded="false" />
-                <element signature="e#40966#41052#0" expanded="false" />
-                <element signature="e#41314#41621#0" expanded="false" />
-                <element signature="e#41409#41615#0" expanded="false" />
-                <element signature="e#41462#41508#0" expanded="false" />
-                <element signature="e#43392#43503#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pro.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutor/pro.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="60" column="25" lean-forward="false" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="student2.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/student/student2.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1765">
-              <caret line="140" column="41" lean-forward="true" selection-start-line="139" selection-start-column="42" selection-end-line="140" selection-end-column="41" />
-              <folding>
-                <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#body#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tutor1.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutor/tutor1.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="294" column="19" lean-forward="false" selection-start-line="294" selection-start-column="19" selection-end-line="294" selection-end-column="19" />
-              <folding>
-                <element signature="n#script#4;n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#script#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#8197#8230#0" expanded="false" />
-                <element signature="n#script#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#9780#10325#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -287,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tutor1.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tutor1.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tutor/tutor1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="430" column="51" lean-forward="true" selection-start-line="430" selection-start-column="51" selection-end-line="430" selection-end-column="51" />
+            <state relative-caret-position="4945">
+              <caret line="423" column="59" lean-forward="true" selection-start-line="423" selection-start-column="59" selection-end-line="423" selection-end-column="59" />
               <folding>
                 <element signature="n#!!block;n#classSelect#0" expanded="false" />
                 <element signature="n#!!block;n#changeClass#0" expanded="false" />
@@ -318,6 +85,38 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/register_login/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginaction.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/register_login/loginaction.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+              <folding>
+                <marker date="1532752454175" expanded="true" signature="906:1026" ph="SELECT email... account" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logout.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/register_login/logout.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="4.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tutor/image/4.png">
           <provider selected="true" editor-type-id="images">
@@ -337,11 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>chec</find>
-      <find>checkH</find>
-      <find>att</find>
-      <find>checkHomewo</find>
-      <find>getEmai</find>
       <find>getN</find>
       <find>MoocPlayer</find>
       <find>mysqli_connect('localhost:3306','root','12345678') ;</find>
@@ -367,6 +161,11 @@
       <find>url</find>
       <find>dialo</find>
       <find>buttonCo</find>
+      <find>taskidnow</find>
+      <find>uncheckedfeedbacknum</find>
+      <find>evaluation</find>
+      <find>listMood</find>
+      <find>info_email</find>
     </findStrings>
     <replaceStrings>
       <replace>receiveemail</replace>
@@ -447,8 +246,8 @@
         <option value="$PROJECT_DIR$/test/reset.php" />
         <option value="$PROJECT_DIR$/tutor/tutor1.html" />
         <option value="$PROJECT_DIR$/tutor/tutor_feedback_email.php" />
-        <option value="$PROJECT_DIR$/student/student1.js" />
         <option value="$PROJECT_DIR$/tutor/tutor1.js" />
+        <option value="$PROJECT_DIR$/student/student1.js" />
       </list>
     </option>
   </component>
@@ -459,7 +258,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="width" value="1298" />
     <option name="height" value="848" />
@@ -605,15 +404,15 @@
       <workItem from="1532138697937" duration="11084000" />
       <workItem from="1532584407422" duration="473000" />
       <workItem from="1532746219600" duration="29503000" />
-      <workItem from="1533082028451" duration="4681000" />
+      <workItem from="1533082028451" duration="8410000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="384081000" />
+    <option name="totallyTimeSpent" value="387810000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21354167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -691,31 +490,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/register_login/loginaction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/register_login/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/register_login/loginsucc.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="32" column="11" lean-forward="true" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/register_login/logout.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -990,207 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/student/student1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="1205" column="46" lean-forward="true" selection-start-line="1205" selection-start-column="46" selection-end-line="1205" selection-end-column="46" />
-          <folding>
-            <element signature="e#332#376#0" expanded="false" />
-            <element signature="e#905#939#0" expanded="false" />
-            <element signature="e#1098#1132#0" expanded="false" />
-            <element signature="e#1193#1227#0" expanded="false" />
-            <element signature="e#1491#1532#0" expanded="false" />
-            <element signature="n#!!block;n#initialize#0" expanded="false" />
-            <element signature="e#1961#3227#0" expanded="false" />
-            <element signature="e#2037#3221#0" expanded="false" />
-            <element signature="e#2475#2525#0" expanded="false" />
-            <element signature="n#!!block;n#sortEmailarr#0" expanded="false" />
-            <element signature="e#3388#3450#0" expanded="false" />
-            <element signature="n#!!block;n#testFeedback#0" expanded="false" />
-            <element signature="e#3782#3807#0" expanded="false" />
-            <element signature="e#3848#3920#0" expanded="false" />
-            <element signature="e#3962#4076#0" expanded="false" />
-            <element signature="e#4117#4142#0" expanded="false" />
-            <element signature="n#!!block;n#createUI#0" expanded="false" />
-            <element signature="e#4565#4616#0" expanded="false" />
-            <element signature="n#!!block;n#countUncheckedFeedback#0" expanded="false" />
-            <element signature="e#4805#4898#0" expanded="false" />
-            <element signature="e#4844#4892#0" expanded="false" />
-            <element signature="n#!!block;n#getNewEmail#0" expanded="false" />
-            <element signature="e#5018#6660#0" expanded="false" />
-            <element signature="e#5130#6654#0" expanded="false" />
-            <element signature="e#5183#5205#0" expanded="false" />
-            <element signature="e#5336#5710#0" expanded="false" />
-            <element signature="e#5604#5645#0" expanded="false" />
-            <element signature="e#5970#6280#0" expanded="false" />
-            <element signature="e#6304#6560#0" expanded="false" />
-            <element signature="e#6573#6603#0" expanded="false" />
-            <element signature="n#!!block;n#getLastTaskEmail#0" expanded="false" />
-            <element signature="e#6838#6879#0" expanded="false" />
-            <element signature="e#6889#6938#0" expanded="false" />
-            <element signature="n#!!block;n#reminder#0" expanded="false" />
-            <element signature="e#7051#7226#0" expanded="false" />
-            <element signature="e#7090#7220#0" expanded="false" />
-            <element signature="e#7253#7484#0" expanded="false" />
-            <element signature="n#!!block;n#updateGetOnlineuser#0" expanded="false" />
-            <element signature="e#7598#8712#0" expanded="false" />
-            <element signature="e#7608#7646#0" expanded="false" />
-            <element signature="e#7962#8348#0" expanded="false" />
-            <element signature="e#8106#8184#0" expanded="false" />
-            <element signature="e#8190#8264#0" expanded="false" />
-            <element signature="e#8483#8539#0" expanded="false" />
-            <element signature="e#8545#8592#0" expanded="false" />
-            <element signature="n#!!block;n#saveDraftLocal#0" expanded="false" />
-            <element signature="e#8973#9007#0" expanded="false" />
-            <element signature="n#!!block;n#getQueryString#0" expanded="false" />
-            <element signature="n#!!block;n#hideButton#0" expanded="false" />
-            <element signature="n#!!block;n#hideAllButton#0" expanded="false" />
-            <element signature="n#!!block;n#showButton#0" expanded="false" />
-            <element signature="n#!!block;n#showAllButton#0" expanded="false" />
-            <element signature="n#!!block;n#objectLength#0" expanded="false" />
-            <element signature="n#!!block;n#changeListMood#0" expanded="false" />
-            <element signature="n#!!block;n#changemood#0" expanded="false" />
-            <element signature="n#!!block;n#submitHomework#0" expanded="false" />
-            <element signature="e#10376#10579#0" expanded="false" />
-            <element signature="e#10459#10573#0" expanded="false" />
-            <element signature="e#11099#11558#0" expanded="false" />
-            <element signature="e#11134#11552#0" expanded="false" />
-            <element signature="e#11148#11179#0" expanded="false" />
-            <element signature="e#11387#11432#0" expanded="false" />
-            <element signature="n#!!block;n#saveDraft#0" expanded="false" />
-            <element signature="e#11700#11776#0" expanded="false" />
-            <element signature="e#11785#11850#0" expanded="false" />
-            <element signature="e#11961#12194#0" expanded="false" />
-            <element signature="e#12115#12187#0" expanded="false" />
-            <element signature="n#!!block;n#checkHomeworkEvaluation#0" expanded="false" />
-            <element signature="e#12316#13575#0" expanded="false" />
-            <element signature="e#12549#12949#0" expanded="false" />
-            <element signature="e#12677#12734#0" expanded="false" />
-            <element signature="e#12751#12810#0" expanded="false" />
-            <element signature="e#12988#13229#0" expanded="false" />
-            <element signature="e#13267#13553#0" expanded="false" />
-            <element signature="e#13644#15073#0" expanded="false" />
-            <element signature="e#14022#14442#0" expanded="false" />
-            <element signature="e#14170#14227#0" expanded="false" />
-            <element signature="e#14244#14303#0" expanded="false" />
-            <element signature="e#14481#14722#0" expanded="false" />
-            <element signature="e#14760#15045#0" expanded="false" />
-            <element signature="n#!!block;n#createAndJump#0" expanded="false" />
-            <element signature="n#!!block;n#createReport#0" expanded="false" />
-            <element signature="e#15398#15894#0" expanded="false" />
-            <element signature="e#15688#15886#0" expanded="false" />
-            <element signature="e#15801#15876#0" expanded="false" />
-            <element signature="n#!!block;n#prepareTable#0" expanded="false" />
-            <element signature="e#16093#16135#0" expanded="false" />
-            <element signature="n#!!block;n#prepareAllTable#0" expanded="false" />
-            <element signature="n#!!block;n#createHomeworkTable#0" expanded="false" />
-            <element signature="e#17061#17084#0" expanded="false" />
-            <element signature="e#17157#19904#0" expanded="false" />
-            <element signature="e#17249#19821#0" expanded="false" />
-            <element signature="e#17348#19806#0" expanded="false" />
-            <element signature="e#17833#19792#0" expanded="false" />
-            <element signature="e#18174#18353#0" expanded="false" />
-            <element signature="e#18400#18689#0" expanded="false" />
-            <element signature="e#18854#18946#0" expanded="false" />
-            <element signature="e#19093#19120#0" expanded="false" />
-            <element signature="e#19318#19662#0" expanded="false" />
-            <element signature="e#19914#23642#0" expanded="false" />
-            <element signature="e#20024#22596#0" expanded="false" />
-            <element signature="e#20123#22581#0" expanded="false" />
-            <element signature="e#20608#22567#0" expanded="false" />
-            <element signature="e#20949#21128#0" expanded="false" />
-            <element signature="e#21175#21464#0" expanded="false" />
-            <element signature="e#21629#21721#0" expanded="false" />
-            <element signature="e#21868#21895#0" expanded="false" />
-            <element signature="e#22093#22437#0" expanded="false" />
-            <element signature="e#23001#23557#0" expanded="false" />
-            <element signature="e#23040#23330#0" expanded="false" />
-            <element signature="e#23058#23076#0" expanded="false" />
-            <element signature="n#!!block;n#getLastTaskEmailIndex#0" expanded="false" />
-            <element signature="e#23840#23869#0" expanded="false" />
-            <element signature="e#23879#23933#0" expanded="false" />
-            <element signature="n#!!block;n#createEmailTable#0" expanded="false" />
-            <element signature="e#24007#24037#0" expanded="false" />
-            <element signature="e#24319#27484#0" expanded="false" />
-            <element signature="e#24410#27474#0" expanded="false" />
-            <element signature="e#24424#24430#0" expanded="false" />
-            <element signature="e#24791#25686#0" expanded="false" />
-            <element signature="e#25371#25405#0" expanded="false" />
-            <element signature="e#25739#25865#0" expanded="false" />
-            <element signature="e#25989#26030#0" expanded="false" />
-            <element signature="e#26192#27464#0" expanded="false" />
-            <element signature="e#26396#26824#0" expanded="false" />
-            <element signature="e#26501#26622#0" expanded="false" />
-            <element signature="e#26680#26806#0" expanded="false" />
-            <element signature="e#26918#26957#0" expanded="false" />
-            <element signature="e#27105#27167#0" expanded="false" />
-            <element signature="e#27528#30607#0" expanded="false" />
-            <element signature="e#27619#30597#0" expanded="false" />
-            <element signature="e#27633#27665#0" expanded="false" />
-            <element signature="e#27999#29032#0" expanded="false" />
-            <element signature="e#28716#28750#0" expanded="false" />
-            <element signature="e#29085#29211#0" expanded="false" />
-            <element signature="e#29359#30587#0" expanded="false" />
-            <element signature="e#29563#29991#0" expanded="false" />
-            <element signature="e#29668#29789#0" expanded="false" />
-            <element signature="e#29847#29973#0" expanded="false" />
-            <element signature="e#30228#30290#0" expanded="false" />
-            <element signature="e#30612#32744#0" expanded="false" />
-            <element signature="n#!!block;n#urlList#0" expanded="false" />
-            <element signature="e#32899#33261#0" expanded="false" />
-            <element signature="e#32963#33255#0" expanded="false" />
-            <element signature="e#33266#33302#0" expanded="false" />
-            <element signature="n#!!block;n#createUrlTable#0" expanded="false" />
-            <element signature="e#33571#34332#0" expanded="false" />
-            <element signature="e#33662#34322#0" expanded="false" />
-            <element signature="e#33781#33817#0" expanded="false" />
-            <element signature="e#34211#34272#0" expanded="false" />
-            <element signature="n#!!block;n#checkTaskemail#0" expanded="false" />
-            <element signature="e#34433#34605#0" expanded="false" />
-            <element signature="e#34520#34599#0" expanded="false" />
-            <element signature="n#!!block;n#checkFeedback#0" expanded="false" />
-            <element signature="e#34670#34855#0" expanded="false" />
-            <element signature="e#34770#34849#0" expanded="false" />
-            <element signature="n#!!block;n#addInput#0" expanded="false" />
-            <element signature="e#34985#35118#0" expanded="false" />
-            <element signature="n#!!block;n#createInput#0" expanded="false" />
-            <element signature="e#35533#35736#0" expanded="false" />
-            <element signature="e#35921#35991#0" expanded="false" />
-            <element signature="n#!!block;n#showmessage#0" expanded="false" />
-            <element signature="e#36121#37969#0" expanded="false" />
-            <element signature="e#36157#37963#0" expanded="false" />
-            <element signature="e#36369#36639#0" expanded="false" />
-            <element signature="e#36690#37323#0" expanded="false" />
-            <element signature="e#36738#37039#0" expanded="false" />
-            <element signature="e#37060#37308#0" expanded="false" />
-            <element signature="e#37384#37463#0" expanded="false" />
-            <element signature="e#37599#37627#0" expanded="false" />
-            <element signature="e#37853#37900#0" expanded="false" />
-            <element signature="n#!!block;n#send#0" expanded="false" />
-            <element signature="e#38380#38432#0" expanded="false" />
-            <element signature="e#38415#38426#0" expanded="false" />
-            <element signature="n#!!block;n#autoflow#0" expanded="false" />
-            <element signature="n#!!block;n#changeAutoflow#0" expanded="false" />
-            <element signature="e#38791#38883#0" expanded="false" />
-            <element signature="e#38892#38986#0" expanded="false" />
-            <element signature="n#!!block;n#submitShareFile#0" expanded="false" />
-            <element signature="n#!!block;n#shareListData#0" expanded="false" />
-            <element signature="e#39764#40188#0" expanded="false" />
-            <element signature="e#39857#40182#0" expanded="false" />
-            <element signature="e#39910#39952#0" expanded="false" />
-            <element signature="e#40105#40172#0" expanded="false" />
-            <element signature="n#!!block;n#createShareTable#0" expanded="false" />
-            <element signature="e#40815#40949#0" expanded="false" />
-            <element signature="e#40855#40935#0" expanded="false" />
-            <element signature="e#40966#41052#0" expanded="false" />
-            <element signature="e#41314#41621#0" expanded="false" />
-            <element signature="e#41409#41615#0" expanded="false" />
-            <element signature="e#41462#41508#0" expanded="false" />
-            <element signature="e#43392#43503#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/student/student2.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1765">
@@ -1257,8 +834,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tutor/tutor1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="430" column="51" lean-forward="true" selection-start-line="430" selection-start-column="51" selection-end-line="430" selection-end-column="51" />
+        <state relative-caret-position="4945">
+          <caret line="423" column="59" lean-forward="true" selection-start-line="423" selection-start-column="59" selection-end-line="423" selection-end-column="59" />
           <folding>
             <element signature="n#!!block;n#classSelect#0" expanded="false" />
             <element signature="n#!!block;n#changeClass#0" expanded="false" />
@@ -1280,6 +857,45 @@
             <element signature="e#19634#20187#0" expanded="false" />
             <element signature="n#!!block;n#checkAllGood#0" expanded="false" />
             <marker date="1533086452369" expanded="true" signature="3758:3760" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/register_login/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/register_login/loginaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+          <folding>
+            <marker date="1532752454175" expanded="true" signature="906:1026" ph="SELECT email... account" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/register_login/logout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student/student1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="216" column="5" lean-forward="true" selection-start-line="216" selection-start-column="5" selection-end-line="216" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!block;n#sortEmailarr#0" expanded="false" />
+            <element signature="n#!!block;n#testFeedback#0" expanded="false" />
+            <element signature="n#!!block;n#createUI#0" expanded="false" />
           </folding>
         </state>
       </provider>
