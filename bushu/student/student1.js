@@ -331,6 +331,7 @@ function submitHomework() {
             //将evaluationchange置为1，保证checkevaluation（）会查询数据库
             evaluationchange=1;
             checkHomeworkEvaluation();
+            reportAttachmentData();
         }
     };
     xhr.open('post', './student_submit_homework.php');
