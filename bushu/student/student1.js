@@ -376,12 +376,14 @@ function checkHomeworkEvaluation() {
             return true;
         }
         else if (evaluation == '批改中') {
+            content=info_report[info_report.length-1]['content'];
+            textarea.value = content;
             textarea.setAttribute('readonly', 'readonly');
-            textarea.value = "作业待教师批改";
             submitbutton.setAttribute('disabled', 'disabled');
         }
         else if (evaluation == '通过') {
-            textarea.value = "您的作业已通过，等待小组其他成员通过后系统将下发下一个任务";
+            content=info_report[info_report.length-1]['content'];
+            textarea.value = content;
             textarea.setAttribute('readonly', 'readonly');
             submitbutton.setAttribute('disabled', 'disabled');
 
@@ -409,14 +411,14 @@ function checkHomeworkEvaluation() {
             return true;
         }
         else if (evaluation == '批改中') {
-            //document.getElementById("sendemail").value="作业待教师批改";
             textarea.setAttribute('readonly', 'readonly');
-            textarea.value = "作业待教师批改";
+            content=info_report[info_report.length-1]['content'];
+            textarea.value = content;
             submitbutton.setAttribute('disabled', 'disabled');
         }
         else if (evaluation == '通过') {
-            //document.getElementById("sendemail").value="您的作业已通过，等待小组其他成员通过后系统将下发下一个任务";
-            textarea.value = "您的作业已通过，等待小组其他成员通过后系统将下发下一个任务";
+            content=info_report[info_report.length-1]['content'];
+            textarea.value = content;
             textarea.setAttribute('readonly', 'readonly');
             submitbutton.setAttribute('disabled', 'disabled');
         }
@@ -534,7 +536,6 @@ function createHomeworkTable(datas,tbodyid){
                     }
                     var url_arr=info_report[index]['url'];
                     var urlname_arr=info_report[index]['urlname'];
-                    console.log('make ')
                     for(var k=0;k<url_arr.length;k++){
                         var a=document.createElement('a');
                         a.href=url_arr[k];
