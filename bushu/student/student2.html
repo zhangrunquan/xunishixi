@@ -108,7 +108,7 @@
                 <!------------------------------------------------------------收件箱------------------------------------------------------------------------------------- -->
                 <div>
                     <div style="overflow:hidden;height:560px;width:200px;float:left;">
-                        <div id="emaillist" style="border:1px solid;">&nbsp;&nbsp;&nbsp;所有邮件</div>
+                        <div id="emaillist" style="border:1px solid;height:560px;overflow: auto">&nbsp;&nbsp;&nbsp;所有邮件</div>
 
                     </div>
 
@@ -136,17 +136,10 @@
                 </div>
                 <!------------------------------------------------------------发件箱------------------------------------------------------------------------------------- -->
                 <div>
-                    <div style="overflow:hidden;height:500px;width:200px;float:left;">
+                    <div style="overflow:hidden;height:560px;width:200px;float:left;">
                         <div style="border:1px solid;">&nbsp;&nbsp;&nbsp;所有邮件</div>
-                        <!--<ul style="margin:0;padding:0px;">
-                            <li><a href="#">
-                                <button>邮件主题</button>
-                            </a></li>
-                            <li><a href="#">
-                                <button>邮件主题</button>
-                            </a></li>
-                        </ul>-->
-                        <div id="homeworklist"></div>
+
+                        <div id="homeworklist" style="height: 530px;overflow: auto"></div>
 
                     </div>
 
@@ -177,10 +170,10 @@
                 <!------------------------------------------------------------资源------------------------------------------------------------------------------------- -->
                 <div>
 
-                    <div style="overflow:hidden;height:500px;width:200px;float:left;">
+                    <div style="overflow:hidden;height:560px;width:200px;float:left;">
                         <div style="border:1px solid;">&nbsp;&nbsp;&nbsp;资源列表</div>
 
-                        <div id="urllist"></div>
+                        <div id="urllist" style="height: 530px;overflow: auto"></div>
 
                     </div>
 
@@ -201,14 +194,17 @@
                 <div>
                     <!--<iframe src="resource.html" width="1420" height="560" class="dom" style="display: block;" >
                             </iframe>-->
-                    <div style="overflow:hidden;height:500px;width:200px;float:left;">
+                    <div style="overflow:hidden;height:560px;width:200px;float:left;">
                         <div style="border:1px solid;">&nbsp;&nbsp;&nbsp;共享列表</div>
-                        <div id="sharelist">资源链接</div>
-                        <div id="attachment_history">作业附件历史</div>
-                        <form id="share_upload">待分享文件
-                        </form>
-                        <button onclick="addInput('share_upload')">添加附件</button>
-                        <button onclick="submitShareFile()">分享</button>
+                        <div style="height: 530px;overflow: auto;">
+                            <div id="sharelist">资源链接</div>
+                            <div id="attachment_history">作业附件历史</div>
+                            <form id="share_upload">待分享文件
+                            </form>
+                            <button onclick="addInput('share_upload')">添加附件</button>
+                            <button onclick="submitShareFile()">分享</button>
+                        </div>
+
                     </div>
 
                     <table style="float:left;height:560px;border-color:000000;border-left-style:solid;border-width:1px">
