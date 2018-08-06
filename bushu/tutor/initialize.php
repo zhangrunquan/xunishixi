@@ -30,6 +30,8 @@ $query="SELECT groupid,taskidnow FROM group_attr WHERE classid='$classid' ORDER 
 $ret_taskid=mysqli_query($link,$query);
 $query="SELECT classid  FROM account WHERE tutorid='$tutorid'";
 $ret_classid=mysqli_query($link,$query);
+$query="SELECT username  FROM account WHERE tutorid='$tutorid' limit 1";
+$ret_username=mysqli_query($link,$query);
 mysqli_close($link);
 $homeworkmood=[];
 while ($rst = mysqli_fetch_assoc($ret)) {
@@ -43,6 +45,8 @@ $classid_arr=[];
 while($rst=mysqli_fetch_assoc($ret_classid)){
     $classid_arr[]=$rst['classid'];
 }
+$username_arr=mysqli_fetch_assoc($ret_username);
+$username=$username_arr['username'];
 $xml=simplexml_load_file('pro.xml');
 $pro=[];
 $taskemailnum=count($xml->children());
@@ -78,4 +82,5 @@ $info['pro']=$pro;
 $info['homeworkmood']=$homeworkmood;
 $info['taskid']=$taskid_arr;
 $info['classid']=$classid_arr;
+$info['username']=$username;
 echo(json_encode($info));

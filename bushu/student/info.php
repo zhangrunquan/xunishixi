@@ -1,5 +1,5 @@
 <?php
-$taskemailnum=10;
+$taskemailnum;
 
 
 $sid=$_GET['sid'];
@@ -49,6 +49,8 @@ mysqli_close($link);
 //查询xml信息
 $xml=simplexml_load_file('pro.xml');
 $pro=[];
+$taskemailnum=count($xml->children());
+
 for($i=0;$i<$taskemailnum;$i++){
     $task=$xml->task[$i];
     $taskname=(string)$task->taskName;

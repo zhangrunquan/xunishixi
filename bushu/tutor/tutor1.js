@@ -24,6 +24,8 @@ var info_taskid=[];
 var info_pop=[];
 //记录教师对应的班级
 var info_classid=[];
+//tutor的username
+var info_username='';
 //当前classid
 var classidnow=0;
 //控制是否刷新聊天信息,0不刷新，1刷新,（可能是用于防止在更换班级时，之前已发出的ajax请求造成干扰，但并不确定有用）
@@ -72,6 +74,7 @@ function initialize() {
         info_pro=info['pro'];
         info_taskid=info['taskid'];
         info_classid=info['classid'];
+        info_username=info['username'];
         tasknum=objectLength(info_pro);
         console.log('tasknum');
         console.log(tasknum);
@@ -182,6 +185,10 @@ function resetChatMsg() {
 }
 //将所有按钮重置回初始隐藏状态
 function resetButton(){
+    console.log('groupnum,membernum,tasknum');
+    console.log(group_num)
+    console.log(membernum)
+    console.log(tasknum)
     for(var i=1;i<=group_num;i++){
         for(var j=1;j<=membernum;j++){
             for(var k=1;k<=tasknum;k++){
@@ -212,12 +219,32 @@ function get_chat_data(){
         var data_array=eval(data);
         var s="";
         for(var k=1;k<=group_num;k++){
+            /*
             for(var i=0;i<data[k].length;i++){
                 s += "("+data_array[k][i].timeStamp+") >>>";
                 s += "<p>";
                 s += data_array[k][i].username +"&nbsp;"+"说：" + data_array[k][i].content;
                 s += "</p>";
+            }*/
+
+            for (var i = 0; i < data[k].length; i++) {
+                if(data_array[k][i].username==info_username){
+                    s += "<p class='userbox'>";
+                    s += data_array[k][i].timeStamp+'<br/>';
+                    s += data_array[k][i].username + "&nbsp;" + "说：" + data_array[k][i].content;
+                    s += "</p>"+"<br/>";
+                }
+                else{
+                    s += "<p class='otherbox'>";
+                    s += "(" + data_array[k][i].timeStamp + ") >>>"+'<br/>';
+                    s += data_array[k][i].username + "&nbsp;" + "说：" + data_array[k][i].content;
+                    s += "</p>"+"<br/>";
+                }
+
             }
+
+
+
             var lastmessage=data_array[k].length-1;
             if(lastmessage!=-1){
                 var lasttimeStamp=data_array[k][lastmessage]['timeStamp'];
@@ -253,7 +280,6 @@ function initializeSentence() {
             sentence(id,0,info_taskid[i-1]['taskidnow'])
         })(i);
     }
-    console.log('Sentence initialized')
 }
 //创建记录'预定语'被使用的情况的数组（被使用过的会记录在相应数组）
 function initializepop() {
@@ -268,7 +294,8 @@ function initializepop() {
 //填充预定回复的函数，接受 目标id, 语句在数组中的索引,任务id 作为参数
 function sentence(targetid,index,taskid) {
     var target=document.getElementById(targetid);
-    var chatname=info_pro[taskid-1]['chatName'][index];
+    //var chatname=info_pro[taskid-1]['chatName'][index];
+    var chatname=info_pro[taskid-1]['chatMsg'][index];
     var chatmsg=info_pro[taskid-1]['chatMsg'][index];
 
     target.value=chatname;
@@ -434,6 +461,7 @@ function dialog(groupid, taskid, numberingroup) {
             var node = document.createTextNode(info_arr['urlname'][i]);
             a.appendChild(node);
             urldiv.appendChild(a);
+            urldiv.innerHTML+='</br>';
         }
         //获取反馈按钮
         var button = $("#feedback");

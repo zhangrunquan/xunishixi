@@ -27,7 +27,9 @@ a{text-decoration:none;color:black;}
   width: 100%;
   max-width:500px;
 }
-
+.tab-menu{
+  width:600px;
+}
 .tab-menu li {
   position:relative;
   background-color: #fff;
@@ -59,7 +61,7 @@ a{text-decoration:none;color:black;}
 .tab-content>div {
   background-color: #fff;
   box-sizing:border-box;
-  width: 1420px;
+  width: 1020px;
   height:560px;
   padding: 0px;   
   min-height:200px;
