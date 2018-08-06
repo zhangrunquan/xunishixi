@@ -185,7 +185,8 @@ function getNewEmail() {
             }
             if(getdata){
                 //evaluationchange记录作业评价状态改变的可能性，收到新邮件时评价状态可能改变了，置为1
-                evaluationchange=1;
+                //evaluationchange=1;
+                checkEvaluation();
                 hideButton('response');
                 //刷新收件和发件列表
                 createEmailTable('emailtable',info_email,'emailtbody');
@@ -356,7 +357,7 @@ function saveDraft() {
         })
     }
 }
-//根据作业批改状态显示相应内容
+//根据作业批改状态显示相应内容（这个函数功能过于耦合，将查询评价与显示作业内容混在了一起，应重构拆分）
 function checkHomeworkEvaluation() {
     //如果作业批改状态并无改变的可能性，不查询数据库，查看本地记录的状态
     if(evaluationchange==0){
@@ -426,7 +427,13 @@ function checkHomeworkEvaluation() {
         return false;
     })
 }
-//
+//向数据库查询作业批改状态
+function checkEvaluation() {
+    $.get("get_homework_evaluation.php", {sid:sid}, function (data) {
+        evaluationchange=0;
+        evaluation = eval(data);
+    })
+}
 //-----------------收件箱部分----------------------------------------------
 //如果当前有未创建的report，创建并跳转到发件箱，若无则只跳转
 function createAndJump() {
@@ -464,6 +471,7 @@ function prepareTable(parent,tablename,tbodyid) {
 
     var table = document.createElement("table");
     table.id = tablename;
+    table.rules='rows';
     parent.appendChild(table);
     //生成表头（似乎没用到）
     var thead = document.createElement("thead");
@@ -502,6 +510,8 @@ function createHomeworkTable(datas,tbodyid){
             (function () {
                 //新建一行
                 var tr = document.createElement("tr");
+                var hr=document.createElement('hr');
+                tr.appendChild(hr);
                 tbody.appendChild(tr);
                 var td = document.createElement("td");
 
@@ -544,6 +554,7 @@ function createHomeworkTable(datas,tbodyid){
                         var node = document.createTextNode(urlname_arr[k]);
                         a.appendChild(node);
                         urldiv.appendChild(a);
+                        urldiv.innerHTML+='&nbsp&nbsp&nbsp';
                     }
 
                     lastclick='other';
@@ -607,6 +618,7 @@ function createHomeworkTable(datas,tbodyid){
                         a.appendChild(node);
                         console.log(typeof urldiv);
                         urldiv.appendChild(a);
+                        urldiv.innerHTML+='&nbsp&nbsp&nbsp';
                     }
 
                     lastclick='other';
@@ -615,6 +627,7 @@ function createHomeworkTable(datas,tbodyid){
         }
         //处理最后一项
         i=len-1;
+        var index=i;
         var tr = document.createElement("tr");
         tbody.appendChild(tr);
         var td = document.createElement("td");
@@ -632,6 +645,23 @@ function createHomeworkTable(datas,tbodyid){
                 document.getElementById("s_title").innerHTML = '主题:'+info_pro[i]['taskname'];
             }
             checkHomeworkEvaluation();
+            if(evaluation!='待修改'){
+                var urldiv=document.getElementById('attach');
+                urldiv.innerHTML='';
+                var url_arr=info_report[index]['url'];
+                var urlname_arr=info_report[index]['urlname'];
+                for(var k=0;k<url_arr.length;k++){
+                    var a=document.createElement('a');
+                    a.href=url_arr[k];
+                    a.download=urlname_arr[k];
+                    var node = document.createTextNode(urlname_arr[k]);
+                    a.appendChild(node);
+                    console.log(typeof urldiv);
+                    urldiv.appendChild(a);
+                    //插入空格
+                    urldiv.innerHTML+='&nbsp&nbsp&nbsp';
+                }
+            }
             lastclick = 'last';
         };
 
@@ -1008,7 +1038,8 @@ function createShareTable(data,tbodyid) {
                 a.download=filename;
             }
             var node=document.createElement('span');
-            node.innerHTML=filename+'<br/>'+sharetime;
+            node.innerHTML=filename+'<br/>'+sharetime+'<hr/>';
+
             a.appendChild(node);
             tr.appendChild(a);
         })(i)
@@ -1070,7 +1101,8 @@ function createAttachmentTable(data,tbodyid) {
                 }
             }
             else{
-                button.value='已分享';
+                button.setAttribute('style',"width:60px;height:25px");
+                button.innerHTML='已分享';
                 button.setAttribute('disabled','disabled');
             }
             tbody.appendChild(button);
