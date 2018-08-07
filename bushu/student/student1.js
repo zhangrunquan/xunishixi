@@ -155,6 +155,10 @@ function createUI() {
         str += ';' + info_group['username'][j];
     }
     document.getElementById("r_copy").innerHTML = '抄送:' + str;
+    //填写收件人，右上角登录用户名
+    document.getElementById('user').innerHTML=info_user['username'];
+    document.getElementById('r_receiver').innerHTML='收件人:'+info_user['username'];
+    document.getElementById('s_receiver').innerHTML='收件人:'+info_user['username'];
 }
 
 //轮询取得新收到的邮件

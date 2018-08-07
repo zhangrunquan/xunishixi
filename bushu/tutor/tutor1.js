@@ -62,6 +62,11 @@ function objectLength(obj) {
     var arr=Object.keys(obj);
     return arr.length;
 }
+//清空一个元素的value
+function emptyElement(id) {
+    var target=document.getElementById(id);
+    target.value='';
+}
 
 
 //-----------------初始化----------------------------------------------
@@ -84,6 +89,7 @@ function initialize() {
         console.log(info);
     })
 }
+
 //创建一个任务按钮
 //参数为组号，taskid，numberingroup,索引均从一开始
 function createButton(groupid,taskid,numberingroup,parentnode) {
@@ -221,13 +227,6 @@ function get_chat_data(){
         var data_array=eval(data);
         var s="";
         for(var k=1;k<=group_num;k++){
-            /*
-            for(var i=0;i<data[k].length;i++){
-                s += "("+data_array[k][i].timeStamp+") >>>";
-                s += "<p>";
-                s += data_array[k][i].username +"&nbsp;"+"说：" + data_array[k][i].content;
-                s += "</p>";
-            }*/
 
             for (var i = 0; i < data[k].length; i++) {
                 if(data_array[k][i].username==info_username){
@@ -267,6 +266,7 @@ function get_chat_data(){
 //发送聊天消息的函数
 function send(chatroomid) {
     var content=document.getElementById('msg'+chatroomid).value;
+    emptyElement('msg'+chatroomid);
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
         success: function (data) {
