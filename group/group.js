@@ -83,32 +83,49 @@ function getStuInfo() {
         success:function (data) {
             var info=JSON.parse(data);
             info_class=info['classinfo'];
+            //初始化info_stu
+            initializeStu(info_class,info_stu);
             //将信息处理后存入info_stu
-            divide(info['stu']);
+            divide(info['stu'],info_stu);
             makeUI();
             console.log('getStuinfo(): ');
             console.log(info)
         }
     })
 }
-//将服务器返回的学生信息数组整理成新结构
-function divide(info) {
-    console.log('divide info')
+//根据班级信息初始化info_stu 参数：info_class,info_stu
+function initializeStu(classinfo,stuinfo) {
+    var len=classinfo.length;
+    for(var i=0;i<len;++i){
+        var classid=classinfo[i]['classid'];
+        stuinfo[classid]=[];
+        initializeGroup(classid,info_stu);
+    }
+    //只有0班有0组
+    
+}
+//初始化info_stu中一个空班级下的所有小组   参数：info_stu中的班级 例：info_stu[1]
+function initializeGroup(classid,stuinfo) {
+    info_stu[classid]=[];
+    for(var i=0;i<GROUPNUM;++i){
+        //索引换算
+        info_stu[classid][i+1]=[];
+    }
+}
+//将服务器返回的学生信息数组整理成新结构 参数：后台获取的学生信息数组，info_stu
+function divide(info,stuinfo) {
+
+    console.log('divide stuinfo')
     console.log(info)
-    for(var i=0;i<info.length;i++){
+    var len=info.length;
+    for(var i=0;i<len;i++){
         var classid=info[i]['classid'];
         var groupid=info[i]['groupid'];
-        if(typeof (info_stu[classid])=='undefined'){
-            info_stu[classid]=[];
-
-        }
-        if(typeof (info_stu[classid][groupid])=='undefined'){
-            info_stu[classid][groupid]=[];
-        }
-        info_stu[classid][groupid].push(info[i]);
+        console.log('groupid:'+groupid)
+        stuinfo[classid][groupid].push(info[i]);
     }
     console.log('divide():');
-    console.log(info_stu);
+    console.log(stuinfo);
 }
 //生成依赖数据的界面                                                                                     1111
 function makeUI(){
@@ -237,7 +254,7 @@ function resetGroup() {
 
 //接受给定参数后将所给id的学生定的班和组
 function assignStu(userid,classid,groupid,oldclassid,oldgroupid,stuinfo) {
-    var nig=getNumberingroup(stuinfo['classid']['groupid']);
+    var nig=getNumberingroup(stuinfo[classid][groupid]);
     //数据库处理
     $.ajax({
         url:'assign_stu.php',
@@ -252,11 +269,13 @@ function assignStu(userid,classid,groupid,oldclassid,oldgroupid,stuinfo) {
         if(oldgroup[i]['userid']==userid){
             //向被分入的小组添加数据
             info_stu[classid][groupid].push(oldgroup[i]);
-            //计算numberingroup                                               //1111依赖索引的彻底清除
+
+            /*//计算numberingroup                                               //1111依赖索引的彻底清除
             var num=info_stu[classid][groupid].length;
             //修改numberingroup
+            info_stu[classid][groupid][index]['numberingroup']=num;*/
             var index=info_stu[classid][groupid].length-1;
-            info_stu[classid][groupid][index]['numberingroup']=num;
+            info_stu[classid][groupid][index]['numberingroup']=nig;
             //删除旧数据
             info_stu[oldclassid][oldgroupid].splice(i,1);
             break;
@@ -268,17 +287,24 @@ function assignStu(userid,classid,groupid,oldclassid,oldgroupid,stuinfo) {
 //计算分入某组的学生的numberingroup 参数：info_stu中的一个group  返回值:numberingingroup的值
 function getNumberingroup(group) {
     var temparr=[];
+    if(typeof (group)=='undefined'){
+        group=[];
+    }
     //将所有numberingourp存入一个数组，以便判断某个数字是否已被占用
     for(var i=0;i<MAXSTUNUM;++i){
         if(typeof(group[i])!='undefined'){
-            temparr.push(group[i]['numberingroup']);
+            temparr.push(Number(group[i]['numberingroup']));
         }
     }
+    console.log('temparr')
+    console.log(temparr)
     for(var j=1;j<=MAXSTUNUM;++j){
         if($.inArray(i, temparr)==-1){
+            console.log('numberingroup return:'+i)
             return i;
         }
     }
+    console.log('error :小组学生数量超标')
 }
 //
 //将指定id的学生变回未分组状态
@@ -319,7 +345,6 @@ function createClass(classinfo) {
     console.log(lastclassid);
     var newclassid=lastclassid+1;
     var classname=document.getElementById('i1').value;
-    console.log(classname);
     createClassAction(newclassid,classname);
 }
 
@@ -346,9 +371,7 @@ function createClassFront(classid,classname){
     //数据处理
     //info_stu
     info_stu[classid]=[];
-    for(var i=0;i<GROUPNUM;++i){
-        info_stu[classid][i]=[]
-    }
+    initializeGroup(info_stu[classid]);
     //info_class
     var len=info_class.length;
     info_class[len]=[];
@@ -357,7 +380,15 @@ function createClassFront(classid,classname){
     //UI处理
     classManageUI('l1',info_class);
     classSelectUI('dates',info_class);
-    clickClass('dates',classidnow);
+    //创建班级前未编辑任何一个班级的情况
+    if(classidnow==0){
+        return;
+    }
+    //编辑了某个班级的情况
+    else{
+        clickClass('dates',classidnow);
+    }
+
     console.log('createClassFront():');
     console.log(info_stu);
 }
@@ -379,23 +410,28 @@ function deleteClass(classid){
 }
 //删除班级的前端处理                                                                                     1111
 function deleteClassFront(classid) {
-    //将学生分入0班0组
-    var oldclass=info_stu[classid];
-    for(var i=1;i<oldclass.length;i++){
-        //解决测试时数据不完整的情况
-        if(typeof (oldclass[i])=='undefined'){
-            continue;
-        }
-        var group=oldclass[i];
-        for(var j=0;j<group.length;j++){
-            var stu=group[j];
-            stu['classid']=0;
-            stu['groupid']=0;
-            info_stu[0][0].push(stu);
+    //如果要删除的班级里有学生，info_stu[classid]未定义
+    if(typeof (info_stu[classid])!='undefined'){
+        //将学生分入0班0组
+        var oldclass=info_stu[classid];
+        for(var i=1;i<oldclass.length;i++){
+            //解决测试时数据不完整的情况
+            if(typeof (oldclass[i])=='undefined'){
+                continue;
+            }
+            var group=oldclass[i];
+            for(var j=0;j<group.length;j++){
+                var stu=group[j];
+                stu['classid']=0;
+                stu['groupid']=0;
+                info_stu[0][0].push(stu);
+            }
         }
     }
+
     //清空原来班级的学生信息
     info_stu[classid]=[];
+    initializeGroup(info_stu[classid]);
     console.log("deleteClassFront():");
     console.log(info_stu);
     //删除info_class中的相应班级
@@ -407,9 +443,16 @@ function deleteClassFront(classid) {
     noClassList('noclass',info_stu[0][0]);
     //重新生成班级选择时间轴界面
     classSelectUI('dates',info_class);
+    console.log('classidnow')
+    console.log(classidnow)
+    //当前未在编辑任何一个班级的情况
+    if(classidnow==0){
+        console.log(1)
+        return;
+    }
     //删除的不是当前正在编辑的班级的情况
     if(classid!=classidnow){
-        clickClass(classidnow);
+        clickClass('dates',classidnow);
     }
     //删除的是当前正在编辑的班级的情况
     else{
@@ -450,11 +493,19 @@ function getA(parentid,classid) {
         }
     }
     console.log('warning :getA() not found');
+    console.log('classid:'+classid)
+    console.log('classidnow:'+classidnow)
 }
 //根据classid模拟点击班级选择时间轴中对应的班级 参数：父元素id，classid
 function clickClass(parentid,classid){
     var a=getA(parentid,classid);
     a.click();
+}
+function show12() {
+    console.log('info_stu')
+    console.log(info_stu)
+    console.log('info_class')
+    console.log(info_class)
 }
 
 

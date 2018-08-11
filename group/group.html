@@ -11,7 +11,7 @@ ol,ul{list-style:none}
 table{border-collapse:collapse;border-spacing:0}
 h2.top_title{margin:4px 20px; padding-top:15px; padding-left:20px; padding-bottom:10px; border-bottom:1px solid #d3d3d3; font-size:18px; color:#a84c10;}
 #dates {width: 760px;height: 60px;overflow: hidden;position:absolute;left:300px;top:6px;}
-#dates li {list-style: none;float: left;width: 100px;height: 50px;font-size: 24px;text-align: center;}
+#dates li {list-style: none;float: left;width:200px;height: 50px;font-size: 15px;text-align: center;}
 #dates a {line-height: 38px;padding-bottom: 10px;}
 #dates .selected {font-size: 38px;}
 #issues {width: 760px;height: 300px;overflow: hidden;}	
@@ -120,6 +120,10 @@ position:absolute;left:100px;text-align:center;border-radius:15px;}
 <script>
 function allowDrop(ev)
 {
+    //未选择班级时不允许将学生拖入小组
+    if(classidnow==0){
+        return;
+    }
 	ev.preventDefault();
 }
 
@@ -130,6 +134,10 @@ function drag(ev)
 
 function drop(ev)
 {
+    //未选择班级时不允许将学生拖入小组
+    if(classidnow==0){
+        return;
+    }
 	ev.preventDefault();
 	var data=ev.dataTransfer.getData("Text");
 	var targetclass=ev.target.getAttribute('class');
@@ -260,6 +268,7 @@ $(function(){
     </a>
  </div>
  <div id="fade" class="black_overlay"></div>
+<button onclick="show12()">show</button>
 <script src="group.js"></script>
 </body>
 </html>
