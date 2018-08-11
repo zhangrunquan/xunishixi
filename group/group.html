@@ -112,7 +112,7 @@ a{text-decoration:none;color:black;}
 #nav ul li:hover ul{ display:block} 
 #a1, #a2, #a3, #a4, #a5
 {float:left;border:1px solid #aaaaaa;border-radius:25px;margin:10px;}
-#div2, #div3, #div4, #div5
+#groupdiv1,#groupdiv2,#groupdiv3,#groupdiv4, #div3, #div4, #div5
 {float:left; width:180px; height:350px;margin:10px;float:left;}
 #div1{border:1px solid #aaaaaa;float:left; width:180px; height:550px;margin:10px;float:left;
 position:absolute;left:100px;text-align:center;border-radius:15px;}
@@ -132,7 +132,27 @@ function drop(ev)
 {
 	ev.preventDefault();
 	var data=ev.dataTransfer.getData("Text");
-	ev.target.appendChild(document.getElementById(data));
+	var targetclass=ev.target.getAttribute('class');
+	console.log('targetclass:'+targetclass)
+	if(targetclass!='stu'){
+        ev.target.appendChild(document.getElementById(data));
+        var li=document.getElementById(data);
+        var oldclassid=li.getAttribute('classid');
+        var oldgroupid=li.getAttribute('groupid');
+        var userid=li.getAttribute('userid');
+        //被拖进待分组
+        if(targetclass=='nogroupclass'){
+            resetStu(userid,oldclassid,oldgroupid);
+        }
+        //被拖进某小组
+        else if(targetclass=='groupclass'){
+            var newgroupid=ev.target.getAttribute('data-groupid');
+            assignStu(userid,classidnow,newgroupid,oldclassid,oldgroupid);
+        }
+        else{
+            console.log('error 1');
+        }
+	}
 }
 </script>
 <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
@@ -142,7 +162,7 @@ $(function(){
     $().timelinr({
 		autoPlay: 'true',
 		autoPlayDirection: 'forward',
-		startAt: 4
+		startAt: 100
 	})
 });
 </script>
@@ -161,50 +181,44 @@ $(function(){
          <ul>         
         </div>  
 </div>
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-	<ul style="margin:0;padding:0">
-	<li>报名学员</li>
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="nogroupclass">
+	<ul style="margin:0;padding:0" id="noclass" >
+	<li >报名学员</li>
+		<!--
 	<li style="margin:0"><div  draggable="true" ondragstart="drag(event)" id="drag1" style="background-color: #F0F8FF">1</div></li>
 	<li style="margin:0"><div  draggable="true" ondragstart="drag(event)" id="drag2" style="background-color: #F0F8FF">2</div></li>
-	<li style="margin:0"><div  draggable="true" ondragstart="drag(event)" id="drag3" style="background-color: #F0F8FF">3</div></li>
+	<li style="margin:0"><div  draggable="true" ondragstart="drag(event)" id="drag3" style="background-color: #F0F8FF">3</div></li>-->
     </ul>
 </div>
-<div style="border-radius:25px;height:50px;width:600px;border:1px solid;float:left;position:absolute;left:460px;overflow: hidden">
+<div style="border-radius:25px;height:50px;width:600px;border:1px solid;float:left;position:absolute;left:460px;overflow: hidden" id="datesdiv">
    <ul id="dates">
       <li><a href="#c1">班级1</a></li>
-	  <li><a href="#c2">班级2</a></li>
-	  <li><a href="#c3">班级3</a></li>
-	  <li><a href="#c4">班级4</a></li>
-	  <li><a href="#c5">班级5</a></li>
-	  <li><a href="#c6">班级6</a></li>
-	  <li><a href="#c7">班级7</a></li>
-      <li><a href="#c8">班级8</a></li>
    </ul>	
 </div>
-<button style="position:absolute;left:1150px;top:105px;height:40px;width:150px;border-radius: 10px;background-color: #8470FF" onclick = "openDialog()">班级管理</button>
+<button style="position:absolute;left:1150px;top:105px;height:40px;width:150px;border-radius: 10px;background-color: #8470FF" onclick = "openDialog()" id="test">班级管理</button>
 <div style="position:absolute;left:450px;top:200px">
 <div id="a1">
 	<ul style="padding:5">
 	<li style="margin:0"><p>组一</p></li>
-	<li style="margin:0"><div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></li>
+	<li style="margin:0"><div id="groupdiv1" ondrop="drop(event)" ondragover="allowDrop(event)" class="groupclass" data-groupid="1"></div></li>
     </ul>
 </div>
 <div id="a2">
 	<ul>
 	<li><p>组二</p></li>
-	<li><div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div></li>
+	<li><div id="groupdiv2" ondrop="drop(event)" ondragover="allowDrop(event)" class="groupclass" data-groupid="2"></div></li>
     </ul>
 </div>
 <div id="a3">
 	<ul>
 	<li><p>组三</p></li>
-	<li><div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)"></div></li>
+	<li><div id="groupdiv3" ondrop="drop(event)" ondragover="allowDrop(event)" class="groupclass" data-groupid="3"></div></li>
     </ul>
 </div>
 <div id="a4">
 	<ul>
 	<li><p>组四</p></li>
-	<li><div id="div4" ondrop="drop(event)" ondragover="allowDrop(event)"></div></li>
+	<li><div id="groupdiv4" ondrop="drop(event)" ondragover="allowDrop(event)"class="groupclass" data-groupid="4"></div></li>
     </ul>
 </div>
 </div>
@@ -232,16 +246,14 @@ $(function(){
  <div id="light" class="white_content" style="width:1200px;height:600px;border-radius:15px;">
  	<p>班级管理</p><br>
  	<input id="i1" placeholder="请输入班级名(2-15个字符)" style="height:40px;width:400px;font-size:16px;"></input>
- 	<button style="height:40px;width:150px;border-radius:10px;background-color: #8470FF;" onclick="app()">新建班级</button>
+ 	<button style="height:40px;width:150px;border-radius:10px;background-color: #8470FF;" id="newclass">新建班级</button>
  	 <div id="l1" style="overflow:auto;border:1px solid;height:500px;width:1200px;font-size:0px;">
- 	 
+ 	 <!--
  	 <button style="border-radius:5px;height:50px;width:200px;text-align:center;font-size:16px;line-height:40px;">班级1<a href = "javascript:void(0)" onclick  = "del(this)" style="float:right">
       	<img border="0" src="image/1.png" /></a>
-     </button>
+     </button>-->
      
-     <button style="border-radius:5px;height:50px;width:200px;text-align:center;font-size:16px;line-height:40px;">班级2<a href = "javascript:void(0)" onclick  = "del(this)" style="float:right">
-      	<img border="0" src="image/1.png" /></a>
-     </button>
+
     </div>
  	<a href = "javascript:void(0)" onclick = "closeDialog()" style="position:absolute;top:10px;right:5px">
       	<img border="0" src="image/1.png" />
