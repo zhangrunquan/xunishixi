@@ -13,7 +13,7 @@ var info_stu=[];
 //存储班级名信息的数组 索引从0开始，为classid-1，从一班开始
 var info_class=[];
 //记录当前正在编辑的班级的classid 值为0时约定为没有打开编辑任何班级
-var CLASSNOW=0;
+var classidnow=0;
 //使用一次便会自加的全局变量，用于获取一个不会重复的数字，配套noSame()函数使用
 var NOSAMECOUNT=1000;
 //-----------------执行部分----------------------------------------------
@@ -236,11 +236,12 @@ function resetGroup() {
 }
 
 //接受给定参数后将所给id的学生定的班和组
-function assignStu(userid,classid,groupid,oldclassid,oldgroupid) {
+function assignStu(userid,classid,groupid,oldclassid,oldgroupid,stuinfo) {
+    var nig=getNumberingroup(stuinfo['classid']['groupid']);
     //数据库处理
     $.ajax({
         url:'assign_stu.php',
-        data:{userid:userid,classid:classid,groupid:groupid},
+        data:{userid:userid,classid:classid,groupid:groupid,numberingroup:nig},
         success:function (data) {
             console.log('assignGroup() '+data);
         }
@@ -264,9 +265,20 @@ function assignStu(userid,classid,groupid,oldclassid,oldgroupid) {
     console.log('assignStu():');
     console.log(info_stu)
 }
-//计算分入某组的学生的numberingroup 参数：info_stu中的一个group
+//计算分入某组的学生的numberingroup 参数：info_stu中的一个group  返回值:numberingingroup的值
 function getNumberingroup(group) {
-
+    var temparr=[];
+    //将所有numberingourp存入一个数组，以便判断某个数字是否已被占用
+    for(var i=0;i<MAXSTUNUM;++i){
+        if(typeof(group[i])!='undefined'){
+            temparr.push(group[i]['numberingroup']);
+        }
+    }
+    for(var j=1;j<=MAXSTUNUM;++j){
+        if($.inArray(i, temparr)==-1){
+            return i;
+        }
+    }
 }
 //
 //将指定id的学生变回未分组状态
@@ -345,6 +357,7 @@ function createClassFront(classid,classname){
     //UI处理
     classManageUI('l1',info_class);
     classSelectUI('dates',info_class);
+    clickClass('dates',classidnow);
     console.log('createClassFront():');
     console.log(info_stu);
 }
@@ -394,6 +407,17 @@ function deleteClassFront(classid) {
     noClassList('noclass',info_stu[0][0]);
     //重新生成班级选择时间轴界面
     classSelectUI('dates',info_class);
+    //删除的不是当前正在编辑的班级的情况
+    if(classid!=classidnow){
+        clickClass(classidnow);
+    }
+    //删除的是当前正在编辑的班级的情况
+    else{
+        //清空小组中的内容
+        resetGroup();
+        classidnow=0;
+    }
+
 }
 //classid to index 根据classid返回相应info_class 中的索引
 function ctoi_class(classid) {
@@ -409,9 +433,28 @@ function ctoi_class(classid) {
 function ctoi_stu(classid) {
     return classid;
 }
+//获得一个不会重复的数字
 function noSame(){
     ++NOSAMECOUNT;
     return NOSAMECOUNT;
+}
+//根据classid找到班级选择时间轴中的相应a标签 参数：父元素id，classid    返回值：a标签
+function getA(parentid,classid) {
+    var ul=document.getElementById(parentid);
+    var ulchildren=ul.children;
+    var len=ulchildren.length;
+    for(var i=0;i<len;++i){
+        var a=ulchildren[i].children[0];
+        if(a.getAttribute('classid')==classid){
+            return a;
+        }
+    }
+    console.log('warning :getA() not found');
+}
+//根据classid模拟点击班级选择时间轴中对应的班级 参数：父元素id，classid
+function clickClass(parentid,classid){
+    var a=getA(parentid,classid);
+    a.click();
 }
 
 

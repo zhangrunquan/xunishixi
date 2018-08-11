@@ -14,17 +14,17 @@
       <file leaf-file-name="group.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/group.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="183" column="66" lean-forward="false" selection-start-line="183" selection-start-column="66" selection-end-line="183" selection-end-column="66" />
+            <state relative-caret-position="166">
+              <caret line="188" column="131" lean-forward="true" selection-start-line="188" selection-start-column="131" selection-end-line="188" selection-end-column="131" />
               <folding>
                 <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#8648#8908#0" expanded="false" />
-                <marker date="1533977285227" expanded="false" signature="5749:5757" ph="..." />
-                <marker date="1533977285227" expanded="true" signature="8109:8120" ph="..." />
+                <element signature="e#8657#8917#0" expanded="false" />
+                <marker date="1533981511715" expanded="false" signature="5758:5766" ph="..." />
+                <marker date="1533981511715" expanded="true" signature="8118:8129" ph="..." />
               </folding>
             </state>
           </provider>
@@ -33,31 +33,33 @@
       <file leaf-file-name="group.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/group.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="270" column="2" lean-forward="false" selection-start-line="270" selection-start-column="2" selection-end-line="270" selection-end-column="2" />
+            <state relative-caret-position="580">
+              <caret line="421" column="28" lean-forward="true" selection-start-line="421" selection-start-column="28" selection-end-line="421" selection-end-column="28" />
               <folding>
-                <element signature="e#1156#1461#0" expanded="false" />
-                <element signature="e#1462#2002#0" expanded="false" />
+                <element signature="e#1158#1463#0" expanded="false" />
+                <element signature="e#1464#2004#0" expanded="false" />
                 <element signature="n#!!block;n#getStuInfo#0" expanded="false" />
-                <element signature="e#2166#2489#0" expanded="false" />
-                <element signature="e#2232#2483#0" expanded="false" />
+                <element signature="e#2168#2491#0" expanded="false" />
+                <element signature="e#2234#2485#0" expanded="false" />
                 <element signature="n#!!block;n#divide#0" expanded="false" />
+                <element signature="n#!!block;n#makeUI#0" expanded="false" />
+                <element signature="n#!!block;n#noClassList#0" expanded="false" />
+                <element signature="n#!!block;n#li_stu#0" expanded="false" />
                 <element signature="n#!!block;n#classManageUI#0" expanded="false" />
                 <element signature="n#!!block;n#classSelectUI#0" expanded="false" />
                 <element signature="n#!!block;n#li_class#0" expanded="false" />
-                <element signature="e#7382#7441#0" expanded="false" />
+                <element signature="n#!!block;n#resetGroup#0" expanded="false" />
+                <element signature="n#!!block;n#assignStu#0" expanded="false" />
+                <element signature="e#7471#7530#0" expanded="false" />
+                <element signature="n#!!block;n#getNumberingroup#0" expanded="false" />
                 <element signature="n#!!block;n#resetStu#0" expanded="false" />
-                <element signature="e#8338#8492#0" expanded="false" />
-                <element signature="e#8431#8486#0" expanded="false" />
-                <element signature="e#8630#9080#0" expanded="false" />
-                <element signature="e#8673#9074#0" expanded="false" />
-                <element signature="n#!!block;n#createClass#0" expanded="false" />
+                <element signature="e#8772#8926#0" expanded="false" />
+                <element signature="e#8865#8920#0" expanded="false" />
                 <element signature="n#!!block;n#createClassAction#0" expanded="false" />
-                <element signature="n#!!block;n#createClassFront#0" expanded="false" />
-                <element signature="n#!!block;n#deleteClass#0" expanded="false" />
-                <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
                 <element signature="n#!!block;n#ctoi_class#0" expanded="false" />
                 <element signature="n#!!block;n#noSame#0" expanded="false" />
+                <element signature="n#!!block;n#getA#0" expanded="false" />
+                <element signature="n#!!block;n#clickClass#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -104,8 +106,8 @@
       <file leaf-file-name="reset_stu.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reset_stu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="8" selection-end-column="37" />
+            <state relative-caret-position="322">
+              <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
               <folding>
                 <marker date="1531277977898" expanded="true" signature="337:399" ph="UPDATE account... " />
               </folding>
@@ -116,12 +118,12 @@
       <file leaf-file-name="assign_stu.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assign_stu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+            <state relative-caret-position="483">
+              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
               <folding>
-                <marker date="1531277977833" expanded="true" signature="391:428" ph="UPDATE account... " />
-                <marker date="1531277977833" expanded="true" signature="391:447" ph="UPDATE account... " />
-                <marker date="1531277977833" expanded="true" signature="391:470" ph="UPDATE account... " />
+                <marker date="1533981511802" expanded="true" signature="430:467" ph="UPDATE account... " />
+                <marker date="1533981511802" expanded="true" signature="430:486" ph="UPDATE account... " />
+                <marker date="1533981511802" expanded="true" signature="430:540" ph="UPDATE account... " />
               </folding>
             </state>
           </provider>
@@ -166,6 +168,11 @@
       <find>li_stu</find>
       <find>stuarr[i]</find>
       <find>app()</find>
+      <find>assignStu</find>
+      <find>assig</find>
+      <find>dates</find>
+      <find>CLASSNOW</find>
+      <find>classidnow</find>
     </findStrings>
     <replaceStrings>
       <replace>group</replace>
@@ -179,13 +186,13 @@
       <list>
         <option value="$PROJECT_DIR$/assign_group.php" />
         <option value="$PROJECT_DIR$/reset_group.php" />
-        <option value="$PROJECT_DIR$/assign_stu.php" />
         <option value="$PROJECT_DIR$/reset_stu.php" />
         <option value="$PROJECT_DIR$/get_stu_info.php" />
         <option value="$PROJECT_DIR$/delete_class.php" />
         <option value="$PROJECT_DIR$/create_class.php" />
         <option value="$PROJECT_DIR$/js/jquery.timelinr-0.9.53.js" />
         <option value="$PROJECT_DIR$/group.html" />
+        <option value="$PROJECT_DIR$/assign_stu.php" />
         <option value="$PROJECT_DIR$/group.js" />
       </list>
     </option>
@@ -276,12 +283,12 @@
       <workItem from="1531398271582" duration="1336000" />
       <workItem from="1532138498583" duration="790000" />
       <workItem from="1533179552091" duration="4261000" />
-      <workItem from="1533731778805" duration="31215000" />
+      <workItem from="1533731778805" duration="35071000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52737000" />
+    <option name="totallyTimeSpent" value="56593000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -316,7 +323,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -331,9 +338,9 @@
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#8648#8908#0" expanded="false" />
-            <marker date="1533977285227" expanded="false" signature="5749:5757" ph="..." />
-            <marker date="1533977285227" expanded="true" signature="8109:8120" ph="..." />
+            <element signature="e#8657#8917#0" expanded="false" />
+            <marker date="1533981511715" expanded="false" signature="5758:5766" ph="..." />
+            <marker date="1533981511715" expanded="true" signature="8118:8129" ph="..." />
           </folding>
         </state>
       </provider>
@@ -343,28 +350,30 @@
         <state relative-caret-position="1426">
           <caret line="65" column="33" lean-forward="true" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
           <folding>
-            <element signature="e#1156#1461#0" expanded="false" />
-            <element signature="e#1462#2002#0" expanded="false" />
+            <element signature="e#1158#1463#0" expanded="false" />
+            <element signature="e#1464#2004#0" expanded="false" />
             <element signature="n#!!block;n#getStuInfo#0" expanded="false" />
-            <element signature="e#2166#2489#0" expanded="false" />
-            <element signature="e#2232#2483#0" expanded="false" />
+            <element signature="e#2168#2491#0" expanded="false" />
+            <element signature="e#2234#2485#0" expanded="false" />
             <element signature="n#!!block;n#divide#0" expanded="false" />
+            <element signature="n#!!block;n#makeUI#0" expanded="false" />
+            <element signature="n#!!block;n#noClassList#0" expanded="false" />
+            <element signature="n#!!block;n#li_stu#0" expanded="false" />
             <element signature="n#!!block;n#classManageUI#0" expanded="false" />
             <element signature="n#!!block;n#classSelectUI#0" expanded="false" />
             <element signature="n#!!block;n#li_class#0" expanded="false" />
-            <element signature="e#7382#7441#0" expanded="false" />
+            <element signature="n#!!block;n#resetGroup#0" expanded="false" />
+            <element signature="n#!!block;n#assignStu#0" expanded="false" />
+            <element signature="e#7471#7530#0" expanded="false" />
+            <element signature="n#!!block;n#getNumberingroup#0" expanded="false" />
             <element signature="n#!!block;n#resetStu#0" expanded="false" />
-            <element signature="e#8338#8492#0" expanded="false" />
-            <element signature="e#8431#8486#0" expanded="false" />
-            <element signature="e#8630#9080#0" expanded="false" />
-            <element signature="e#8673#9074#0" expanded="false" />
-            <element signature="n#!!block;n#createClass#0" expanded="false" />
+            <element signature="e#8772#8926#0" expanded="false" />
+            <element signature="e#8865#8920#0" expanded="false" />
             <element signature="n#!!block;n#createClassAction#0" expanded="false" />
-            <element signature="n#!!block;n#createClassFront#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClass#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
             <element signature="n#!!block;n#ctoi_class#0" expanded="false" />
             <element signature="n#!!block;n#noSame#0" expanded="false" />
+            <element signature="n#!!block;n#getA#0" expanded="false" />
+            <element signature="n#!!block;n#clickClass#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -408,9 +417,9 @@
         <state relative-caret-position="391">
           <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding>
-            <marker date="1531277977833" expanded="true" signature="391:428" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:447" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:470" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:467" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:486" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:540" ph="UPDATE account... " />
           </folding>
         </state>
       </provider>
@@ -437,9 +446,9 @@
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#8648#8908#0" expanded="false" />
-            <marker date="1533977285227" expanded="false" signature="5749:5757" ph="..." />
-            <marker date="1533977285227" expanded="true" signature="8109:8120" ph="..." />
+            <element signature="e#8657#8917#0" expanded="false" />
+            <marker date="1533981511715" expanded="false" signature="5758:5766" ph="..." />
+            <marker date="1533981511715" expanded="true" signature="8118:8129" ph="..." />
           </folding>
         </state>
       </provider>
@@ -483,9 +492,9 @@
         <state relative-caret-position="391">
           <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding>
-            <marker date="1531277977833" expanded="true" signature="391:428" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:447" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:470" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:467" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:486" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:540" ph="UPDATE account... " />
           </folding>
         </state>
       </provider>
@@ -507,28 +516,30 @@
         <state relative-caret-position="437">
           <caret line="75" column="1" lean-forward="true" selection-start-line="75" selection-start-column="1" selection-end-line="75" selection-end-column="1" />
           <folding>
-            <element signature="e#1156#1461#0" expanded="false" />
-            <element signature="e#1462#2002#0" expanded="false" />
+            <element signature="e#1158#1463#0" expanded="false" />
+            <element signature="e#1464#2004#0" expanded="false" />
             <element signature="n#!!block;n#getStuInfo#0" expanded="false" />
-            <element signature="e#2166#2489#0" expanded="false" />
-            <element signature="e#2232#2483#0" expanded="false" />
+            <element signature="e#2168#2491#0" expanded="false" />
+            <element signature="e#2234#2485#0" expanded="false" />
             <element signature="n#!!block;n#divide#0" expanded="false" />
+            <element signature="n#!!block;n#makeUI#0" expanded="false" />
+            <element signature="n#!!block;n#noClassList#0" expanded="false" />
+            <element signature="n#!!block;n#li_stu#0" expanded="false" />
             <element signature="n#!!block;n#classManageUI#0" expanded="false" />
             <element signature="n#!!block;n#classSelectUI#0" expanded="false" />
             <element signature="n#!!block;n#li_class#0" expanded="false" />
-            <element signature="e#7382#7441#0" expanded="false" />
+            <element signature="n#!!block;n#resetGroup#0" expanded="false" />
+            <element signature="n#!!block;n#assignStu#0" expanded="false" />
+            <element signature="e#7471#7530#0" expanded="false" />
+            <element signature="n#!!block;n#getNumberingroup#0" expanded="false" />
             <element signature="n#!!block;n#resetStu#0" expanded="false" />
-            <element signature="e#8338#8492#0" expanded="false" />
-            <element signature="e#8431#8486#0" expanded="false" />
-            <element signature="e#8630#9080#0" expanded="false" />
-            <element signature="e#8673#9074#0" expanded="false" />
-            <element signature="n#!!block;n#createClass#0" expanded="false" />
+            <element signature="e#8772#8926#0" expanded="false" />
+            <element signature="e#8865#8920#0" expanded="false" />
             <element signature="n#!!block;n#createClassAction#0" expanded="false" />
-            <element signature="n#!!block;n#createClassFront#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClass#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
             <element signature="n#!!block;n#ctoi_class#0" expanded="false" />
             <element signature="n#!!block;n#noSame#0" expanded="false" />
+            <element signature="n#!!block;n#getA#0" expanded="false" />
+            <element signature="n#!!block;n#clickClass#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -543,9 +554,9 @@
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#8648#8908#0" expanded="false" />
-            <marker date="1533977285227" expanded="false" signature="5749:5757" ph="..." />
-            <marker date="1533977285227" expanded="true" signature="8109:8120" ph="..." />
+            <element signature="e#8657#8917#0" expanded="false" />
+            <marker date="1533981511715" expanded="false" signature="5758:5766" ph="..." />
+            <marker date="1533981511715" expanded="true" signature="8118:8129" ph="..." />
           </folding>
         </state>
       </provider>
@@ -589,9 +600,9 @@
         <state relative-caret-position="391">
           <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding>
-            <marker date="1531277977833" expanded="true" signature="391:428" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:447" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:470" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:467" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:486" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:540" ph="UPDATE account... " />
           </folding>
         </state>
       </provider>
@@ -613,43 +624,35 @@
         <state relative-caret-position="782">
           <caret line="189" column="1" lean-forward="true" selection-start-line="189" selection-start-column="1" selection-end-line="189" selection-end-column="1" />
           <folding>
-            <element signature="e#1156#1461#0" expanded="false" />
-            <element signature="e#1462#2002#0" expanded="false" />
+            <element signature="e#1158#1463#0" expanded="false" />
+            <element signature="e#1464#2004#0" expanded="false" />
             <element signature="n#!!block;n#getStuInfo#0" expanded="false" />
-            <element signature="e#2166#2489#0" expanded="false" />
-            <element signature="e#2232#2483#0" expanded="false" />
+            <element signature="e#2168#2491#0" expanded="false" />
+            <element signature="e#2234#2485#0" expanded="false" />
             <element signature="n#!!block;n#divide#0" expanded="false" />
+            <element signature="n#!!block;n#makeUI#0" expanded="false" />
+            <element signature="n#!!block;n#noClassList#0" expanded="false" />
+            <element signature="n#!!block;n#li_stu#0" expanded="false" />
             <element signature="n#!!block;n#classManageUI#0" expanded="false" />
             <element signature="n#!!block;n#classSelectUI#0" expanded="false" />
             <element signature="n#!!block;n#li_class#0" expanded="false" />
-            <element signature="e#7382#7441#0" expanded="false" />
+            <element signature="n#!!block;n#resetGroup#0" expanded="false" />
+            <element signature="n#!!block;n#assignStu#0" expanded="false" />
+            <element signature="e#7471#7530#0" expanded="false" />
+            <element signature="n#!!block;n#getNumberingroup#0" expanded="false" />
             <element signature="n#!!block;n#resetStu#0" expanded="false" />
-            <element signature="e#8338#8492#0" expanded="false" />
-            <element signature="e#8431#8486#0" expanded="false" />
-            <element signature="e#8630#9080#0" expanded="false" />
-            <element signature="e#8673#9074#0" expanded="false" />
-            <element signature="n#!!block;n#createClass#0" expanded="false" />
+            <element signature="e#8772#8926#0" expanded="false" />
+            <element signature="e#8865#8920#0" expanded="false" />
             <element signature="n#!!block;n#createClassAction#0" expanded="false" />
-            <element signature="n#!!block;n#createClassFront#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClass#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
             <element signature="n#!!block;n#ctoi_class#0" expanded="false" />
             <element signature="n#!!block;n#noSame#0" expanded="false" />
+            <element signature="n#!!block;n#getA#0" expanded="false" />
+            <element signature="n#!!block;n#clickClass#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/interface.js" />
-    <entry file="file://$PROJECT_DIR$/reset_stu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="8" selection-end-column="37" />
-          <folding>
-            <marker date="1531277977898" expanded="true" signature="337:399" ph="UPDATE account... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/delete_class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -694,62 +697,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assign_stu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding>
+            <marker date="1533981511802" expanded="true" signature="430:467" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:486" ph="UPDATE account... " />
+            <marker date="1533981511802" expanded="true" signature="430:540" ph="UPDATE account... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reset_stu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding>
+            <marker date="1531277977898" expanded="true" signature="337:399" ph="UPDATE account... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/group.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="183" column="66" lean-forward="false" selection-start-line="183" selection-start-column="66" selection-end-line="183" selection-end-column="66" />
+        <state relative-caret-position="166">
+          <caret line="188" column="131" lean-forward="true" selection-start-line="188" selection-start-column="131" selection-end-line="188" selection-end-column="131" />
           <folding>
             <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#8648#8908#0" expanded="false" />
-            <marker date="1533977285227" expanded="false" signature="5749:5757" ph="..." />
-            <marker date="1533977285227" expanded="true" signature="8109:8120" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assign_stu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-          <folding>
-            <marker date="1531277977833" expanded="true" signature="391:428" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:447" ph="UPDATE account... " />
-            <marker date="1531277977833" expanded="true" signature="391:470" ph="UPDATE account... " />
+            <element signature="e#8657#8917#0" expanded="false" />
+            <marker date="1533981511715" expanded="false" signature="5758:5766" ph="..." />
+            <marker date="1533981511715" expanded="true" signature="8118:8129" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/group.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="270" column="2" lean-forward="false" selection-start-line="270" selection-start-column="2" selection-end-line="270" selection-end-column="2" />
+        <state relative-caret-position="580">
+          <caret line="421" column="28" lean-forward="true" selection-start-line="421" selection-start-column="28" selection-end-line="421" selection-end-column="28" />
           <folding>
-            <element signature="e#1156#1461#0" expanded="false" />
-            <element signature="e#1462#2002#0" expanded="false" />
+            <element signature="e#1158#1463#0" expanded="false" />
+            <element signature="e#1464#2004#0" expanded="false" />
             <element signature="n#!!block;n#getStuInfo#0" expanded="false" />
-            <element signature="e#2166#2489#0" expanded="false" />
-            <element signature="e#2232#2483#0" expanded="false" />
+            <element signature="e#2168#2491#0" expanded="false" />
+            <element signature="e#2234#2485#0" expanded="false" />
             <element signature="n#!!block;n#divide#0" expanded="false" />
+            <element signature="n#!!block;n#makeUI#0" expanded="false" />
+            <element signature="n#!!block;n#noClassList#0" expanded="false" />
+            <element signature="n#!!block;n#li_stu#0" expanded="false" />
             <element signature="n#!!block;n#classManageUI#0" expanded="false" />
             <element signature="n#!!block;n#classSelectUI#0" expanded="false" />
             <element signature="n#!!block;n#li_class#0" expanded="false" />
-            <element signature="e#7382#7441#0" expanded="false" />
+            <element signature="n#!!block;n#resetGroup#0" expanded="false" />
+            <element signature="n#!!block;n#assignStu#0" expanded="false" />
+            <element signature="e#7471#7530#0" expanded="false" />
+            <element signature="n#!!block;n#getNumberingroup#0" expanded="false" />
             <element signature="n#!!block;n#resetStu#0" expanded="false" />
-            <element signature="e#8338#8492#0" expanded="false" />
-            <element signature="e#8431#8486#0" expanded="false" />
-            <element signature="e#8630#9080#0" expanded="false" />
-            <element signature="e#8673#9074#0" expanded="false" />
-            <element signature="n#!!block;n#createClass#0" expanded="false" />
+            <element signature="e#8772#8926#0" expanded="false" />
+            <element signature="e#8865#8920#0" expanded="false" />
             <element signature="n#!!block;n#createClassAction#0" expanded="false" />
-            <element signature="n#!!block;n#createClassFront#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClass#0" expanded="false" />
-            <element signature="n#!!block;n#deleteClassFront#0" expanded="false" />
             <element signature="n#!!block;n#ctoi_class#0" expanded="false" />
             <element signature="n#!!block;n#noSame#0" expanded="false" />
+            <element signature="n#!!block;n#getA#0" expanded="false" />
+            <element signature="n#!!block;n#clickClass#0" expanded="false" />
           </folding>
         </state>
       </provider>

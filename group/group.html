@@ -147,7 +147,7 @@ function drop(ev)
         //被拖进某小组
         else if(targetclass=='groupclass'){
             var newgroupid=ev.target.getAttribute('data-groupid');
-            assignStu(userid,classidnow,newgroupid,oldclassid,oldgroupid);
+            assignStu(userid,classidnow,newgroupid,oldclassid,oldgroupid,info_stu);
         }
         else{
             console.log('error 1');
