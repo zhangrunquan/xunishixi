@@ -102,7 +102,8 @@ function initializeStu(classinfo,stuinfo) {
         initializeGroup(classid,info_stu);
     }
     //只有0班有0组
-    
+    stuinfo[0]=[];
+    stuinfo[0][0]=[];
 }
 //初始化info_stu中一个空班级下的所有小组   参数：info_stu中的班级 例：info_stu[1]
 function initializeGroup(classid,stuinfo) {
@@ -121,7 +122,6 @@ function divide(info,stuinfo) {
     for(var i=0;i<len;i++){
         var classid=info[i]['classid'];
         var groupid=info[i]['groupid'];
-        console.log('groupid:'+groupid)
         stuinfo[classid][groupid].push(info[i]);
     }
     console.log('divide():');
@@ -131,7 +131,8 @@ function divide(info,stuinfo) {
 function makeUI(){
     noClassList('noclass',info_stu[0][0]);
     classManageUI('l1',info_class);
-    classSelectUI('dates',info_class);
+    //classSelectUI('dates',info_class);
+    classSelectUI('classlist',info_class);
     var button=document.getElementById('newclass');
     button.onclick=function (ev) {
         createClass(info_class);
@@ -200,7 +201,7 @@ function classManageUI(parentid,classarr){
 function classSelectUI(parentid,classinfo) {
     var parent=document.getElementById(parentid);
     var len=classinfo.length;
-    parent.innerHTML='';
+    parent.innerHTML='<li >班级列表</li>';
     for(var i=0;i<len;++i){
         var li=li_class(classinfo[i]['classname'],classinfo[i]['classid']);
         parent.appendChild(li);
@@ -267,6 +268,7 @@ function assignStu(userid,classid,groupid,oldclassid,oldgroupid,stuinfo) {
     var oldgroup=info_stu[oldclassid][oldgroupid];
     for(var i=0;i<oldgroup.length;i++){
         if(oldgroup[i]['userid']==userid){
+            console.log('user found')
             //向被分入的小组添加数据
             info_stu[classid][groupid].push(oldgroup[i]);
 
@@ -280,6 +282,9 @@ function assignStu(userid,classid,groupid,oldclassid,oldgroupid,stuinfo) {
             info_stu[oldclassid][oldgroupid].splice(i,1);
             break;
         }
+        console.log('error :user not found')
+        console.log(oldgroup[i]['userid'])
+        console.log(userid)
     }
     console.log('assignStu():');
     console.log(info_stu)
@@ -299,9 +304,9 @@ function getNumberingroup(group) {
     console.log('temparr')
     console.log(temparr)
     for(var j=1;j<=MAXSTUNUM;++j){
-        if($.inArray(i, temparr)==-1){
-            console.log('numberingroup return:'+i)
-            return i;
+        if($.inArray(j, temparr)==-1){
+            console.log('numberingroup return:'+j)
+            return j;
         }
     }
     console.log('error :小组学生数量超标')
@@ -379,7 +384,8 @@ function createClassFront(classid,classname){
     info_class[len]['classname']=classname;
     //UI处理
     classManageUI('l1',info_class);
-    classSelectUI('dates',info_class);
+    //classSelectUI('dates',info_class);
+    classSelectUI('classlist',info_class);
     //创建班级前未编辑任何一个班级的情况
     if(classidnow==0){
         return;
@@ -442,7 +448,8 @@ function deleteClassFront(classid) {
     //重新生成待分班界面
     noClassList('noclass',info_stu[0][0]);
     //重新生成班级选择时间轴界面
-    classSelectUI('dates',info_class);
+    //classSelectUI('dates',info_class);
+    classSelectUI('classlist',info_class);
     console.log('classidnow')
     console.log(classidnow)
     //当前未在编辑任何一个班级的情况
