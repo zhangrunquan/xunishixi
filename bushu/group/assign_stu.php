@@ -28,20 +28,11 @@ $ret=mysqli_query($link,$qry);
 if(!$ret){
     echo('error 1');
 }
-$query="DELETE  FROM task WHERE userid='$userid'";
-$ret=mysqli_query($link,$query);
-if(!$ret){
-    echo ('error 2');
-}
+
 $query="INSERT INTO task VALUES ('$userid','$time',0);";
 $ret=mysqli_query($link,$query);
 if(!$ret){
     echo ('error 3');
-}
-$query="DELETE  FROM homework_mood WHERE userid='$userid'";
-$ret=mysqli_query($link,$query);
-if(!$ret){
-    echo ('error 4');
 }
 
 $query="INSERT INTO homework_mood VALUES ('$userid',1,'未提交');";
@@ -49,13 +40,6 @@ $ret=mysqli_query($link,$query);
 if(!$ret){
     echo ('error 5');
 }
-
-$query="DELETE FROM report WHERE userid='$userid'";
-$ret=mysqli_query($link,$query);
-if(!$ret){
-    echo ('error 6');
-}
-
 
 
 

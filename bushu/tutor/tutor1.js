@@ -74,6 +74,8 @@ function emptyElement(id) {
 //-----------------初始化----------------------------------------------
 //初始化所有内容
 function initialize() {
+    var a=document.getElementById('classmanage');
+    a.href="../group/group.html?sid="+sid;
     $.get("initialize.php", {sid:sid}, function (data) {
         console.log('initialize');
         console.log(data);
