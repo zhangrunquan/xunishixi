@@ -49,8 +49,15 @@ $ret=mysqli_query($link,$query);
 if(!$ret){
     echo ('error 5');
 }
-mysqli_close($link);
 
-if($ret){
-    echo('success!');
+$query="DELETE FROM report WHERE userid='$userid'";
+$ret=mysqli_query($link,$query);
+if(!$ret){
+    echo ('error 6');
 }
+
+
+
+
+mysqli_close($link);
+echo('success!');

@@ -20,24 +20,35 @@ if (!$ret) {
     echo('move student to 0,0 failed!');
     exit();
 }
+
 $query = "DELETE FROM group_attr WHERE classid='$classid'";
 $ret = mysqli_query($link, $query);
 if (!$ret) {
     echo('delete group_attr failed!');
     exit();
 }
+
 $query ="DELETE FROM classinfo WHERE classid='$classid'";
 $ret = mysqli_query($link, $query);
 if (!$ret) {
     echo('delete classinfo failed!');
     exit();
 }
+
 $query ="DELETE FROM account WHERE classid='$classid'AND role='tutor'";
 $ret = mysqli_query($link, $query);
 if (!$ret) {
     echo('error 1');
     exit();
 }
+
+$query ="DELETE FROM report WHERE classid='$classid'";
+$ret = mysqli_query($link, $query);
+if (!$ret) {
+    echo('error 2');
+    exit();
+}
+
 mysqli_close($link);
 
 echo('success!');

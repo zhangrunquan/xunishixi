@@ -41,7 +41,18 @@ $ret=mysqli_query($link,$query);
 if(!$ret){
     print_r('error 3');
 }
+$ac_arr=[];
+while($res=mysqli_fetch_assoc($ret)){
+    print_r($res);
+    print_r('<br>');
+}
+print_r('<br>');
 
+$query="SELECT *FROM report";
+$ret=mysqli_query($link,$query);
+if(!$ret){
+    print_r('error 4');
+}
 $ac_arr=[];
 while($res=mysqli_fetch_assoc($ret)){
     print_r($res);

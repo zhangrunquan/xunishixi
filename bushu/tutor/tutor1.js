@@ -516,11 +516,16 @@ function dialog(groupid, taskid, numberingroup) {
         groupid: stu_group,
         numberingroup: stu_numberingroup,
         taskid: stu_taskid,
+        classid:classidnow,
         sid:sid
     }, function (data) {
         var info_arr=JSON.parse(data);
+        console.log('dialog');
+        console.log(info_arr)
         //学生作业评价状态
         var message=info_arr['evaluation'];
+        console.log('dialog content')
+        console.log(info_arr['content'])
         //显示学生作业内容
         document.getElementById('学生作业').value =info_arr['content'];
         //清空附件显示区
@@ -682,7 +687,8 @@ function feedbackEmail() {
         emailcontent:emailcontent,
         evaluation: evaluation,
         sid:sid,
-        tasknum:tasknum
+        tasknum:tasknum,
+        classid:classidnow
     }, function (data) {
         //php文件运行成功返回的data为success
         alert(data);
