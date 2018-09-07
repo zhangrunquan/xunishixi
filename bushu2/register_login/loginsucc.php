@@ -6,7 +6,7 @@
        3.根据用户身份跳转到不同页面
        1.由'loginaction.php'在登录成功时跳转到本页
  接口：1.$_GET{'sid']
-       2.需要获取$_SESSION['emailaddress']
+       2.需要获取$_SESSION['username']
        3.依据身份跳转到student.html, teacher.html
 
 
@@ -27,16 +27,16 @@
     //开启session
     session_start();
     //获取变量
-    $emailaddress= isset($_SESSION['emailaddress'])?$_SESSION['emailaddress']:"";
+    $username= isset($_SESSION['username'])?$_SESSION['username']:"";
     //判断session是否为空
-    if(!empty($emailaddress)){
+    if(!empty($username)){
         ?>
         <h1>登录成功！</h1>
         欢迎您！
         <?php
-        echo $emailaddress;
+        echo $username;
         //-----------------获取所有用户信息，存入session-----------------------------------------
-        $query_select="SELECT * FROM account WHERE emailaddress='$emailaddress' limit 1";
+        $query_select="SELECT * FROM account WHERE username='$username' limit 1";
         $ret=mysqli_query($link,$query_select);
         $row=mysqli_fetch_assoc($ret);
         //将信息存储到session

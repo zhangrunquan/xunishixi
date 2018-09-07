@@ -24,9 +24,9 @@
         <form id="loginform" action="loginaction.php" method="post">
             <table border="0">
                 <tr>
-                    <td>邮      箱：</td>
+                    <td>用 户 名：</td>
                     <td>
-                        <input type="email" id="email" name="emailaddress" required="required"
+                        <input  id="email" name="username" required="required"
                                value="<?php echo isset($_COOKIE["username"])?$_COOKIE["username"]:"";?>">
                     </td>
                 </tr>
