@@ -10,16 +10,8 @@ $numberingroup=$_GET['numberingroup'];
 $time=date('Y-m-d H:i:s',time());
 
 
-//-----------------mysql参数----------------------------------------------
-$servername = "47.96.146.26";
-$usern = "root";
-$passw = "B4F393c91945";
-$dbname = "mysql";
 //-----------------连接mysql服务器----------------------------------------------
-$link = mysqli_connect($servername,$usern ,$passw);;
-$res = mysqli_set_charset($link, 'utf8');
-//选择数据库
-mysqli_query($link, 'use '.$dbname);
+require '../all/mysqllink.php';
 
 
 

@@ -250,9 +250,9 @@ function resetChatroom() {
     //启动聊天信息自动刷新
     chatupdatecontrol=1;
     //重置预定语弹出数组
-    initializepop();
+    //initializepop();
     //重置各聊天室预定语
-    initializeSentence();
+   // initializeSentence();
 }
 //清空所有聊天室的聊天信息
 function resetChatMsg() {
@@ -344,6 +344,7 @@ function send(chatroomid) {
     });
 }
 //-----------------预定语----------------------------------------------
+/*
 //初始化所有聊天室的'预定语'
 function initializeSentence() {
     for(var i=1;i<=group_num;i++){
@@ -366,7 +367,6 @@ function initializepop() {
 //填充预定回复的函数，接受 目标id, 语句在数组中的索引,任务id 作为参数
 function sentence(targetid,index,taskid) {
     var target=document.getElementById(targetid);
-    //var chatname=info_pro[taskid-1]['chatName'][index];
     var chatname=info_pro[taskid-1]['chatMsg'][index];
     var chatmsg=info_pro[taskid-1]['chatMsg'][index];
 
@@ -450,6 +450,32 @@ function updateTaskid(newarr) {
             sentence(targetid,0,newarr[i]['taskidnow'])
         }
     }
+}*/
+//检测小组taskid变动，如变化发送预定信息
+function updateTaskid(newarr) {
+    for(var i=0;i<group_num;i++){
+        console.log('update taskid begin');
+        if(info_taskid[i]['taskidnow']!=newarr[i]['taskidnow']){
+            //计算chatroomid
+            var chatroomid=i+1;
+            //var targetid='sentence'+number;
+            var taskid=newarr[i]['taskidnow'];
+            var len=info_pro[taskid-1]['chatMsg'].length;
+            for(var j=0;j<len;++j){
+                console.log('begin send');
+                sendSentence(chatroomid,info_pro[taskid-1]['chatMsg'][j])
+            }
+        }
+    }
+}
+//发送预定信息
+function sendSentence(chatroomid,content) {
+    $.ajax({ url: "multichatroom_insert.php",
+        data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
+        success: function (data) {
+            console.log('send msg '+data);
+        }
+    });
 }
 //-----------------在线用户----------------------------------------------
 //更新在线用户列表

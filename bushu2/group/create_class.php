@@ -15,16 +15,12 @@ $role='tutor';
 $tutorid=$_SESSION['tutorid'];
 $username=$_SESSION['username'];
 
-//-----------------mysql参数----------------------------------------------
-$servername = "47.96.146.26";
-$usern = "root";
-$passw = "B4F393c91945";
-$dbname = "mysql";
+//设置时区保证时间戳正确
+date_default_timezone_set('PRC');
+$time=date('Y-m-d H:i:s',time());
+
 //-----------------连接mysql服务器----------------------------------------------
-$link = mysqli_connect($servername,$usern ,$passw);;
-$res = mysqli_set_charset($link, 'utf8');
-//选择数据库
-mysqli_query($link, 'use '.$dbname);
+require '../all/mysqllink.php';
 
 
 //向账号表插入教师
@@ -48,8 +44,27 @@ for($i=1;$i<=$groupnum;$i++){
 $query="INSERT INTO classinfo(classid,classname) VALUES ('$classid','$classname')";
 $ret=mysqli_query($link,$query);
 if(!$ret){
-    echo('error2');
+    echo('error 3');
 }
-//在classinfo添加班级信息
+
+//在chat添加第一个任务的预订语
+$xml = simplexml_load_file('pro.xml');
+for ($i = 0; $i < 1; $i++) {
+    $task = $xml->task[$i];
+    $chats = $task->chats;
+    $num = count($chats->children());
+    for ($k = 0; $k < $num; $k++) {
+        $chatmsg= (string)$chats->chat[$k]->chatMsg;
+        for ($j=1;$j<=$groupnum;++$j){
+            $query="INSERT INTO chat(timeStamp,classid,groupid,username,content) VALUES('$time','$classid','$j','$username','$chatmsg')";
+            $ret=mysqli_query($link,$query);
+            if(!$ret){
+                echo 'error 4';
+                exit();
+            }
+        }
+    }
+}
+
 mysqli_close($link);
 echo ('success!');
