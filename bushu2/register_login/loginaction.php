@@ -19,7 +19,7 @@ if(!empty($username)&&!empty($password)) {
     //建立连接
     require '../all/mysqllink.php';
     //准备SQL语句
-    $query_select = "SELECT username,password,userid,classid FROM account WHERE username = '$username' AND password = '$password' limit 1";
+    $query_select = "SELECT username,password,userid,classid,role FROM account WHERE username = '$username' AND password = '$password' limit 1";
     //执行SQL语句
     $ret = mysqli_query($link,$query_select);
     $row = mysqli_fetch_array($ret);
@@ -37,7 +37,7 @@ if(!empty($username)&&!empty($password)) {
             //创建cookie
             setcookie("username", $username, time()+7*24*3600);
         }
-        if($row['classid']!=0){
+        if($row['classid']!=0 or $row['role']=='tutor'){
             //跳转到loginsucc.php页面
             $destination="Location:loginsucc.php?sid=".$sid;
             header($destination);

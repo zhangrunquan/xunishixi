@@ -34,6 +34,8 @@ var classidnow=0;
 var chatupdatecontrol=0;
 //控制是否刷新作业图标状态,0不刷新，1刷新（可能是用于防止在更换班级时，之前已发出的ajax请求造成干扰，但并不确定有用）
 var buttoncontrol=0;
+//进入新任务是否自动发送任务信息聊天
+var AUTOSEND=0;
 
 //--------评价作业时的学生信息
 var stu_group = 0;
@@ -180,10 +182,16 @@ function changeClass(classid) {
     resetButton();
 
     $.get("button_control.php", {sid:sid,classid:classidnow}, function (data) {
+        console.log(data)
         //此处解析不能通过alert来查看，但可以直接使用
         var info=JSON.parse(data);
         console.log('button_control');
         console.log(info)
+        //更新autosend
+        AUTOSEND=info['autosend'];
+        console.log('AUTO'+AUTOSEND)
+        updateAutosend(AUTOSEND);
+
         var homeworkmood = info['homeworkmood'];
         info_taskid=info['taskid'];
         updateTaskid(info['taskid']);
@@ -217,6 +225,17 @@ function changeClass(classid) {
     })
 
 
+}
+//刷新是否自动发送信息
+function updateAutosend(value) {
+    var select=document.getElementById('autosend');
+    for(var i=0;i<select.options.length;++i){
+        if(select.options[i].value == value){
+            console.log('found')
+            select.options[i].selected = true;
+            break;
+        }
+    }
 }
 /*
 //改变班级时获得班级相关数据

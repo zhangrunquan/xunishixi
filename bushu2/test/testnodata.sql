@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.14, for Win64 (x86_64)
 --
--- Host: localhost    Database: database1
+-- Host: localhost    Database: database2
 -- ------------------------------------------------------
 -- Server version	5.7.20-log
 
@@ -80,7 +80,8 @@ DROP TABLE IF EXISTS `classinfo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `classinfo` (
   `classid` int(11) DEFAULT NULL,
-  `classname` varchar(30) DEFAULT NULL
+  `classname` varchar(30) DEFAULT NULL,
+  `autosend` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -287,4 +288,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-12 20:55:41
+-- Dump completed on 2018-09-09 16:10:49

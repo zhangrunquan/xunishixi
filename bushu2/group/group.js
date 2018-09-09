@@ -301,11 +301,12 @@ function createClass(classinfo) {
     console.log(lastclassid);
     var newclassid=lastclassid+1;
     var classname=document.getElementById('i1').value;
-    createClassAction(newclassid,classname);
+    var autosend=document.getElementById('autosend').value;
+    createClassAction(newclassid,classname,autosend);
 }
 
 //新建班级（信息获取后的前后端处理）
-function createClassAction(classid,classname) {
+function createClassAction(classid,classname,autosend) {
     classname=classname.trim();
     if(classname==''){
         alert('班级名不能为空');
@@ -314,7 +315,7 @@ function createClassAction(classid,classname) {
     //数据库处理
     $.ajax({
         url:'create_class.php',
-        data:{classid:classid,classname:classname,sid:sid},
+        data:{classid:classid,classname:classname,sid:sid,autosend:autosend},
         success:function (data) {
             console.log('createClass() '+data);
         }
