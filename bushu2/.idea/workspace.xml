@@ -35,16 +35,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create_class.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="create_class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/group/create_class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="40" column="14" lean-forward="true" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
+            <state relative-caret-position="350">
+              <caret line="43" column="18" lean-forward="true" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
               <folding>
                 <marker date="1536480961987" expanded="true" signature="697:847" ph="INSERT INTO account... " />
                 <marker date="1536480961987" expanded="true" signature="997:1061" ph="INSERT INTO group_attr... " />
                 <marker date="1536480961987" expanded="true" signature="1191:1285" ph="INSERT INTO classinfo... " />
                 <marker date="1536480961987" expanded="true" signature="1760:1875" ph="INSERT INTO chat... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="student1.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/student/student1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="737">
+              <caret line="1254" column="48" lean-forward="true" selection-start-line="1254" selection-start-column="48" selection-end-line="1254" selection-end-column="48" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -201,21 +213,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="button_control.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutor/button_control.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="668">
-              <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
-              <folding>
-                <marker date="1536468559402" expanded="true" signature="387:543" ph="SELECT taski... account" />
-                <marker date="1536468559402" expanded="true" signature="630:712" ph="SELECT group... group_attr" />
-                <marker date="1536468559402" expanded="true" signature="828:865" ph="SELECT group... group_attr" />
-                <marker date="1536468559402" expanded="true" signature="828:883" ph="SELECT autos... classinfo" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/register_login/login.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -320,7 +317,6 @@
         <option value="$PROJECT_DIR$/group/login/loginsucc.php" />
         <option value="$PROJECT_DIR$/test/database1.php" />
         <option value="$PROJECT_DIR$/test/test.php" />
-        <option value="$PROJECT_DIR$/student/student1.js" />
         <option value="$PROJECT_DIR$/test/123.php" />
         <option value="$PROJECT_DIR$/all/mysqllink.php" />
         <option value="$PROJECT_DIR$/all/mysqlattr.php" />
@@ -364,6 +360,7 @@
         <option value="$PROJECT_DIR$/tutor/tutor1.js" />
         <option value="$PROJECT_DIR$/register_login/loginaction.php" />
         <option value="$PROJECT_DIR$/group/create_class.php" />
+        <option value="$PROJECT_DIR$/student/student1.js" />
       </list>
     </option>
   </component>
@@ -413,6 +410,11 @@
               <item name="bushu2" type="b2602c69:ProjectViewProjectNode" />
               <item name="bushu2" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="register_login" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="bushu2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bushu2" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="student" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="bushu2" type="b2602c69:ProjectViewProjectNode" />
@@ -503,15 +505,16 @@
       <workItem from="1535096237995" duration="3636000" />
       <workItem from="1536286207421" duration="1154000" />
       <workItem from="1536288564410" duration="10130000" />
-      <workItem from="1536465255574" duration="4960000" />
+      <workItem from="1536465255574" duration="7031000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="497970000" />
+    <option name="totallyTimeSpent" value="500041000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -554,13 +557,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/all/mysqlattr.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/register_login/Smtp.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1021,13 +1017,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/group/create_class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="40" column="14" lean-forward="true" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
+        <state relative-caret-position="350">
+          <caret line="43" column="18" lean-forward="true" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
           <folding>
             <marker date="1536480961987" expanded="true" signature="697:847" ph="INSERT INTO account... " />
             <marker date="1536480961987" expanded="true" signature="997:1061" ph="INSERT INTO group_attr... " />
             <marker date="1536480961987" expanded="true" signature="1191:1285" ph="INSERT INTO classinfo... " />
             <marker date="1536480961987" expanded="true" signature="1760:1875" ph="INSERT INTO chat... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/student/student1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="737">
+          <caret line="1254" column="48" lean-forward="true" selection-start-line="1254" selection-start-column="48" selection-end-line="1254" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>

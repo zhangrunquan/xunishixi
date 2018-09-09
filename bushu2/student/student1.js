@@ -1236,19 +1236,25 @@ function createAttachmentTable(data, tbodyid) {
             if (shared == 0) {
                 button.innerHTML = '分享';
                 button.setAttribute('style', "width:60px;height:25px");
+                console.log(5)
                 button.onclick = function (ev) {
+                    console.log('oncluck open')
                     shareAttachment(filename, sharefile, number, taskid);
                     button.innerHTML = '已分享';
                     button.setAttribute('disabled', 'disabled');
                 }
             }
             else {
+                console.log('no onclick')
                 button.setAttribute('style', "width:60px;height:25px");
                 button.innerHTML = '已分享';
                 button.setAttribute('disabled', 'disabled');
             }
             tbody.appendChild(button);
-            tbody.innerHTML+='<hr/>';
+            //tbody.innerHTML+='<hr/>';
+            var hr=document.createElement('hr');
+            tbody.appendChild(hr);
+
 
         })(i)
     }
@@ -1260,6 +1266,7 @@ function shareAttachment(filename, url, number, taskid) {
         url: 'share_attachment.php',
         data: {sid: sid, filename: filename, url: url, taskid: taskid, number: number},
         success: function (data) {
+            console.log(data)
         }
     })
 }
