@@ -58,6 +58,7 @@ var chatautoflow = 1;
 //-----------------执行部分----------------------------------------------
 initialize();
 prepareAllTable();
+
 window.onbeforeunload = function () {
     //关闭页面前保存草稿
     saveDraft();
@@ -563,7 +564,8 @@ function createHomeworkTable(datas, tbodyid) {
                 tr.appendChild(hr);
                 tbody.appendChild(tr);
                 var td = document.createElement("td");
-
+                td.setAttribute('class','homeworkentry');
+                //td.setAttribute('class','homeworkentry');
                 var taskid = i + 1;
                 //规避闭包带来的问题
                 var content = datas[i]['content'];
@@ -610,6 +612,7 @@ function createHomeworkTable(datas, tbodyid) {
                 }
             })(i);
         }
+        colorchange('homeworkentry');
         lastclick = 'other';
     }
     else {  //无未创建的report
@@ -713,7 +716,7 @@ function createHomeworkTable(datas, tbodyid) {
             }
             lastclick = 'last';
         };
-
+        colorchange('homeworkentry');
         lastclick = 'other';
     }
 }
@@ -742,6 +745,7 @@ function createEmailTable(parent, datas, tbodyid) {
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
             var td = document.createElement("td");
+            td.setAttribute('class','emailentry');
 
             var taskid = datas[i]['taskid'];
             var timeStamp = datas[i]['timeStamp'];
@@ -836,7 +840,7 @@ function createEmailTable(parent, datas, tbodyid) {
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
             var td = document.createElement("td");
-
+            td.setAttribute('class','emailentry');
             var taskid = datas[i]['taskid'];
             var timeStamp = datas[i]['timeStamp'];
             //taskemail
@@ -932,6 +936,7 @@ function createEmailTable(parent, datas, tbodyid) {
             }
         })(i)
     }
+    colorchange('emailentry')
 }
 
 //处理生成资源列表所需的数据结构
@@ -1003,6 +1008,16 @@ function checkFeedback(taskid) {
     });
 }
 
+//为列表项设置点击变色功能
+function colorchange(classname) {
+    console.log("."+classname)
+    console.log($("."+classname))
+    console.log(document.getElementsByClassName(classname))
+    $("."+classname).click(function(){
+        $("."+classname).css("color","black");
+        $(this).css("color","blue");
+    });
+}
 //-----------------上传附件部分----------------------------------------------
 function addInput(parentid) {
     if (attachnum > 0) {

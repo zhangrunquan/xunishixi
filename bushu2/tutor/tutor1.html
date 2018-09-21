@@ -293,7 +293,7 @@
     <p id="classnow">当前班级</p>
     <ul>
         <li><a href="#">选择班级</a>
-            <ul id="class_select">
+            <ul id="class_select" style="z-index: 99999">
 
             </ul>
         </li>
@@ -352,7 +352,7 @@
                     <li class="accordion-navigation">
                         <a href="#demo1-2">聊天</a>
                         <div id="demo1-2" class="content">
-                            <input id="msg1">
+                            <textarea id="msg1" style="height: 106px;overflow: auto" ></textarea>
                             <button type="button" id='inputsend1'onclick="send(1)" class="msgbutton">发送</button>
                         </div>
                     </li>
