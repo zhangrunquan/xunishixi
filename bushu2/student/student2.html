@@ -80,6 +80,9 @@
             border-bottom: 13px solid transparent;
 
         }
+        .pdfobject-container{
+            overflow:hidden;height:555px;width:815px;float:left;border:1px solid;margin:auto;
+        }
     </style>
 </head>
 <body>
@@ -132,13 +135,13 @@
 
                     <div style="overflow:hidden;height:520px;width:800px;float:left;">
                         <!--此处用空格做样式可能导致问题-->
-                        <p id='r_title'>主题:</p>
-                        <button id="response" onclick="createAndJump()" style="position: absolute;left: 700px;top:1px;">
+                        <p id='r_title'></p>
+                        <button id="response" onclick="createAndJump()" style="position: absolute;left: 700px;top:1px;display: none">
                             回复邮件
                         </button>
-                        <p>发件人：张华</p>
-                        <p id="r_time">时间：2018/4/25</p>
-                        <p id="r_receiver">收件人：孙三</p>
+                        <p style="display: none" id="sender">发件人：张华</p>
+                        <p id="r_time"></p>
+                        <p id="r_receiver"></p>
                         <p id="r_copy"></p>
                         <div style="overflow:auto;height:70px;width:800px;float:left;" id="shoujianurl"></div>
                         <!--<textarea id="receiveemail" style="resize:none;height:250px;width:800px;" readonly="readonly"></textarea>-->
@@ -200,7 +203,7 @@
                     </table>
 
                     <div id="pdf" class="pdfobject-container"
-                         style="overflow:hidden;height:500px;width:800px;float:left;border:1px solid;margin:10 auto">
+                         >
                         资源内容
                     </div>
 
@@ -230,7 +233,7 @@
                     </table>
 
                     <div id="share_pdf" class="pdfobject-container"
-                         style="overflow:hidden;height:500px;width:800px;float:left;border:1px solid;margin:10 auto">
+                        >
                         资源内容
                     </div>
 

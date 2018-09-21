@@ -42,7 +42,7 @@ $stu_info=mysqli_fetch_assoc($ret);
 $username=$stu_info['username'];
 $userid=$stu_info['userid'];
 
-$query="SELECT oknumber,taskidnow FROM group_attr WHERE groupid='$groupid'";
+$query="SELECT oknumber,taskidnow FROM group_attr WHERE groupid='$groupid' AND classid='$classid'";
 mysqli_query($link,$query);
 $ret=mysqli_query($link,$query);
 $info_array=mysqli_fetch_assoc($ret);
@@ -72,18 +72,25 @@ if(!$ret){
 }
 
 if($evaluation=='通过'){
-
+    //echo $oknumber;
+    //echo $NUMBERINGROUP-1;
     //如果通过数等于小组人数，小组当前任务号加1，当前任务通过人数归0
     if($oknumber==$NUMBERINGROUP-1){
         //倒数第二个及其之前任务的处理，下发新任务，重置任务状态
         if($taskidnow<$TASKNUM){
             $query="UPDATE group_attr SET taskidnow='$taskidnow'+1,oknumber=0 WHERE classid='$classid'AND groupid='$groupid'";
-            mysqli_query($link,$query);
+            //mysqli_query($link,$query);
+            if(!($ret=mysqli_query($link,$query))){
+                echo $link->error;
+            }
             //发送下一个任务
             $nexttaskid=$taskidnow+1;
             $taskcontetnt='任务内容'.$nexttaskid;
             $query="INSERT INTO log(timeStamp,classid,groupid,actiontype,content,taskid) VALUES ('$time','$classid','$groupid','TaskEmail','$taskcontetnt','$nexttaskid')";
-            mysqli_query($link,$query);
+            //mysqli_query($link,$query);
+            if(!($ret=mysqli_query($link,$query))){
+                echo $link->error;
+            }
 
             //更新小组成员task时间
             $time_added=','.$time;

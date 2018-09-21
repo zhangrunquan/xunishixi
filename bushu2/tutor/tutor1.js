@@ -489,6 +489,7 @@ function updateTaskid(newarr) {
 }
 //发送预定信息
 function sendSentence(chatroomid,content) {
+    console.log('send sentence begin')
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
         success: function (data) {

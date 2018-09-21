@@ -150,15 +150,34 @@ function createUI() {
     //聊天室名字
     document.getElementById('chatroom_headline').innerHTML = 'NO.' + info_user['groupid'] + '小组聊天室';
     //填写抄送一栏的内容
+    /*
     var str = info_group['username'][0];
     for (var j = 1; j < groupstunumber; j++) {
         str += ';' + info_group['username'][j];
     }
     document.getElementById("r_copy").innerHTML = '抄送:' + str;
+    */
     //填写收件人，右上角登录用户名
     document.getElementById('user').innerHTML=info_user['username'];
-    document.getElementById('r_receiver').innerHTML='收件人:'+info_user['username'];
+    //document.getElementById('r_receiver').innerHTML='收件人:'+info_user['username'];
     document.getElementById('s_receiver').innerHTML='收件人:'+info_user['username'];
+}
+//控制收件列表邮件相关信息显示
+function emailUI(type) {
+    console.log('emailUI');
+    document.getElementById('sender').style.display="block";
+    document.getElementById('r_receiver').innerHTML='收件人:'+info_user['username'];
+    if(type=='feedback'){
+        document.getElementById("r_copy").innerHTML = '';
+    }else if(type=='task'){
+        //填写抄送一栏的内容
+        var str = info_group['username'][0];
+        for (var j = 1; j < groupstunumber; j++) {
+            str += ';' + info_group['username'][j];
+        }
+        document.getElementById("r_copy").innerHTML = '抄送:' + str;
+    }
+
 }
 
 //轮询取得新收到的邮件
@@ -742,7 +761,8 @@ function createEmailTable(parent, datas, tbodyid) {
             //feedback
             else {
                 var title = 'RE:Report' + taskid + '<br>' + timeStamp;
-                content = datas[i]['content'];
+                content = '<p>' + info_user['username'] + ',你好！' + '</p>';
+                content += datas[i]['content'];
 
             }
 
@@ -758,11 +778,13 @@ function createEmailTable(parent, datas, tbodyid) {
                     if (typeof (info_email[index]['content']) == 'undefined') {
                         checkTaskemail();
                         info_email[index]['checked'] = 1;
+
                     }
                     //feedback情况
                     else {
                         checkFeedback(taskid);
                         info_email[index]['checked'] = 1;
+
                     }
                 }
                 //重置邮件附件资源
@@ -770,6 +792,8 @@ function createEmailTable(parent, datas, tbodyid) {
                 div.innerHTML = '';
                 //任务邮件情况，显示附件链接
                 if (typeof (info_email[index]['content']) == 'undefined') {
+                    console.log('before emailui')
+                    emailUI('task');
                     var len = info_pro[taskid - 1]['url'].length;
                     for (var k = 0; k < len; ++k) {
                         (function () {
@@ -792,12 +816,14 @@ function createEmailTable(parent, datas, tbodyid) {
                         })(k)
                     }
                 }
+                //feedback情况
+                else {
+                    emailUI('feedback');
+                }
                 document.getElementById("receiveemail").innerHTML = content;
                 $.get("read_task_log.php", {sid: sid, taskid: taskid}, function (data) {
                 });
-
                 document.getElementById("r_title").innerHTML = '主题:' + info_pro[taskid - 1]['taskname'];
-
                 document.getElementById('r_time').innerHTML = '时间:' + timeStamp;
 
             }
@@ -829,7 +855,8 @@ function createEmailTable(parent, datas, tbodyid) {
             //feedback
             else {
                 var title = 'RE:Report' + taskid + '<br>' + timeStamp;
-                content = datas[i]['content'];
+                content = '<p>' + info_user['username'] + ',你好！' + '</p>';
+                content += datas[i]['content'];
 
             }
 
@@ -844,82 +871,56 @@ function createEmailTable(parent, datas, tbodyid) {
                     if (typeof (info_email[index]['content']) == 'undefined') {
                         checkTaskemail();
                         info_email[index]['checked'] = 1;
+                        console.log('before emailui')
+                        emailUI('task');
                     }
                     //feedback情况
                     else {
                         checkFeedback(taskid);
                         info_email[index]['checked'] = 1;
+                        emailUI('feedback');
                     }
                 }
                 //重置邮件附件资源
                 var div = document.getElementById('shoujianurl');
                 div.innerHTML = '';
+
                 //任务邮件情况，显示附件链接
                 if (typeof (info_email[index]['content']) == 'undefined') {
                     var len = info_pro[taskid - 1]['url'].length;
-
                     for (var k = 0; k < len; ++k) {
                         (function () {
                             var href = info_pro[taskid - 1]['url'][k];
                             var a = document.createElement('a');
                             var textnode = document.createTextNode(info_pro[taskid - 1]['intro'][k]);
-                            console.log('href intro')
+                            /*console.log('href intro')
                             console.log(href)
-                            console.log(info_pro[taskid - 1]['intro'][k])
+                            console.log(info_pro[taskid - 1]['intro'][k])*/
 
                             a.appendChild(textnode);
 
-                            console.log('before add onclick')
+                            //console.log('before add onclick')
                             a.id=k;
                             a.onclick = function (ev) {
                                 var target=document.getElementById('ziyuan');
                                 target.click();
                                 PDFObject.embed(href, "#pdf")
                             }
+                            /*
                             console.log('after add onclick')
                             console.log('a')
                             console.log(a)
                             console.log('a.onclick')
-                            console.log(a.onclick)
+                            console.log(a.onclick)*/
                             div.appendChild(a);
                         })(k)
-
-
                     }
-/*
-                     a = document.createElement('a');
-                     textnode = document.createTextNode('source1');
-                    a.appendChild(textnode);
-
-                    a.onclick = function (ev) {
-                       console.log(1)
-                    }
-                    console.log('a')
-                    console.log(a)
-                    console.log('a.onclick')
-                    console.log(a.onclick)
-                    //div.innerHTML += '&nbsp&nbsp&nbsp';
-                    div.appendChild(a);
-
-                    var a = document.createElement('a');
-                    var textnode = document.createTextNode('source2');
-                    a.appendChild(textnode);
-
-                    console.log('before add onclick')
-                    a.onclick = function (ev) {
-                        console.log(2)
-                    }
-                    console.log('a')
-                    console.log(a)
-                    console.log('a.onclick')
-                    console.log(a.onclick)
-                    //div.innerHTML += '&nbsp&nbsp&nbsp';
-                    div.appendChild(a);
-
-*/
+                    emailUI('task');
                 }
-
-
+                //feedback
+                else{
+                    emailUI('feedback');
+                }
                 document.getElementById("receiveemail").innerHTML = content;
                 $.get("read_task_log.php", {sid: sid, taskid: taskid}, function (data) {
                 });

@@ -65,4 +65,16 @@ while($res=mysqli_fetch_assoc($ret)){
     print_r('<br>');
 }
 print_r('<br>');
+
+$query="SELECT *FROM group_attr";
+$ret=mysqli_query($link,$query);
+if(!$ret){
+    print_r('error 6');
+}
+$ac_arr=[];
+while($res=mysqli_fetch_assoc($ret)){
+    print_r($res);
+    print_r('<br>');
+}
+print_r('<br>');
 mysqli_close($link);
