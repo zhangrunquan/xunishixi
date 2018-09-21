@@ -161,6 +161,7 @@ function classSelect() {
         })(i)
     }
 }
+//
 function getClassname(classid,classinfo) {
     var len=classinfo.length;
     for(var i=0;i<len;++i){
@@ -180,7 +181,7 @@ function changeClass(classid) {
     buttoncontrol=1;
     //重置所有作业状态图标
     resetButton();
-
+    document.getElementById('classnow').innerText='当前班级:'+getClassname(classid,info_classinfo);
     $.get("button_control.php", {sid:sid,classid:classidnow}, function (data) {
         console.log(data)
         //此处解析不能通过alert来查看，但可以直接使用

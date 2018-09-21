@@ -1049,14 +1049,17 @@ function showmessage() {
             var s = "";
             for (var i = 0; i < data.length; i++) {
                 if (data[i].username == username) {
+                   // s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+"<<< (" + data[i].timeStamp + ")"+ '<br/>';
+                    s += '<p class="userchattime">'+ "<<< (" + data[i].timeStamp + ")"+ '<p/>'+'<br/>';
+
                     s += "<p class='userbox'>";
-                    s += data[i].timeStamp + '<br/>';
                     s += data[i].username + "&nbsp;" + "说：" + data[i].content;
                     s += "</p>";
                 }
                 else {
+                    //s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+ "(" + data[i].timeStamp + ") >>>"+ '<br/>';
+                    s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+"(" + data[i].timeStamp + ") >>>"+ '<br/>';
                     s += "<p class='otherbox'>";
-                    s += "(" + data[i].timeStamp + ") >>>" + '<br/>';
                     s += data[i].username + "&nbsp;" + "说：" + data[i].content;
                     s += "</p>";
                 }
