@@ -975,6 +975,7 @@ function createUrlTable(datas, tbodyid) {
             //处理显示的资源主题
             var href = datas['url'][i];
             var hreftag = document.createElement('a');
+            hreftag.setAttribute('class','urlentry');
             var node = document.createTextNode(datas['intro'][i]);
             hreftag.appendChild(node);
 
@@ -986,6 +987,7 @@ function createUrlTable(datas, tbodyid) {
             tr.appendChild(display);
         })(i)
     }
+    colorchange('urlentry');
 }
 
 //将taskemail置为已读
