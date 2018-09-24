@@ -159,18 +159,19 @@ function createUI() {
     document.getElementById("r_copy").innerHTML = '抄送:' + str;
     */
     //填写收件人，右上角登录用户名
-    document.getElementById('user').innerHTML=info_user['username'];
+    document.getElementById('user').innerHTML = info_user['username'];
     //document.getElementById('r_receiver').innerHTML='收件人:'+info_user['username'];
-    document.getElementById('s_receiver').innerHTML='收件人:'+info_user['username'];
+    document.getElementById('s_receiver').innerHTML = '收件人:' + info_user['username'];
 }
+
 //控制收件列表邮件相关信息显示
 function emailUI(type) {
     console.log('emailUI');
-    document.getElementById('sender').style.display="block";
-    document.getElementById('r_receiver').innerHTML='收件人:'+info_user['username'];
-    if(type=='feedback'){
+    document.getElementById('sender').style.display = "block";
+    document.getElementById('r_receiver').innerHTML = '收件人:' + info_user['username'];
+    if (type == 'feedback') {
         document.getElementById("r_copy").innerHTML = '';
-    }else if(type=='task'){
+    } else if (type == 'task') {
         //填写抄送一栏的内容
         var str = info_group['username'][0];
         for (var j = 1; j < groupstunumber; j++) {
@@ -494,7 +495,7 @@ function createReport() {
         var report = [];
         report['content'] = '';
         report['urlname'] = [];
-        report['url']=[];
+        report['url'] = [];
         info_report.push(report);
         //刷新发件列表
         createHomeworkTable(info_report, 'homeworktbody');
@@ -503,7 +504,7 @@ function createReport() {
             url: "create_report.php",
             data: {sid: sid, taskidnow: taskidnow},
             success: function (data) {
-                console.log('createReport():'+data)
+                console.log('createReport():' + data)
             }
         });
     }
@@ -564,7 +565,7 @@ function createHomeworkTable(datas, tbodyid) {
                 tr.appendChild(hr);
                 tbody.appendChild(tr);
                 var td = document.createElement("td");
-                td.setAttribute('class','homeworkentry');
+                td.setAttribute('class', 'homeworkentry');
                 //td.setAttribute('class','homeworkentry');
                 var taskid = i + 1;
                 //规避闭包带来的问题
@@ -732,6 +733,38 @@ function getLastTaskEmailIndex(index) {
     }
 }
 
+
+//将文本中的网址替换为超链接
+function replaceurl(str) {
+    //var re = /(http:\/\/[\w.\/]+)(?![^<]+>)/gi;
+    //str.replace(re,"<a href=\'$1\'>$1</a>");
+    //console.log('urlstrreplace  '+str);
+    //var re=/\b(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*\b)/g;
+    var re=/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+    str.replace(re,"<a href=\'$1\'>$1</a>");
+    //str=str.replace(re,function(a,b,c){return '<a href="http://'+c+'">'+a+'</a>';});
+    console.log(str)
+    return str;
+}
+
+/*
+function replaceurl(str) {
+    //写的url正则匹配
+    var reg = /((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/g;
+
+//正则替换
+    str = str.replace(reg, function (a) {
+//如果包含http ，indexOf方法如果包含返回0,所以加上!
+        if (!a.indexOf('http')) {
+            return '<a href="' + a + '" target=_blank>' + a + '</a>';
+        }
+        else {
+            return '<a href="http://' + a + '" target=_blank>' + a + '</a>';
+        }
+    });
+    return str;
+}
+*/
 //生成系统和教师邮件列表的函数
 function createEmailTable(parent, datas, tbodyid) {
     var tbody = document.getElementById(tbodyid);
@@ -745,7 +778,7 @@ function createEmailTable(parent, datas, tbodyid) {
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
             var td = document.createElement("td");
-            td.setAttribute('class','emailentry');
+            td.setAttribute('class', 'emailentry');
 
             var taskid = datas[i]['taskid'];
             var timeStamp = datas[i]['timeStamp'];
@@ -756,11 +789,12 @@ function createEmailTable(parent, datas, tbodyid) {
                 //应读取的info_pro数组的索引是taskid-1
                 var proind = taskid - 1;
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['backgroundinfo'] + '</p>';
-                content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq'] + '</p>';
+                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['deadline'] + '</p>';
                 content += '<p align="right">祝好！</p>';
                 content += '<p align="right">张华&nbsp&nbsp&nbsp&nbsp</p>';
                 td.id = 'taskemail' + taskid
+
             }
             //feedback
             else {
@@ -811,7 +845,7 @@ function createEmailTable(parent, datas, tbodyid) {
 
                             div.innerHTML += '&nbsp&nbsp&nbsp';
                             a.onclick = function (ev) {
-                                var target=document.getElementById('ziyuan');
+                                var target = document.getElementById('ziyuan');
                                 target.click();
                                 PDFObject.embed(href, "#pdf")
                             }
@@ -840,7 +874,7 @@ function createEmailTable(parent, datas, tbodyid) {
             var tr = document.createElement("tr");
             tbody.appendChild(tr);
             var td = document.createElement("td");
-            td.setAttribute('class','emailentry');
+            td.setAttribute('class', 'emailentry');
             var taskid = datas[i]['taskid'];
             var timeStamp = datas[i]['timeStamp'];
             //taskemail
@@ -850,7 +884,7 @@ function createEmailTable(parent, datas, tbodyid) {
                 //应读取的info_pro数组的索引是taskid-1
                 var proind = taskid - 1;
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['backgroundinfo'] + '</p>';
-                content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq'] + '</p>';
+                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['deadline'] + '</p>';
                 content += '<p align="right">祝好！</p>';
                 content += '<p align="right">张华&nbsp&nbsp&nbsp&nbsp</p>';
@@ -904,9 +938,9 @@ function createEmailTable(parent, datas, tbodyid) {
                             a.appendChild(textnode);
 
                             //console.log('before add onclick')
-                            a.id=k;
+                            a.id = k;
                             a.onclick = function (ev) {
-                                var target=document.getElementById('ziyuan');
+                                var target = document.getElementById('ziyuan');
                                 target.click();
                                 PDFObject.embed(href, "#pdf")
                             }
@@ -922,7 +956,7 @@ function createEmailTable(parent, datas, tbodyid) {
                     emailUI('task');
                 }
                 //feedback
-                else{
+                else {
                     emailUI('feedback');
                 }
                 document.getElementById("receiveemail").innerHTML = content;
@@ -975,7 +1009,7 @@ function createUrlTable(datas, tbodyid) {
             //处理显示的资源主题
             var href = datas['url'][i];
             var hreftag = document.createElement('a');
-            hreftag.setAttribute('class','urlentry');
+            hreftag.setAttribute('class', 'urlentry');
             var node = document.createTextNode(datas['intro'][i]);
             hreftag.appendChild(node);
 
@@ -1012,14 +1046,15 @@ function checkFeedback(taskid) {
 
 //为列表项设置点击变色功能
 function colorchange(classname) {
-    console.log("."+classname)
-    console.log($("."+classname))
+    console.log("." + classname)
+    console.log($("." + classname))
     console.log(document.getElementsByClassName(classname))
-    $("."+classname).click(function(){
-        $("."+classname).css("color","black");
-        $(this).css("color","blue");
+    $("." + classname).click(function () {
+        $("." + classname).css("color", "black");
+        $(this).css("color", "blue");
     });
 }
+
 //-----------------上传附件部分----------------------------------------------
 function addInput(parentid) {
     if (attachnum > 0) {
@@ -1066,8 +1101,8 @@ function showmessage() {
             var s = "";
             for (var i = 0; i < data.length; i++) {
                 if (data[i].username == username) {
-                   // s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+"<<< (" + data[i].timeStamp + ")"+ '<br/>';
-                    s += '<p class="userchattime">'+ "<<< (" + data[i].timeStamp + ")"+ '<p/>'+'<br/>';
+                    // s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+"<<< (" + data[i].timeStamp + ")"+ '<br/>';
+                    s += '<p class="userchattime">' + "<<< (" + data[i].timeStamp + ")" + '<p/>' + '<br/>';
 
                     s += "<p class='userbox'>";
                     s += data[i].username + "&nbsp;" + "说：" + data[i].content;
@@ -1075,7 +1110,7 @@ function showmessage() {
                 }
                 else {
                     //s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+ "(" + data[i].timeStamp + ") >>>"+ '<br/>';
-                    s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+"(" + data[i].timeStamp + ") >>>"+ '<br/>';
+                    s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + "(" + data[i].timeStamp + ") >>>" + '<br/>';
                     s += "<p class='otherbox'>";
                     s += data[i].username + "&nbsp;" + "说：" + data[i].content;
                     s += "</p>";
@@ -1220,7 +1255,7 @@ function reportAttachmentData() {
 //根据数据创建历史report附件列表
 function createAttachmentTable(data, tbodyid) {
     var tbody = document.getElementById(tbodyid);
-    tbody.innerHTML = '附件历史'+'<br/>';
+    tbody.innerHTML = '附件历史' + '<br/>';
     console.log('createAttachment')
     console.log(data)
     for (var i = 0; i < objectLength(data['urlname']); i++) {
@@ -1273,7 +1308,7 @@ function createAttachmentTable(data, tbodyid) {
             }
             tbody.appendChild(button);
             //tbody.innerHTML+='<hr/>';
-            var hr=document.createElement('hr');
+            var hr = document.createElement('hr');
             tbody.appendChild(hr);
 
 
