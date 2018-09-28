@@ -736,28 +736,13 @@ function getLastTaskEmailIndex(index) {
 
 //将文本中的网址替换为超链接
 function replaceurl(str) {
-    //var re = /(http:\/\/[\w.\/]+)(?![^<]+>)/gi;
-    //str.replace(re,"<a href=\'$1\'>$1</a>");
-    //console.log('urlstrreplace  '+str);
-    //var re=/\b(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*\b)/g;
-    //var re=/[a-zA-z]+:\/\/[^\s]*/;
-    /*
-    var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
-        + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
-        + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
-        + "|" // 允许IP和DOMAIN（域名）
-        + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
-        + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
-        + "[a-z]{2,6})" // first level domain- .com or .museum
-        + "(:[0-9]{1,4})?" // 端口- :80
-        + "((/?)|" // a slash isn't required if there is no file name
-        + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
-    var re=new RegExp(strRegex);*/
-    var re=/(http:\/\/[^ ]*)|(https:\/\/[^ ]*)/g;
-    str=str.replace(re,"<a href=\'$1$2\'>$1$2</a>");
+    /*var re=/(http:\/\/[^ ]*)|(https:\/\/[^ ]*)/g;
+    str=str.replace(re,"<a href=\'$1$2\'>$1$2</a>");*/
+    var re=/(###)([^ ]+)/g;
+    str=str.replace(re,"<a href=\'$2\'>$2</a>");
     console.log(str);
     return str;
-}2
+}
 
 /*
 function replaceurl(str) {
