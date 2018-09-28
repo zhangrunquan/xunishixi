@@ -740,12 +740,24 @@ function replaceurl(str) {
     //str.replace(re,"<a href=\'$1\'>$1</a>");
     //console.log('urlstrreplace  '+str);
     //var re=/\b(http:\/\/)?([A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*\b)/g;
-    var re=/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
-    str.replace(re,"<a href=\'$1\'>$1</a>");
-    //str=str.replace(re,function(a,b,c){return '<a href="http://'+c+'">'+a+'</a>';});
-    console.log(str)
+    //var re=/[a-zA-z]+:\/\/[^\s]*/;
+    /*
+    var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+        + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+        + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+        + "|" // 允许IP和DOMAIN（域名）
+        + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+        + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+        + "[a-z]{2,6})" // first level domain- .com or .museum
+        + "(:[0-9]{1,4})?" // 端口- :80
+        + "((/?)|" // a slash isn't required if there is no file name
+        + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+    var re=new RegExp(strRegex);*/
+    var re=/(http:\/\/[^ ]*)|(https:\/\/[^ ]*)/g;
+    str=str.replace(re,"<a href=\'$1$2\'>$1$2</a>");
+    console.log(str);
     return str;
-}
+}2
 
 /*
 function replaceurl(str) {
@@ -765,6 +777,7 @@ function replaceurl(str) {
     return str;
 }
 */
+
 //生成系统和教师邮件列表的函数
 function createEmailTable(parent, datas, tbodyid) {
     var tbody = document.getElementById(tbodyid);
@@ -789,7 +802,8 @@ function createEmailTable(parent, datas, tbodyid) {
                 //应读取的info_pro数组的索引是taskid-1
                 var proind = taskid - 1;
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['backgroundinfo'] + '</p>';
-                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
+                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + replaceurl(info_pro[proind]['taskreq']) + '</p>';
+                //  content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['deadline'] + '</p>';
                 content += '<p align="right">祝好！</p>';
                 content += '<p align="right">张华&nbsp&nbsp&nbsp&nbsp</p>';
@@ -884,7 +898,8 @@ function createEmailTable(parent, datas, tbodyid) {
                 //应读取的info_pro数组的索引是taskid-1
                 var proind = taskid - 1;
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['backgroundinfo'] + '</p>';
-                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
+               // content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq'] + '</p>';
+                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + replaceurl(info_pro[proind]['taskreq']) + '</p>';
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['deadline'] + '</p>';
                 content += '<p align="right">祝好！</p>';
                 content += '<p align="right">张华&nbsp&nbsp&nbsp&nbsp</p>';
