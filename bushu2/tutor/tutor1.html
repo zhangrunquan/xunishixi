@@ -17,7 +17,13 @@
         });
     </script>
     <style type="text/css">
-        .msgbutton{height:15px;font-size:14px;text-align:center;line-height:5px;}
+        .msgbutton {
+            height: 15px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 5px;
+        }
+
         body, p {
             margin: 0;
         }
@@ -220,62 +226,102 @@
     </style>
     <!--气泡css-->
     <style type="text/css">
+
+        .userchattime {
+            float: right;
+            font-size: 15px;
+        }
+
+        .userchatname {
+            float: right;
+            font-size: 15px;
+        }
+
+        .otherchattime {
+            float: left;
+            font-size: 15px;
+        }
+
+        .otherchatname {
+            float: left;
+
+            font-size: 15px;
+        }
+
         * {
             margin: 0;
             padding: 0;
         }
 
         .otherbox {
+            text-align: left;
             position: relative;
+            margin: 15px;
             top: 10px;
-            left: 30px;
+            left: 0px;
             width: 200px;
             background: #088cb7;
             -moz-border-radius: 12px;
             -webkit-border-radius: 12px;
             border-radius: 12px;
-            word-wrap:break-word;
-            word-break:break-all;
+            word-wrap: break-word;
+            word-break: break-all;
         }
 
-        .otherbox:before {
-            position: absolute;
-            content: "";
-            width: 0;
-            height: 0;
-            right: 100%;
-            top: 10px;
-            border-top: 13px solid transparent;
-            border-right: 26px solid #088cb7;
-            border-bottom: 13px solid transparent;
+        /*
+                .otherbox:before {
+                    position: absolute;
+                    content: "";
+                    width: 0;
+                    height: 0;
+                    right: 100%;
+                    top: 10px;
+                    border-top: 13px solid transparent;
+                    border-right: 26px solid #088cb7;
+                    border-bottom: 13px solid transparent;
 
-        }
-
+                }
+        */
         .userbox {
             position: relative;
+            margin: 15px;
             top: 10px;
-            left: 121px;
+            left: 130px;
+            /*float: right;*/
             width: 200px;
             background: #088cb7;
             -moz-border-radius: 12px;
             -webkit-border-radius: 12px;
             border-radius: 12px;
-            word-wrap:break-word;
-            word-break:break-all;
+            word-wrap: break-word;
+            word-break: break-all;
 
         }
 
-        .userbox:before {
-            position: absolute;
-            content: "";
-            width: 0;
-            height: 0;
-            left: 100%;
-            top: 10px;
-            border-top: 13px solid transparent;
-            border-left: 26px solid #088cb7;
-            border-bottom: 13px solid transparent;
+        /*.userbox:before {*/
+        /*position: absolute;*/
+        /*content: "";*/
+        /*width: 0;*/
+        /*height: 0;*/
+        /*left: 100%;*/
+        /*top: 10px;*/
+        /*border-top: 13px solid transparent;*/
+        /*border-left: 26px solid #088cb7;*/
+        /*border-bottom: 13px solid transparent;*/
 
+        /*}*/
+
+        .chatinput {
+            height: 106px;
+            overflow: auto;
+            margin-top: 5px;
+        }
+
+        .chatcontent {
+            width: 100%;
+            height: 400px;
+            background-color: white;
+            overflow: auto;
         }
     </style>
 </head>
@@ -288,8 +334,8 @@
                 <ul>
                     <li><a href="../register_login/login.php">切换用户</a></li>
                     <li><a href="../register_login/login.php">注销</a></li>
-                    <li><a id="classmanage">班级管理</a> </li>
-                    <li><a id="outputdata" href="output_data.php">数据导出</a> </li>
+                    <li><a id="classmanage">班级管理</a></li>
+                    <li><a id="outputdata" href="output_data.php">数据导出</a></li>
                 </ul>
             </li>
         </ul>
@@ -306,8 +352,8 @@
     </ul>
 </div>
 <select id="autosend">
-    <option value ="0">不自动发送任务信息</option>
-    <option value ="1">自动发送任务信息</option>
+    <option value="0">不自动发送任务信息</option>
+    <option value="1">自动发送任务信息</option>
 </select>
 
 <div class="parentWrap">
@@ -341,7 +387,8 @@
         <div class="parent" style="background-color: lightgrey;">
             <div class="child" style="background-color: lightblue;">
                 <h5>组一</h5>
-                <div style="width:100%;height:400px;background-color:white;overflow:auto" id="chatcontent1"></div>
+                <div style="width:100%;height:400px;background-color:white;overflow-y:auto" id="chatcontent1"
+                     class="chatcontent"></div>
                 <ul class="accordion" data-accordion>
                     <!--<li class="accordion-navigation">
                         <a href="#demo1-1">提问</a>
@@ -357,9 +404,15 @@
                     </li>-->
                     <li class="accordion-navigation">
                         <!--<a href="#demo1-2">聊天</a>-->
-                        <div id="demo1-2" >
-                            <textarea id="msg1" style="height: 106px;overflow: auto;margin-top:5px" ></textarea>
-                            <button type="button" id='inputsend1'onclick="send(1)" class="msgbutton">发送</button>
+                        <div id="demo1-2">
+                            <textarea id="msg1" style="height: 106px;overflow: auto;margin-top:5px"
+                                      class="chatinput"></textarea>
+                            <button type="button" id='inputsend1' onclick="send(1)" class="msgbutton">发送</button>
+                            <!--<input type="button" value="停止自动滚动" onclick="changeAutoflow(1)" id="autocontrol"-->
+                                   <!--class="msgbutton"/>-->
+                            <button type="button"  onclick="changeAutoflow(1)" id="autocontrol"
+                                    class="msgbutton">停止自动滚动</button>
+
                         </div>
                     </li>
                 </ul>
@@ -368,24 +421,18 @@
 
             <div class="child" style="background-color: lightgreen;">
                 <h5>组二</h5>
-                <div style="width:100%;height:200px;background-color:white;overflow:auto" id="chatcontent2"></div>
+                <div  id="chatcontent2"  class="chatcontent"></div>
                 <ul class="accordion" data-accordion>
                     <li class="accordion-navigation">
-                        <a href="#demo2-1">提问</a>
-                        <div id="demo2-1" class="content active">
 
-                            <textarea style="height:60px;width:350px;font-size:15px;resize:none;overflow: auto" type="text"
-                                      name="country" readonly="readonly" id="sentence2" > 你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？</textarea>
-                            <button onclick="changesentence(2,-1)">上一条</button>
-                            <button onclick="changesentence(2,1)">下一条</button>
-                            <button type="button" onclick="sendSentence(2)">发送</button>
-                        </div>
-                    </li>
                     <li class="accordion-navigation">
-                        <a href="#demo2-2">聊天</a>
-                        <div id="demo2-2" class="content">
-                            <input id="msg2">
-                            <button type="button" id='inputsend2' onclick="send(2)">发送</button>
+                        <div id="demo2-2" >
+
+                            <textarea id="msg2"
+                                      class="chatinput"></textarea>
+                            <button type="button" id='inputsend2' onclick="send(2)" class="msgbutton">发送</button>
+                            <button type="button"  onclick="changeAutoflow(2)"
+                                    class="msgbutton">停止自动滚动</button>
                         </div>
                     </li>
                 </ul>
@@ -393,23 +440,17 @@
 
             <div class="child" style="background-color: lightsalmon;">
                 <h5>组三</h5>
-                <div style="width:100%;height:200px;background-color:white;overflow:auto" id="chatcontent3"></div>
+                <div  id="chatcontent3"  class="chatcontent"></div>
                 <ul class="accordion" data-accordion>
                     <li class="accordion-navigation">
-                        <a href="#demo3-1">提问</a>
-                        <div id="demo3-1" class="content active">
-                            <textarea style="height:60px;width:350px;font-size:15px;resize:none;overflow: auto" type="text"
-                                      name="country" readonly="readonly" id="sentence3" > 你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？</textarea>
-                            <button onclick="changesentence(3,-1)">上一条</button>
-                            <button onclick="changesentence(3,1)">下一条</button>
-                            <button type="button" onclick="sendSentence(3)">发送</button>
-                        </div>
-                    </li>
+
                     <li class="accordion-navigation">
-                        <a href="#demo3-2">聊天</a>
-                        <div id="demo3-2" class="content">
-                            <input id="msg3">
-                            <button type="button" id='inputsend3' onclick="send(3)">发送</button>
+                        <div id="demo3-2" >
+                           <textarea id="msg3"
+                                     class="chatinput"></textarea>
+                            <button type="button" id='inputsend3' onclick="send(3)" class="msgbutton">发送</button>
+                            <button type="button"  onclick="changeAutoflow(3)"
+                                    class="msgbutton">停止自动滚动</button>
                         </div>
                     </li>
                 </ul>
@@ -417,23 +458,18 @@
 
             <div class="child" style="background-color: pink;">
                 <h5>组四</h5>
-                <div style="width:100%;height:200px;background-color:white;overflow:auto" id="chatcontent4"></div>
+                <div  id="chatcontent4"  class="chatcontent"></div>
                 <ul class="accordion" data-accordion>
                     <li class="accordion-navigation">
-                        <a href="#demo4-1">提问</a>
-                        <div id="demo4-1" class="content active">
-                            <textarea style="height:60px;width:350px;font-size:15px;resize:none;overflow: auto" type="text"
-                                      name="country" readonly="readonly" id="sentence4" > 你完成了对STEM课程利益相关团体的需求调研，从中你了解了哪些信息？</textarea>
-                            <button onclick="changesentence(4,-1)">上一条</button>
-                            <button onclick="changesentence(4,1)">下一条</button>
-                            <button type="button" onclick="sendSentence(4)">发送</button>
-                        </div>
+
                     </li>
                     <li class="accordion-navigation">
-                        <a href="#demo4-2">聊天</a>
-                        <div id="demo4-2" class="content">
-                            <input id="msg4">
-                            <button type="button" id='inputsend4' onclick="send(4)">发送</button>
+                        <div id="demo4-2" >
+                        <textarea id="msg4"
+                                  class="chatinput"></textarea>
+                            <button type="button" id='inputsend4' onclick="send(4)" class="msgbutton">发送</button>
+                            <button type="button"  onclick="changeAutoflow(4)"
+                                    class="msgbutton">停止自动滚动</button>
                         </div>
                     </li>
                 </ul>

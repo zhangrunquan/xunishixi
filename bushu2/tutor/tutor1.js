@@ -36,6 +36,8 @@ var chatupdatecontrol=0;
 var buttoncontrol=0;
 //进入新任务是否自动发送任务信息聊天
 var AUTOSEND=0;
+//聊天室内容是否自动滚动(第一个0占位）
+var chatautoflow=[0,1,1,1,1];
 
 //--------评价作业时的学生信息
 var stu_group = 0;
@@ -301,6 +303,15 @@ function resetButton(){
 
 //-----------------聊天室部分--------------------------------------------------------------------------
 //-----------------聊天消息----------------------------------------------
+//替换换行符为<br>等html格式化
+function formatTextInHtml(str) {
+    var re=/\n/g;
+    str=str.replace(re,"<br>");
+    re=/ /g;
+    str=str.replace(re,"&nbsp");
+    return str;
+}
+
 //获取所有聊天室的聊天信息
 function get_chat_data(){
     if(!chatupdatecontrol){
@@ -319,16 +330,24 @@ function get_chat_data(){
         for(var k=1;k<=group_num;k++){
 
             for (var i = 0; i < data[k].length; i++) {
-                if(data_array[k][i].username==info_username){
+                if(data_array[k][i].username=='张华'){
+                    s+='<p class="userchatname" >'+'张华'+'</p>'+'<br>';
+                    s += '<p class="userchattime">' + data_array[k][i].timeStamp + '<p/>' ;
                     s += "<p class='userbox'>";
-                    s += data_array[k][i].timeStamp+'<br/>';
-                    s += data_array[k][i].username + "&nbsp;" + "说：" + data_array[k][i].content;
+                    //s += data_array[k][i].timeStamp+'<br/>';
+                    //s += '张华' + "&nbsp;" + "说：" + data_array[k][i].content;
+                    //s += data_array[k][i].content;
+                    s+=formatTextInHtml(data_array[k][i].content);
                     s += "</p>"+"<br/>";
                 }
                 else{
+                    s+='<p class="otherchatname" >'+data_array[k][i].username+'</p>'+'<br>';
+                    s += '<p class="otherchattime">' +data_array[k][i].timeStamp + '<p/>' ;
                     s += "<p class='otherbox'>";
-                    s += "(" + data_array[k][i].timeStamp + ") >>>"+'<br/>';
-                    s += data_array[k][i].username + "&nbsp;" + "说：" + data_array[k][i].content;
+                    //s += "(" + data_array[k][i].timeStamp + ") >>>"+'<br/>';
+                    //s += data_array[k][i].username + "&nbsp;" + "说：" + data_array[k][i].content;
+                   // s +=  data_array[k][i].content;
+                    s+=formatTextInHtml(data_array[k][i].content);
                     s += "</p>"+"<br/>";
                 }
 
@@ -337,6 +356,7 @@ function get_chat_data(){
 
 
             var lastmessage=data_array[k].length-1;
+            //有新聊天信息
             if(lastmessage!=-1){
                 var lasttimeStamp=data_array[k][lastmessage]['timeStamp'];
                 if(lasttimeStamp>maxtimeStamp){
@@ -347,11 +367,37 @@ function get_chat_data(){
             // 显示聊天内容（onload事件）
             var showmessage = document.getElementById("chatcontent"+k);
             showmessage.innerHTML += s;
+            if(s!=''){
+                if(chatautoflow[k]){
+                    autoflow('chatcontent'+k)
+                }
+            }
             //重置s
             s="";
         }
 
     })
+}
+//调用使聊天室右侧滑块滚动至最下方的函数
+function autoflow(id) {
+    /*
+    var target = document.getElementById(id);
+    target.scrollTop = target.scrollHeight - target.style.height;*/
+
+    var target=$("#"+id);
+    target.scrollTop(target[0].scrollHeight);
+}
+
+//改变聊天室自动滚动状态
+function changeAutoflow(chatroomid) {
+    if (chatautoflow[chatroomid] == 1) {
+        chatautoflow[chatroomid] = 0;
+        document.getElementById('autocontrol').innerHTML = '自动滚动';
+    }
+    else {
+        chatautoflow[chatroomid] = 1;
+        document.getElementById('autocontrol').innerHTML = '停止自动滚动';
+    }
 }
 //发送聊天消息的函数
 function send(chatroomid) {

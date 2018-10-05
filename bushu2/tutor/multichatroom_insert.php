@@ -10,7 +10,7 @@ date_default_timezone_set('PRC');
 $sid=$_GET['sid'];
 session_id($sid);
 session_start();
-$username=$_SESSION['username'];
+$username="张华";
 $msg=$_GET['msg'];
 $groupid=$_GET['chatroomid'];
 $classid=$_GET['classid'];

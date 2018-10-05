@@ -736,32 +736,11 @@ function getLastTaskEmailIndex(index) {
 
 //将文本中的网址替换为超链接
 function replaceurl(str) {
-    /*var re=/(http:\/\/[^ ]*)|(https:\/\/[^ ]*)/g;
-    str=str.replace(re,"<a href=\'$1$2\'>$1$2</a>");*/
     var re=/(###)([^ ]+)/g;
     str=str.replace(re,"<a href=\'$2\'>$2</a>");
     console.log(str);
     return str;
 }
-
-/*
-function replaceurl(str) {
-    //写的url正则匹配
-    var reg = /((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/g;
-
-//正则替换
-    str = str.replace(reg, function (a) {
-//如果包含http ，indexOf方法如果包含返回0,所以加上!
-        if (!a.indexOf('http')) {
-            return '<a href="' + a + '" target=_blank>' + a + '</a>';
-        }
-        else {
-            return '<a href="http://' + a + '" target=_blank>' + a + '</a>';
-        }
-    });
-    return str;
-}
-*/
 
 //生成系统和教师邮件列表的函数
 function createEmailTable(parent, datas, tbodyid) {
@@ -1101,18 +1080,24 @@ function showmessage() {
             var s = "";
             for (var i = 0; i < data.length; i++) {
                 if (data[i].username == username) {
-                    // s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+"<<< (" + data[i].timeStamp + ")"+ '<br/>';
-                    s += '<p class="userchattime">' + "<<< (" + data[i].timeStamp + ")" + '<p/>' + '<br/>';
-
+                    s+='<p class="userchatname" >'+data[i].username+'</p>'+'<br>';
+                    s += '<p class="userchattime">' + "<<< (" + data[i].timeStamp + ")" + '<p/>' ;
                     s += "<p class='userbox'>";
-                    s += data[i].username + "&nbsp;" + "说：" + data[i].content;
+                    s+=formatTextInHtml(data[i].content);
                     s += "</p>";
                 }
                 else {
-                    //s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+ "(" + data[i].timeStamp + ") >>>"+ '<br/>';
-                    s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + "(" + data[i].timeStamp + ") >>>" + '<br/>';
+                    if(data[i].username=='张华'){
+                        s+='<p class="tutorchatname" >'+data[i].username+'</p>'+'<br>'
+                    }else{
+                        s+='<p class="otherchatname" >'+data[i].username+'</p>'+'<br>';
+                    }
+                    //s+='<p class="otherchatname" >'+data[i].username+'</p>'+'<br>';
+                    s += '<p class="otherchattime">' + "(" + data[i].timeStamp + ") >>>" + '<p/>' ;
+
+                    //s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + "(" + data[i].timeStamp + ") >>>" ;
                     s += "<p class='otherbox'>";
-                    s += data[i].username + "&nbsp;" + "说：" + data[i].content;
+                    s += data[i].content;
                     s += "</p>";
                 }
 
@@ -1134,6 +1119,14 @@ function showmessage() {
     ajax.send(null);
 }
 
+//替换换行符为<br>等html格式化
+function formatTextInHtml(str) {
+    var re=/\n/g;
+    str=str.replace(re,"<br>");
+    re=/ /g;
+    str=str.replace(re,"&nbsp");
+    return str;
+}
 //发送聊天消息的函数
 function send() {
     var form = document.getElementById('chatform');
