@@ -31,6 +31,8 @@ var info_user = [];
 var info_email = [];
 //从pro.xml获得的信息
 var info_pro = [];
+//任务数
+var TASKNUM=0;
 
 //当前的taskid
 var taskidnow;
@@ -83,6 +85,7 @@ function initialize() {
             info_report = info['report'];
             info_user = info['user'];
             info_pro = info['pro'];
+            TASKNUM=objectLength(info['pro']);
             //根据task数组长度计算taskidnow，-1为减去checked项
             taskidnow = objectLength(info['task']) - 1;
             //合并任务邮件，反馈邮件的信息，按时间排序存入info_eamil数组
@@ -748,6 +751,10 @@ function createEmailTable(parent, datas, tbodyid) {
     tbody.innerHTML = '';
     //取得最后一封taskemail的索引，这个索引及其之后的邮件会绑定显示‘回复邮件’按钮的功能
     var index = getLastTaskEmailIndex(info_email.length - 1);
+    //如果已到达最后一个任务，则全部隐藏‘回复邮件’
+    if(datas[index]['taskid']==TASKNUM){
+        index=datas.length;
+    }
     for (var i = 0; i < index; i++) {
         //此处如不使用匿名函数封装，直接写进循环会报错'mutable variable accessing closure
         (function () {
