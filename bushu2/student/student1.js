@@ -148,7 +148,8 @@ function createUI() {
     //生成各列表
     shareListData();
     reportAttachmentData();
-    createEmailTable('emailtable', info_email, 'emailtbody');
+    checkAndCreate();
+    //createEmailTable('emailtable', info_email, 'emailtbody');
     createHomeworkTable(info_report, 'homeworktbody');
     urlList();
     //聊天室名字
@@ -216,12 +217,17 @@ function getNewEmail() {
                 getdata = 1;
             }
             if (getdata) {
-                //evaluationchange记录作业评价状态改变的可能性，收到新邮件时评价状态可能改变了，置为1
-                //evaluationchange=1;
-                checkEvaluation();
-                hideButton('response');
-                //刷新收件和发件列表
-                createEmailTable('emailtable', info_email, 'emailtbody');
+                if(taskidnow==TASKNUM){
+                    checkAndCreate()
+                }else{
+                    checkEvaluation();
+                    hideButton('response');
+                    //刷新收件和发件列表
+                    createEmailTable('emailtable', info_email, 'emailtbody');
+                }
+
+
+
                 createHomeworkTable(info_report, 'homeworktbody');
                 urlList();
             }
@@ -481,6 +487,17 @@ function checkEvaluation() {
     })
 }
 
+//查询作业批改状态，得到结果后创建emailtable
+function checkAndCreate() {
+    $.get("get_homework_evaluation.php", {sid: sid}, function (data) {
+        evaluationchange = 0;
+        evaluation = eval(data);
+        hideButton('response');
+        //刷新收件和发件列表
+        createEmailTable('emailtable', info_email, 'emailtbody');
+    })
+}
+
 //-----------------收件箱部分----------------------------------------------
 //如果当前有未创建的report，创建并跳转到发件箱，若无则只跳转
 function createAndJump() {
@@ -712,7 +729,7 @@ function createHomeworkTable(datas, tbodyid) {
                     a.download = urlname_arr[k];
                     var node = document.createTextNode(urlname_arr[k]);
                     a.appendChild(node);
-                    console.log(typeof urldiv);
+                    //console.log(typeof urldiv);
                     urldiv.appendChild(a);
                     //插入空格
                     urldiv.innerHTML += '&nbsp&nbsp&nbsp';
@@ -751,8 +768,9 @@ function createEmailTable(parent, datas, tbodyid) {
     tbody.innerHTML = '';
     //取得最后一封taskemail的索引，这个索引及其之后的邮件会绑定显示‘回复邮件’按钮的功能
     var index = getLastTaskEmailIndex(info_email.length - 1);
-    //如果已到达最后一个任务，则全部隐藏‘回复邮件’
-    if(datas[index]['taskid']==TASKNUM){
+    //如果已到达最后一个任务，且不需要回复
+    console.log("createEmailTable:evaluation : "+evaluation)
+    if(datas[index]['taskid']==TASKNUM && (evaluation=='通过' || evaluation=='批改中')){
         index=datas.length;
     }
     for (var i = 0; i < index; i++) {
@@ -917,13 +935,9 @@ function createEmailTable(parent, datas, tbodyid) {
                             var href = info_pro[taskid - 1]['url'][k];
                             var a = document.createElement('a');
                             var textnode = document.createTextNode(info_pro[taskid - 1]['intro'][k]);
-                            /*console.log('href intro')
-                            console.log(href)
-                            console.log(info_pro[taskid - 1]['intro'][k])*/
 
                             a.appendChild(textnode);
 
-                            //console.log('before add onclick')
                             a.id = k;
                             a.onclick = function (ev) {
                                 var target = document.getElementById('ziyuan');
