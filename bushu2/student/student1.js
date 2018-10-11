@@ -1118,7 +1118,7 @@ function showmessage() {
 
                     //s += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + "(" + data[i].timeStamp + ") >>>" ;
                     s += "<p class='otherbox'>";
-                    s += data[i].content;
+                    s += formatTextInHtml(data[i].content);
                     s += "</p>";
                 }
 
@@ -1143,6 +1143,8 @@ function showmessage() {
 //替换换行符为<br>等html格式化
 function formatTextInHtml(str) {
     var re=/\n/g;
+    str=str.replace(re,"<br>");
+    re=/&/g;
     str=str.replace(re,"<br>");
     re=/ /g;
     str=str.replace(re,"&nbsp");

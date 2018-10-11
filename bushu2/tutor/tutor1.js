@@ -307,8 +307,17 @@ function resetButton(){
 function formatTextInHtml(str) {
     var re=/\n/g;
     str=str.replace(re,"<br>");
+    re=/&/g;
+    str=str.replace(re,"<br>");
     re=/ /g;
     str=str.replace(re,"&nbsp");
+    return str;
+}
+
+//发送消息前将\n替换为\t
+function n2t(str) {
+    var re=/\n/g;
+    str=str.replace(re,"&");
     return str;
 }
 
@@ -402,6 +411,7 @@ function changeAutoflow(chatroomid) {
 //发送聊天消息的函数
 function send(chatroomid) {
     var content=document.getElementById('msg'+chatroomid).value;
+    content=n2t(content);
     emptyElement('msg'+chatroomid);
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
@@ -537,6 +547,7 @@ function updateTaskid(newarr) {
 //发送预定信息
 function sendSentence(chatroomid,content) {
     console.log('send sentence begin')
+    content=n2t(content);
     $.ajax({ url: "multichatroom_insert.php",
         data:{sid:sid,chatroomid:chatroomid,msg:content,classid:classidnow},
         success: function (data) {
@@ -774,6 +785,7 @@ function feedbackEmail() {
     } else {
         return false;
     }
+    emailcontent=n2t(emailcontent);
     //ajax请求将数据送往后台
     $.get("tutor_feedback_email.php", {
         groupid: stu_group,
