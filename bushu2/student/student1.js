@@ -362,6 +362,7 @@ function submitHomework() {
 
     //获取发件内容
     var text = document.getElementById("sendemail").value;
+    text=n2t(text);
     //获取上传文件的表单元素
     var fileform = document.getElementById('upload');
     //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
@@ -791,7 +792,7 @@ function createEmailTable(parent, datas, tbodyid) {
                 //应读取的info_pro数组的索引是taskid-1
                 var proind = taskid - 1;
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['backgroundinfo'] + '</p>';
-                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + replaceurl(info_pro[proind]['taskreq']) + '</p>';
+                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + formatTextInHtml(replaceurl(info_pro[proind]['taskreq'])) + '</p>';
                 //  content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['deadline'] + '</p>';
                 content += '<p align="right">祝好！</p>';
@@ -803,7 +804,7 @@ function createEmailTable(parent, datas, tbodyid) {
             else {
                 var title = 'RE:Report' + taskid + '<br>' + timeStamp;
                 content = '<p>' + info_user['username'] + ',你好！' + '</p>';
-                content += datas[i]['content'];
+                content +=formatTextInHtml( datas[i]['content']);
 
             }
 
@@ -898,7 +899,7 @@ function createEmailTable(parent, datas, tbodyid) {
             else {
                 var title = 'RE:Report' + taskid + '<br>' + timeStamp;
                 content = '<p>' + info_user['username'] + ',你好！' + '</p>';
-                content += datas[i]['content'];
+                content += formatTextInHtml(datas[i]['content']);
 
             }
 
@@ -1151,6 +1152,7 @@ function formatTextInHtml(str) {
     return str;
 }
 //发送聊天消息的函数
+/*
 function send() {
     var form = document.getElementById('chatform');
     //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
@@ -1166,6 +1168,19 @@ function send() {
     xhr.send(formdata);
     //自动清空输入框
     document.getElementById("msg").value = "";
+}*/
+function send() {
+    var msg=document.getElementById("msg").value;
+    msg=n2t(msg);
+    //自动清空输入框
+    document.getElementById("msg").value = "";
+    $.ajax({
+        url:  './chatroom_insert.php',
+        data: {sid: sid,msg:msg},
+        type:"POST",
+        success: function (data) {
+        }
+    })
 }
 
 //调用使聊天室右侧滑块滚动至最下方的函数
@@ -1185,7 +1200,12 @@ function changeAutoflow() {
         document.getElementById('autocontrol').value = '停止自动滚动';
     }
 }
-
+//发送消息前将\n替换为\t
+function n2t(str) {
+    var re=/\n/g;
+    str=str.replace(re,"&");
+    return str;
+}
 //-----------------资源共享页面----------------------------------------------
 //提交分享文件
 function submitShareFile() {

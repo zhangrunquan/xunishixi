@@ -605,7 +605,16 @@ function buttonControl(classid) {
         }
     })
 }
-
+//将数据库的文本解码为textarea的格式
+function decodeText2tt(str){
+    /*var re=/\n/g;
+    str=str.replace(re,"<br>");*/
+    var re=/&/g;
+    str=str.replace(re,"\n");
+   /* re=/ /g;
+    str=str.replace(re,"&nbsp");*/
+    return str;
+}
 //展开作业评价面板前的准备处理
 function dialog(groupid, taskid, numberingroup) {
     //将当前这在评价的作业的学生的信息存入全局变量
@@ -633,7 +642,7 @@ function dialog(groupid, taskid, numberingroup) {
         console.log('dialog content')
         console.log(info_arr['content'])
         //显示学生作业内容
-        document.getElementById('学生作业').value =info_arr['content'];
+        document.getElementById('学生作业').value =decodeText2tt(info_arr['content']);
         //清空附件显示区
         var urldiv=document.getElementById('url');
         urldiv.innerHTML='';
