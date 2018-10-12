@@ -150,6 +150,7 @@
 
             <div class="tab-content">
                 <div>
+                    <img src="image/indexpic.png">
                     <div id="在线列表"></div>
                 </div>
 
@@ -168,7 +169,7 @@
                         </tr>
                     </table>
 
-                    <div style="overflow:hidden;height:520px;width:800px;float:left;">
+                    <div style="overflow:hidden;height:560px;width:800px;float:left;">
                         <!--此处用空格做样式可能导致问题-->
                         <p id='r_title'></p>
                         <button id="response" onclick="createAndJump()" style="position: absolute;left: 700px;top:1px;display: none">
@@ -178,7 +179,7 @@
                         <p id="r_time"></p>
                         <p id="r_receiver"></p>
                         <p id="r_copy"></p>
-                        <div style="overflow:auto;height:70px;width:800px;float:left;" id="shoujianurl"></div>
+                        <div style="overflow:auto;height:50px;width:800px;float:left;" id="shoujianurl"></div>
                         <!--<textarea id="receiveemail" style="resize:none;height:250px;width:800px;" readonly="readonly"></textarea>-->
                         <div id="receiveemail" style="resize:none;height:370px;width:800px;overflow: auto;"
                              readonly="readonly"></div>
@@ -201,7 +202,7 @@
                         </tr>
                     </table>
 
-                    <div style="overflow:hidden;height:520px;width:800px;float:left;">
+                    <div style="overflow:hidden;height:560px;width:800px;float:left;">
                         邮件撰写中&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button id="提交作业" onclick="submitHomework()" style="display: none">回复邮件</button>
@@ -295,7 +296,7 @@
     <div id="up">
     </div>
     <hr/>
-    <form action="./chatroom_insert.php" id="chatcontent">
+    <form action="./chatroom_insert.php" id="chatform">
         <!--<div id="chat_bottom">-->
         <!--<textarea id="msg" name="msg" style="width:380px;height:auto;"></textarea>-->
         <textarea id="msg" name="msg"

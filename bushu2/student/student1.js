@@ -792,7 +792,7 @@ function createEmailTable(parent, datas, tbodyid) {
                 //应读取的info_pro数组的索引是taskid-1
                 var proind = taskid - 1;
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['backgroundinfo'] + '</p>';
-                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + formatTextInHtml(replaceurl(info_pro[proind]['taskreq'])) + '</p>';
+                content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + replaceurl(info_pro[proind]['taskreq']) + '</p>';
                 //  content += '<p style="z-index:999">' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['taskreq']+ '</p>';
                 content += '<p>' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + info_pro[proind]['deadline'] + '</p>';
                 content += '<p align="right">祝好！</p>';
@@ -847,7 +847,6 @@ function createEmailTable(parent, datas, tbodyid) {
                             var textnode = document.createTextNode(info_pro[taskid - 1]['intro'][k]);
                             a.appendChild(textnode);
 
-                            div.innerHTML += '&nbsp&nbsp&nbsp';
                             a.onclick = function (ev) {
                                 var target = document.getElementById('ziyuan');
                                 target.click();
@@ -930,7 +929,9 @@ function createEmailTable(parent, datas, tbodyid) {
 
                 //任务邮件情况，显示附件链接
                 if (typeof (info_email[index]['content']) == 'undefined') {
+                    console.log(5)
                     var len = info_pro[taskid - 1]['url'].length;
+                    console.log('url count:'+len)
                     for (var k = 0; k < len; ++k) {
                         (function () {
                             var href = info_pro[taskid - 1]['url'][k];
@@ -1047,9 +1048,9 @@ function checkFeedback(taskid) {
 
 //为列表项设置点击变色功能
 function colorchange(classname) {
-    console.log("." + classname)
+    /*console.log("." + classname)
     console.log($("." + classname))
-    console.log(document.getElementsByClassName(classname))
+    console.log(document.getElementsByClassName(classname))*/
     $("." + classname).click(function () {
         $("." + classname).css("color", "black");
         $(this).css("color", "blue");
