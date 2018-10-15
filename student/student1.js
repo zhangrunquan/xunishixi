@@ -54,7 +54,9 @@ var attachnum = 1;
 var maxEmailTimeStamp = '1000-01-01 00:00:00';
 //-----------------聊天室------------
 // 同上，服务器只返回maxtimeStamp以后的聊天信息
-var maxChattimeStamp = '1000-01-01 00:00:00';
+var maxChattimeStamp = '1000-01-02 00:00:00';
+//上次发出查询聊天的ajax已返回
+var LASTCHATAJAXEND=true;
 //聊天室自动滚动功能是否开启
 var chatautoflow = 1;
 //-----------------执行部分----------------------------------------------
@@ -362,6 +364,7 @@ function submitHomework() {
 
     //获取发件内容
     var text = document.getElementById("sendemail").value;
+    text=n2t(text);
     //获取上传文件的表单元素
     var fileform = document.getElementById('upload');
     //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
@@ -803,7 +806,7 @@ function createEmailTable(parent, datas, tbodyid) {
             else {
                 var title = 'RE:Report' + taskid + '<br>' + timeStamp;
                 content = '<p>' + info_user['username'] + ',你好！' + '</p>';
-                content += datas[i]['content'];
+                content +=formatTextInHtml( datas[i]['content']);
 
             }
 
@@ -846,7 +849,6 @@ function createEmailTable(parent, datas, tbodyid) {
                             var textnode = document.createTextNode(info_pro[taskid - 1]['intro'][k]);
                             a.appendChild(textnode);
 
-                            div.innerHTML += '&nbsp&nbsp&nbsp';
                             a.onclick = function (ev) {
                                 var target = document.getElementById('ziyuan');
                                 target.click();
@@ -898,7 +900,7 @@ function createEmailTable(parent, datas, tbodyid) {
             else {
                 var title = 'RE:Report' + taskid + '<br>' + timeStamp;
                 content = '<p>' + info_user['username'] + ',你好！' + '</p>';
-                content += datas[i]['content'];
+                content += formatTextInHtml(datas[i]['content']);
 
             }
 
@@ -929,7 +931,9 @@ function createEmailTable(parent, datas, tbodyid) {
 
                 //任务邮件情况，显示附件链接
                 if (typeof (info_email[index]['content']) == 'undefined') {
+                    console.log(5)
                     var len = info_pro[taskid - 1]['url'].length;
+                    console.log('url count:'+len)
                     for (var k = 0; k < len; ++k) {
                         (function () {
                             var href = info_pro[taskid - 1]['url'][k];
@@ -1046,9 +1050,9 @@ function checkFeedback(taskid) {
 
 //为列表项设置点击变色功能
 function colorchange(classname) {
-    console.log("." + classname)
+    /*console.log("." + classname)
     console.log($("." + classname))
-    console.log(document.getElementsByClassName(classname))
+    console.log(document.getElementsByClassName(classname))*/
     $("." + classname).click(function () {
         $("." + classname).css("color", "black");
         $(this).css("color", "blue");
@@ -1088,12 +1092,19 @@ function createInput(nm, parentid) {
 
 
 //-----------------聊天室部分----------------------------------------------
+
 //显示聊天内容的函数
 function showmessage() {
     //ajax请求
+    if(!LASTCHATAJAXEND){
+        return;
+    }else{
+        LASTCHATAJAXEND=false;
+    }
     var ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function () {
         if (ajax.readyState == 4) {
+            LASTCHATAJAXEND=true;
             // 将获取到的字符串存入data变量
             eval('var data = ' + ajax.responseText);
             // 遍历data数组，把内部的信息一个个的显示到页面上
@@ -1151,21 +1162,19 @@ function formatTextInHtml(str) {
     return str;
 }
 //发送聊天消息的函数
+
 function send() {
-    var form = document.getElementById('chatform');
-    //将取得的表单数据转换为formdata形式，在php中以$_POST['name']形式引用
-    var formdata = new FormData(form);
-    formdata.append('sid', sid);
-    //ajax请求
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-        }
-    };
-    xhr.open('post', './chatroom_insert.php');
-    xhr.send(formdata);
+    var msg=document.getElementById("msg").value;
+    msg=n2t(msg);
     //自动清空输入框
     document.getElementById("msg").value = "";
+    $.ajax({
+        url:  './chatroom_insert.php',
+        data: {sid: sid,msg:msg},
+        type:"POST",
+        success: function (data) {
+        }
+    })
 }
 
 //调用使聊天室右侧滑块滚动至最下方的函数
@@ -1185,7 +1194,12 @@ function changeAutoflow() {
         document.getElementById('autocontrol').value = '停止自动滚动';
     }
 }
-
+//发送消息前将\n替换为\t
+function n2t(str) {
+    var re=/\n/g;
+    str=str.replace(re,"&");
+    return str;
+}
 //-----------------资源共享页面----------------------------------------------
 //提交分享文件
 function submitShareFile() {
